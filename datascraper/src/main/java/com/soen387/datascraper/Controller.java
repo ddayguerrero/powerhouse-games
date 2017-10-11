@@ -5,6 +5,7 @@ import com.soen387.datascraper.data.Game;
 import com.soen387.datascraper.data.GameResponse;
 import com.soen387.datascraper.data.PlatformGamesResponse;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;

@@ -10,6 +10,9 @@ public class Game {
 	@Element(name="id")
     private int id;
 	
+	@Element(name="GameTitle", required=false)
+	private String GameTitle;
+	
 	@Element(name="ReleaseDate", required=false)
 	private String ReleaseDate;
 	

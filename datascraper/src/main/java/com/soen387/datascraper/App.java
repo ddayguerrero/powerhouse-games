@@ -1,48 +1,314 @@
 package com.soen387.datascraper;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.soen387.datascraper.data.Game;
 import com.soen387.datascraper.data.GameResponse;
 import com.soen387.datascraper.data.PlatformGamesResponse;
 
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class App {
 	
-	public static List<Game> games;
+	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
+	private static final String DB_CONNECTION = "jdbc:mysql://localhost";
+	private static final String DB_USER = "root";
+	private static final String DB_PASSWORD = "321zealot21";
 	
 	public static void main(String[] args) throws IOException {
+		Connection dbConnection = null;
+		Statement statement = null;
 		Controller ctrl = new Controller();
-		final int xbone = 4920;
-		final int ps4 = 4919;
-		final int nswitch = 4971;
+		List<Game> games = new ArrayList<Game>();
+		final int x360 = 15;
+		final int ps3 = 12;
+		final int wii = 9;
 		
-		Call<PlatformGamesResponse> platformGameCall = ctrl.getPlatformGames(xbone);
+		Call<PlatformGamesResponse> platformGameCall = ctrl.getPlatformGames(x360);
 		PlatformGamesResponse platformGameResp = platformGameCall.execute().body();
-		List<Game> xboneGames = platformGameResp.getList().subList(0, 20);
+		List<Game> x360games = platformGameResp.getList().subList(0, 20);
 		
-		for (Game g: xboneGames) {
-			Call<GameResponse> gameCall = ctrl.fetchGameInfo(g.getId());
-			gameCall.enqueue(new Callback<GameResponse>() {
+		Call<GameResponse> game0 = ctrl.fetchGameInfo(x360games.get(0).getId());
+		GameResponse gameResp = game0.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game1 = ctrl.fetchGameInfo(x360games.get(1).getId());
+		gameResp = game1.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game2 = ctrl.fetchGameInfo(x360games.get(2).getId());
+		gameResp = game2.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game3 = ctrl.fetchGameInfo(x360games.get(3).getId());
+		gameResp = game3.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game4 = ctrl.fetchGameInfo(x360games.get(4).getId());
+		gameResp = game4.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game5 = ctrl.fetchGameInfo(x360games.get(5).getId());
+		gameResp = game5.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game6 = ctrl.fetchGameInfo(x360games.get(6).getId());
+		gameResp = game6.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game7 = ctrl.fetchGameInfo(x360games.get(7).getId());
+		gameResp = game7.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game8 = ctrl.fetchGameInfo(x360games.get(8).getId());
+		gameResp = game8.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game9 = ctrl.fetchGameInfo(x360games.get(9).getId());
+		gameResp = game9.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game10 = ctrl.fetchGameInfo(x360games.get(10).getId());
+		gameResp = game10.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game11 = ctrl.fetchGameInfo(x360games.get(11).getId());
+		gameResp = game11.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game12 = ctrl.fetchGameInfo(x360games.get(12).getId());
+		gameResp = game12.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game13 = ctrl.fetchGameInfo(x360games.get(13).getId());
+		gameResp = game13.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game14 = ctrl.fetchGameInfo(x360games.get(14).getId());
+		gameResp = game14.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game15 = ctrl.fetchGameInfo(x360games.get(15).getId());
+		gameResp = game15.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game16 = ctrl.fetchGameInfo(x360games.get(16).getId());
+		gameResp = game16.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game17 = ctrl.fetchGameInfo(x360games.get(17).getId());
+		gameResp = game17.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game18 = ctrl.fetchGameInfo(x360games.get(18).getId());
+		gameResp = game18.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game19 = ctrl.fetchGameInfo(x360games.get(19).getId());
+		gameResp = game19.execute().body();
+		games.add(gameResp.getGame());
+		
+		platformGameCall = ctrl.getPlatformGames(ps3);
+		platformGameResp = platformGameCall.execute().body();
+		List<Game> ps3games = platformGameResp.getList().subList(0, 20);
+		
+		Call<GameResponse> game20 = ctrl.fetchGameInfo(ps3games.get(0).getId());
+		gameResp = game20.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game21 = ctrl.fetchGameInfo(ps3games.get(1).getId());
+		gameResp = game21.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game22 = ctrl.fetchGameInfo(ps3games.get(2).getId());
+		gameResp = game22.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game23 = ctrl.fetchGameInfo(ps3games.get(3).getId());
+		gameResp = game23.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game24 = ctrl.fetchGameInfo(ps3games.get(4).getId());
+		gameResp = game24.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game25 = ctrl.fetchGameInfo(ps3games.get(5).getId());
+		gameResp = game25.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game26 = ctrl.fetchGameInfo(ps3games.get(6).getId());
+		gameResp = game26.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game27 = ctrl.fetchGameInfo(ps3games.get(7).getId());
+		gameResp = game27.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game28 = ctrl.fetchGameInfo(ps3games.get(8).getId());
+		gameResp = game28.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game29 = ctrl.fetchGameInfo(ps3games.get(9).getId());
+		gameResp = game29.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game30 = ctrl.fetchGameInfo(ps3games.get(10).getId());
+		gameResp = game30.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game31 = ctrl.fetchGameInfo(ps3games.get(11).getId());
+		gameResp = game31.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game32 = ctrl.fetchGameInfo(ps3games.get(12).getId());
+		gameResp = game32.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game33 = ctrl.fetchGameInfo(ps3games.get(13).getId());
+		gameResp = game33.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game34 = ctrl.fetchGameInfo(ps3games.get(14).getId());
+		gameResp = game34.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game35 = ctrl.fetchGameInfo(ps3games.get(15).getId());
+		gameResp = game35.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game36 = ctrl.fetchGameInfo(ps3games.get(16).getId());
+		gameResp = game36.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game37 = ctrl.fetchGameInfo(ps3games.get(17).getId());
+		gameResp = game37.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game38 = ctrl.fetchGameInfo(ps3games.get(18).getId());
+		gameResp = game38.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game39 = ctrl.fetchGameInfo(ps3games.get(19).getId());
+		gameResp = game39.execute().body();
+		games.add(gameResp.getGame());
+		
+		platformGameCall = ctrl.getPlatformGames(wii);
+		platformGameResp = platformGameCall.execute().body();
+		List<Game> wiigames = platformGameResp.getList().subList(0, 20);
+		
+		Call<GameResponse> game40 = ctrl.fetchGameInfo(ps3games.get(0).getId());
+		gameResp = game40.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game41 = ctrl.fetchGameInfo(wiigames.get(1).getId());
+		gameResp = game41.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game42 = ctrl.fetchGameInfo(wiigames.get(2).getId());
+		gameResp = game42.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game43 = ctrl.fetchGameInfo(wiigames.get(3).getId());
+		gameResp = game43.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game44 = ctrl.fetchGameInfo(wiigames.get(4).getId());
+		gameResp = game44.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game45 = ctrl.fetchGameInfo(wiigames.get(5).getId());
+		gameResp = game45.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game46 = ctrl.fetchGameInfo(wiigames.get(6).getId());
+		gameResp = game46.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game47 = ctrl.fetchGameInfo(wiigames.get(7).getId());
+		gameResp = game47.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game48 = ctrl.fetchGameInfo(wiigames.get(8).getId());
+		gameResp = game48.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game49 = ctrl.fetchGameInfo(wiigames.get(9).getId());
+		gameResp = game49.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game50 = ctrl.fetchGameInfo(wiigames.get(10).getId());
+		gameResp = game50.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game51 = ctrl.fetchGameInfo(wiigames.get(11).getId());
+		gameResp = game51.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game52 = ctrl.fetchGameInfo(wiigames.get(12).getId());
+		gameResp = game52.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game53 = ctrl.fetchGameInfo(wiigames.get(13).getId());
+		gameResp = game53.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game54 = ctrl.fetchGameInfo(wiigames.get(14).getId());
+		gameResp = game54.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game55 = ctrl.fetchGameInfo(wiigames.get(15).getId());
+		gameResp = game55.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game56 = ctrl.fetchGameInfo(wiigames.get(16).getId());
+		gameResp = game56.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game57 = ctrl.fetchGameInfo(wiigames.get(17).getId());
+		gameResp = game57.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game58 = ctrl.fetchGameInfo(wiigames.get(18).getId());
+		gameResp = game58.execute().body();
+		games.add(gameResp.getGame());
+		
+		Call<GameResponse> game59 = ctrl.fetchGameInfo(wiigames.get(19).getId());
+		gameResp = game59.execute().body();
+		games.add(gameResp.getGame());
+		
+		System.out.println(games);
+		
+		populateDatabase();
+	}
 
-				public void onResponse(Call<GameResponse> call, Response<GameResponse> response) {
-					Game g = response.body().getGame();
-					games.add(response.body().getGame());
-				}
-
-				public void onFailure(Call<GameResponse> call, Throwable t) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-			});
-//			games.add(gameResp.getGame());
+	private static Connection getDBConnection() {
+		Connection dbConnection = null;
+		try {
+			Class.forName(DB_DRIVER);
+			dbConnection = DriverManager.getConnection(
+					DB_CONNECTION, DB_USER,DB_PASSWORD);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		System.out.println("hi");
+		
+		return dbConnection;
+		
+		
 	}
 
 }
