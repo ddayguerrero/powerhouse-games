@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+/Users/dramos/pcw/soen387/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
-950424961.index
-3534701419.index
-2171889080.index
-1996148072.index
-3049865251.index
-2293430048.index
