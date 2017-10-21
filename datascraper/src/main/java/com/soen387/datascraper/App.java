@@ -1,10 +1,16 @@
 package com.soen387.datascraper;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,23 +18,16 @@ import com.soen387.datascraper.data.Game;
 import com.soen387.datascraper.data.GameResponse;
 import com.soen387.datascraper.data.PlatformGamesResponse;
 
-import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class App {
 	
 	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_CONNECTION = "jdbc:mysql://localhost";
-	private static final String DB_USER = "root";
+	private static final String DB_CONNECTION = "jdbc:mysql://localhost/soen387";
+	private static final String DB_USER = "dramos";
 	private static final String DB_PASSWORD = "321zealot21";
 	
-	public static void main(String[] args) throws IOException {
-		Connection dbConnection = null;
-		Statement statement = null;
+	public static void main(String[] args) throws IOException, ParseException {
 		Controller ctrl = new Controller();
 		List<Game> games = new ArrayList<Game>();
 		final int x360 = 15;
@@ -287,9 +286,107 @@ public class App {
 		gameResp = game59.execute().body();
 		games.add(gameResp.getGame());
 		
-		System.out.println(games);
+		try {
+			initTables();
+			populateTables(games);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private static void populateTables(List<Game> games) throws SQLException, ParseException {
+		Connection dbConnection = null;
+		String populateGamesQuery = "INSERT INTO Game " +
+		"(game_id, game_name, game_description, console, num_players, coop," +
+		"genre, release_date, developer, publisher, front_box_art, back_box_art, price, discount) " +
+		"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		
-		populateDatabase();
+		try {
+			dbConnection = getDBConnection();
+			for(Game g: games) {
+				PreparedStatement preparedStatement = dbConnection.prepareStatement(populateGamesQuery);
+				preparedStatement.setInt(1, g.getId());
+				preparedStatement.setString(2, g.getGameTitle());
+				preparedStatement.setString(3, g.getDescription());
+				preparedStatement.setString(4, g.getConsole());
+				preparedStatement.setString(5, g.getPlayers());
+				
+				Boolean hasCoop = false;
+				if (g.getCoop().equals("Yes")) {
+					hasCoop = true;
+				}
+				preparedStatement.setBoolean(6, hasCoop);
+				preparedStatement.setString(7, null); // TODO
+				
+				DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+				Date releaseDate = new Date(formatter.parse(g.getReleaseDate()).getTime());
+				preparedStatement.setDate(8, releaseDate);
+				preparedStatement.setString(9, g.getDeveloper());
+				preparedStatement.setString(10, g.getPublisher());
+				preparedStatement.setString(11, null); // TODO
+				preparedStatement.setString(12, null); // TODO
+				preparedStatement.setBigDecimal(13, new BigDecimal(59.99));
+				preparedStatement.setBigDecimal(14, new BigDecimal(0));
+				int count = preparedStatement.executeUpdate();
+				System.out.println("Game is inserted!");
+			}
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+
+		}
+	}
+
+	private static void initTables() throws SQLException {
+		Connection dbConnection = null;
+		Statement statement = null;
+		String createTableSQL = "CREATE TABLE IF NOT EXISTS Game(" + 
+				"id INT NOT NULL AUTO_INCREMENT PRIMARY KEY," + 
+				"game_id INT ,"+
+				"game_name TINYTEXT NOT NULL," + 
+				"game_description TEXT ," + 
+				"console TEXT ," + 
+				"num_players TEXT ," + 
+				"coop BOOLEAN ," + 
+				"genre TEXT ," + 
+				"release_date DATE ," + 
+				"developer TEXT ," + 
+				"publisher TEXT ," + 
+				"front_box_art TEXT ," + 
+				"back_box_art TEXT ," + 
+				"price DECIMAL(4,2) ," + 
+				"discount DECIMAL(4,2)" + 
+				");";
+		
+		try {
+			dbConnection = getDBConnection();
+			statement = dbConnection.createStatement();
+			statement.execute(createTableSQL);
+			System.out.println("Table GAME is created!");
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (statement != null) {
+				statement.close();
+			}
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+
+		}
 	}
 
 	private static Connection getDBConnection() {
@@ -297,7 +394,7 @@ public class App {
 		try {
 			Class.forName(DB_DRIVER);
 			dbConnection = DriverManager.getConnection(
-					DB_CONNECTION, DB_USER,DB_PASSWORD);
+					DB_CONNECTION, DB_USER, DB_PASSWORD);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
