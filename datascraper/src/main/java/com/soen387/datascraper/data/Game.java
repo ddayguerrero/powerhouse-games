@@ -51,4 +51,80 @@ public class Game {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public String getGameTitle() {
+		return GameTitle;
+	}
+
+	public void setGameTitle(String gameTitle) {
+		GameTitle = gameTitle;
+	}
+
+	public String getReleaseDate() {
+		return ReleaseDate;
+	}
+
+	public void setReleaseDate(String releaseDate) {
+		ReleaseDate = releaseDate;
+	}
+
+	public String getDescription() {
+		return Description;
+	}
+
+	public void setDescription(String description) {
+		Description = description;
+	}
+
+	public String getConsole() {
+		return Console;
+	}
+
+	public void setConsole(String console) {
+		Console = console;
+	}
+
+	public String getPlayers() {
+		return Players;
+	}
+
+	public void setPlayers(String players) {
+		Players = players;
+	}
+
+	public String getCoop() {
+		return Coop;
+	}
+
+	public void setCoop(String coop) {
+		Coop = coop;
+	}
+
+	public String getDeveloper() {
+		return Developer;
+	}
+
+	public void setDeveloper(String developer) {
+		Developer = developer;
+	}
+
+	public String getPublisher() {
+		return Publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		Publisher = publisher;
+	}
+
+	public Images getImages() {
+		return images;
+	}
+
+	public void setImages(Images images) {
+		this.images = images;
+	}
+
+	public void setGenres(Genres genres) {
+		this.genres = genres;
+	}
 }
