@@ -23,9 +23,11 @@ import retrofit2.Call;
 public class App {
 	
 	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_CONNECTION = "jdbc:mysql://localhost/soen387";
+//	private static final String DB_CONNECTION = "jdbc:mysql://localhost/soen387";
+	private static final String DB_CONNECTION = "jdbc:mysql://0.0.0.0/soen387";
 	private static final String DB_USER = "dramos";
-	private static final String DB_PASSWORD = "321zealot21";
+//	private static final String DB_PASSWORD = "321zealot21";
+	private static final String DB_PASSWORD = "password";
 	
 	public static void main(String[] args) throws IOException, ParseException {
 		Controller ctrl = new Controller();
@@ -288,7 +290,7 @@ public class App {
 		
 		try {
 			initTables();
-			//populateTables(games);
+			populateTables(games);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -329,8 +331,8 @@ public class App {
 				preparedStatement.setBigDecimal(13, new BigDecimal(59.99));
 				preparedStatement.setBigDecimal(14, new BigDecimal(0));
 				int count = preparedStatement.executeUpdate();
-				System.out.println("Game is inserted!");
 			}
+			System.out.println("All games inserted!");
 
 		} catch (SQLException e) {
 
@@ -397,9 +399,11 @@ public class App {
 			dbConnection = getDBConnection();
 			statement = dbConnection.createStatement();
 			statement.execute(createGameTableSQL);
-			statement.execute(createUserTableSQL);
-			statement.execute(createCommentsTableSQL);
 			System.out.println("Table GAME is created!");
+			statement.execute(createUserTableSQL);
+			System.out.println("Table USER is created!");
+			statement.execute(createCommentsTableSQL);
+			System.out.println("Table COMMENTS is created!");
 
 		} catch (SQLException e) {
 
