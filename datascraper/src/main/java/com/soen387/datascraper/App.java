@@ -288,7 +288,7 @@ public class App {
 		
 		try {
 			initTables();
-			populateTables(games);
+			//populateTables(games);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -348,8 +348,8 @@ public class App {
 	private static void initTables() throws SQLException {
 		Connection dbConnection = null;
 		Statement statement = null;
-		String createTableSQL = "CREATE TABLE IF NOT EXISTS Game(" + 
-				"id INT NOT NULL AUTO_INCREMENT PRIMARY KEY," + 
+		String createGameTableSQL = "CREATE TABLE IF NOT EXISTS Game(" + 
+				"id SERIAL NOT NULL PRIMARY KEY," + 
 				"game_id INT ,"+
 				"game_name TINYTEXT NOT NULL," + 
 				"game_description TEXT ," + 
@@ -366,10 +366,39 @@ public class App {
 				"discount DECIMAL(4,2)" + 
 				");";
 		
+		String createUserTableSQL = "CREATE TABLE IF NOT EXISTS User(" + 
+				"user_id SERIAL NOT NULL PRIMARY KEY," + 
+				"password TINYTEXT NOT NULL," + 
+				"firstname TINYTEXT NOT NULL," + 
+				"lastname TINYTEXT NOT NULL," + 
+				"email TINYTEXT NOT NULL," + 
+				"address1 TINYTEXT ," + 
+				"address2 TINYTEXT ," + 
+				"city TINYTEXT ," + 
+				"province VARCHAR(2) ," + 
+				"country TINYTEXT ," + 
+				"credit_card_type TINYTEXT," + 
+				"credit_card_number VARCHAR(16) ," + 
+				"credit_card_cvv VARCHAR(3)," + 
+				"credit_card_expiry DATE," + 
+				"last_login DATE" + 
+				");";
+		
+		String createCommentsTableSQL = "CREATE TABLE IF NOT EXISTS Comments(" + 
+				"comment_id SERIAL NOT NULL PRIMARY KEY," + 
+				"user_id INT REFERENCES Game(id)," + 
+				"game_id INT REFERENCES User(id)," + 
+				"comment_date DATE NOT NULL," + 
+				"comment_details DATE NOT NULL," + 
+				"ratings INT" + 
+				");";
+		
 		try {
 			dbConnection = getDBConnection();
 			statement = dbConnection.createStatement();
-			statement.execute(createTableSQL);
+			statement.execute(createGameTableSQL);
+			statement.execute(createUserTableSQL);
+			statement.execute(createCommentsTableSQL);
 			System.out.println("Table GAME is created!");
 
 		} catch (SQLException e) {
