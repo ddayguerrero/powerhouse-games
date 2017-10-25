@@ -55,3 +55,4 @@ local.properties
 .recommenders
 
 mysql/
+.DS_STORE
