@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.soen387.datascraper.data.Boxart;
 import com.soen387.datascraper.data.Game;
 import com.soen387.datascraper.data.GameResponse;
 import com.soen387.datascraper.data.PlatformGamesResponse;
@@ -300,7 +301,7 @@ public class App {
 	private static void populateTables(List<Game> games) throws SQLException, ParseException {
 		Connection dbConnection = null;
 		String populateGamesQuery = "INSERT INTO Game " +
-		"(game_id, game_name, game_description, console, num_players, coop," +
+		"(game_id, title, game_description, console, num_players, coop," +
 		"genre, release_date, developer, publisher, front_box_art, back_box_art, price, discount) " +
 		"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		
@@ -312,7 +313,13 @@ public class App {
 				preparedStatement.setString(2, g.getGameTitle());
 				preparedStatement.setString(3, g.getDescription());
 				preparedStatement.setString(4, g.getConsole());
-				preparedStatement.setString(5, g.getPlayers());
+				
+				String numPlayers = "1";
+				if(g.getPlayers() != null) {
+					numPlayers = g.getPlayers();
+				}
+				
+				preparedStatement.setString(5, numPlayers);
 				
 				Boolean hasCoop = false;
 				if (g.getCoop().equals("Yes")) {
@@ -326,8 +333,29 @@ public class App {
 				preparedStatement.setDate(8, releaseDate);
 				preparedStatement.setString(9, g.getDeveloper());
 				preparedStatement.setString(10, g.getPublisher());
-				preparedStatement.setString(11, null); // TODO
-				preparedStatement.setString(12, null); // TODO
+				
+				final String gamesDBURL= "http://thegamesdb.net/banners/";
+				final String defaultCoverArtURL = "https://static1.squarespace.com/static/52f29ad2e4b02d1f9d476561/5390b6b6e4b052006822dd29/5390b747e4b06374d7eb79fb/1401993081305/noCoverArt.gif?format=500w";
+				preparedStatement.setString(11, defaultCoverArtURL);
+				preparedStatement.setString(12, defaultCoverArtURL);
+				
+				if(g.getImages().getList().size() > 0) {
+					for(Boxart b: g.getImages().getList()) {
+						String side = b.getSide();
+						System.out.println(side);
+						if(side.equals("front")) {
+							System.out.println(b.getBoxart());
+							String frontBoxArtURL = gamesDBURL.concat(b.getBoxart());
+							preparedStatement.setString(11, frontBoxArtURL);
+						}
+						if(side.equals("back")) {
+							System.out.println(b.getBoxart());
+							String backBoxArtURL = gamesDBURL.concat(b.getBoxart());
+							preparedStatement.setString(12, backBoxArtURL);
+						}
+					}
+				}
+				
 				preparedStatement.setBigDecimal(13, new BigDecimal(59.99));
 				preparedStatement.setBigDecimal(14, new BigDecimal(0));
 				int count = preparedStatement.executeUpdate();
@@ -353,7 +381,7 @@ public class App {
 		String createGameTableSQL = "CREATE TABLE IF NOT EXISTS Game(" + 
 				"id SERIAL NOT NULL PRIMARY KEY," + 
 				"game_id INT ,"+
-				"game_name TINYTEXT NOT NULL," + 
+				"title TINYTEXT NOT NULL," + 
 				"game_description TEXT ," + 
 				"console TEXT ," + 
 				"num_players TEXT ," + 

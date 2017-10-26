@@ -18,4 +18,46 @@ public class Boxart {
 	
 	@Text
     private String boxart;
+
+	public String getSide() {
+		return side;
+	}
+
+	public void setSide(String side) {
+		this.side = side;
+	}
+
+	public String getThumb() {
+		return thumb;
+	}
+
+	public void setThumb(String thumb) {
+		this.thumb = thumb;
+	}
+
+	public String getHeight() {
+		return height;
+	}
+
+	public void setHeight(String height) {
+		this.height = height;
+	}
+
+	public String getWidth() {
+		return width;
+	}
+
+	public void setWidth(String width) {
+		this.width = width;
+	}
+
+	public String getBoxart() {
+		return boxart;
+	}
+
+	public void setBoxart(String boxart) {
+		this.boxart = boxart;
+	}
+	
+	
 }
