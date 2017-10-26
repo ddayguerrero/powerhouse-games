@@ -51,7 +51,7 @@ public class UserServlet extends HttpServlet {
 		String postal_code = request.getParameter("postal_code");
 		String country = request.getParameter("country");
 		
-		UserBean newUser = new UserBean(fname, lname, email, password, address1,address2, city, province, postal_code, country);
+		UserBean newUser = new UserBean(fname, lname, email, password, address1, address2, city, province, postal_code, country);
 		System.out.println(newUser);
 		int result = getUserService().register(newUser);
 		
