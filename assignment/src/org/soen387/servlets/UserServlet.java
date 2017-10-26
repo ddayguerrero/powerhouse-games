@@ -32,7 +32,7 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("text/html");
 		request.getServletContext().getRequestDispatcher("/register.jsp").forward(request,response);
 	}
 
@@ -59,6 +59,9 @@ public class UserServlet extends HttpServlet {
 			response.sendRedirect("register.jsp");
 			return;
 		} else {
+			// POST/REDIRECT/GET
+			response.setStatus(HttpServletResponse.SC_SEE_OTHER);
+			response.setHeader("Location", "register.jsp");
 			response.getWriter().append("Register successful!");
 		}
 	}

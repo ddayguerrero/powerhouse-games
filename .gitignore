@@ -56,3 +56,5 @@ local.properties
 
 mysql/
 .DS_STORE
+datascraper/target/
+assignment/build/
