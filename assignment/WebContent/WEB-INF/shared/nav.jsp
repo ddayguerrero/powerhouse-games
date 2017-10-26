@@ -13,8 +13,8 @@
 			</li>
 		</ul>
 		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Register Now!</a></li>
+			<li class="nav-item"><a class="nav-link" href="/app/login">Login</a></li>
+			<li class="nav-item"><a class="nav-link" href="/app/register">Register Now!</a></li>
 		</ul>
 	</div>
 </nav>

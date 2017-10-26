@@ -2,11 +2,12 @@
     pageEncoding="UTF-8"%>
 <html>
 <jsp:include page="./WEB-INF/shared/head.html" />
+</head>
 <jsp:include page="./WEB-INF/shared/nav.jsp" />    
 <body>
 	<div class="container">
 	    <div class="form-container">
-	        <div class="h5">
+	        <div class="h2">
 	            Register
 	        </div>
 	        <form action="http://localhost:8080/app/user" method="POST">
