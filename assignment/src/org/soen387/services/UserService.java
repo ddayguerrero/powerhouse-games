@@ -42,7 +42,11 @@ public class UserService {
 	 */
 	public User find(String email, String password) {
 		User user = UserTDG.getInstance().getUserByEmail(email);
-		return null;
+		if (user != null && user.getPassword().equals(password)) {
+			return user;
+		} else {
+			return null;
+		}
 	}
 	
 	/**

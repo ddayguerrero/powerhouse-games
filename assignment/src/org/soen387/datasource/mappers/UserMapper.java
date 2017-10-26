@@ -28,6 +28,7 @@ public class UserMapper implements DataMapper<User>{
 					user.setUserid(rs.getInt("user_id"));
 					user.setFirstName(rs.getString("firstname"));
 					user.setLastName(rs.getString("lastname"));
+					user.setPassword(rs.getString("password"));
 					user.setEmail(rs.getString("email"));
 					user.setAddress1(rs.getString("address1"));
 					user.setAddress2(rs.getString("address2"));

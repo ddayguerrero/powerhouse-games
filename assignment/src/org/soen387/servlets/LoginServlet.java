@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.soen387.domain.User;
 import org.soen387.services.UserService;
@@ -54,14 +55,12 @@ public class LoginServlet extends HttpServlet {
         if (password == null || password.isEmpty()) {
             messages.put("password", "Please enter password");
         }
-        
         if (messages.isEmpty()) {
             User user = getUserService().find(email, password);
-
+            System.out.println("User: " + user);
             if (user != null) {
                 request.getSession().setAttribute("user", user);
                 response.sendRedirect(request.getContextPath() + "/home");
-                System.out.println("Null");
                 return;
             } else {
                 messages.put("login", "Unknown login, please try again");
@@ -70,8 +69,9 @@ public class LoginServlet extends HttpServlet {
         }
         
         request.setAttribute("messages", messages);
-        System.out.println("Test");
-        //request.getRequestDispatcher("/login.jsp").forward(request, response);
+        HttpSession session = request.getSession(true);
+        System.out.println(session.getAttribute("user"));
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
 	}
 
 }

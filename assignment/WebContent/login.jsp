@@ -9,12 +9,12 @@
 	<div class="container">
 		<form action="http://localhost:8080/app/login" method="POST" class="form-signin">
 			<h2 class="form-signin-heading">Log In</h2>
-			<label for="inputEmail"></label> <input
+			<input
 				type="email" id="inputEmail" class="form-control"
-				placeholder="Email address" required="" autofocus=""> <label
-				for="inputPassword"></label> <input
+				placeholder="Email address" name="email" required="">
+			<input
 				type="password" id="inputPassword" class="form-control"
-				placeholder="Password" required="">
+				placeholder="Password" name="password" required="">
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
 		</form>
 	</div>
