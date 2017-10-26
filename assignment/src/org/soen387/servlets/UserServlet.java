@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.soen387.beans.UserBean;
+import org.soen387.services.UserService;
+
 /**
  * Servlet implementation class UserServlet
  */
@@ -19,6 +22,10 @@ public class UserServlet extends HttpServlet {
      */
     public UserServlet() {
         super();
+    }
+    
+    protected UserService getUserService() {
+    		return UserService.getInstance();
     }
 
 	/**
@@ -33,7 +40,27 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String fname = request.getParameter("firstname");
+		String lname = request.getParameter("lastname");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String address1 = request.getParameter("address1");
+		String address2 = request.getParameter("address2");
+		String city = request.getParameter("city");
+		String province = request.getParameter("province");
+		String postal_code = request.getParameter("postal_code");
+		String country = request.getParameter("country");
+		
+		UserBean newUser = new UserBean(fname, lname, email, password, address1,address2, city, province, postal_code, country);
+		System.out.println(newUser);
+		int result = getUserService().register(newUser);
+		
+		if (result == -1) {
+			response.sendRedirect("register.jsp");
+			return;
+		} else {
+			response.getWriter().append("Register successful!");
+		}
 	}
 
 }

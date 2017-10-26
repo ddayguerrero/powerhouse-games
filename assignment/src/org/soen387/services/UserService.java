@@ -1,5 +1,7 @@
 package org.soen387.services;
 
+import org.soen387.beans.UserBean;
+import org.soen387.datasource.gateways.UserTDG;
 import org.soen387.domain.User;
 
 /**
@@ -17,11 +19,12 @@ public class UserService {
 	
 	/**
 	 * Register new user
+	 * @param newUser 
 	 * @return
 	 */
-	public User register() {
-		// TODO
-		return null;
+	public int register(UserBean newUser) {
+		int result = UserTDG.getInstance().createUser(newUser);
+		return result;
 	}
 	
 	/**

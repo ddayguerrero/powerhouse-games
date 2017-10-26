@@ -378,6 +378,7 @@ public class App {
 				"address2 TINYTEXT ," + 
 				"city TINYTEXT ," + 
 				"province VARCHAR(2) ," + 
+				"postalcode VARCHAR(6) ," + 
 				"country TINYTEXT ," + 
 				"credit_card_type TINYTEXT," + 
 				"credit_card_number VARCHAR(16) ," + 
