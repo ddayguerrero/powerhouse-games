@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <html>
-<jsp:include page="./WEB-INF/shared/head.html" />  
+<jsp:include page="./WEB-INF/shared/head.html" />
+<jsp:include page="./WEB-INF/shared/nav.jsp" />    
 <body>
 	<div class="container">
 	    <div class="form-container">
