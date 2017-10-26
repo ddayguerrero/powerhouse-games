@@ -342,14 +342,11 @@ public class App {
 				if(g.getImages().getList().size() > 0) {
 					for(Boxart b: g.getImages().getList()) {
 						String side = b.getSide();
-						System.out.println(side);
 						if(side.equals("front")) {
-							System.out.println(b.getBoxart());
 							String frontBoxArtURL = gamesDBURL.concat(b.getBoxart());
 							preparedStatement.setString(11, frontBoxArtURL);
 						}
 						if(side.equals("back")) {
-							System.out.println(b.getBoxart());
 							String backBoxArtURL = gamesDBURL.concat(b.getBoxart());
 							preparedStatement.setString(12, backBoxArtURL);
 						}

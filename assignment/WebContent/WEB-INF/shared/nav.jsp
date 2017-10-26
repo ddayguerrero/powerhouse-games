@@ -7,8 +7,8 @@
 	</button>
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Search</a></li>
+			<li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+			<li class="nav-item"><a class="nav-link" href="/app/search.jsp">Search</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">Specials</a>
 			</li>
 		</ul>

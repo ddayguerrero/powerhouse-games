@@ -5,7 +5,7 @@ import org.soen387.datasource.gateways.UserTDG;
 import org.soen387.domain.User;
 
 /**
- * 
+ * User Service
  * @author Darrel-Day Guerrero 27352409
  *
  */
