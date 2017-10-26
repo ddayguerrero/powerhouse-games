@@ -13,7 +13,7 @@ import org.soen387.services.UserService;
 /**
  * Servlet implementation class UserServlet
  */
-@WebServlet("/user")
+@WebServlet(urlPatterns = {"/user", "/register"})
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

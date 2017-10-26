@@ -40,8 +40,8 @@ public class UserService {
 	 * Authenticate user
 	 * @return
 	 */
-	public User login() {
-		// TODO
+	public User find(String email, String password) {
+		User user = UserTDG.getInstance().getUserByEmail(email);
 		return null;
 	}
 	

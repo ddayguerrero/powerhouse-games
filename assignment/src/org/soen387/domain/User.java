@@ -2,39 +2,39 @@ package org.soen387.domain;
 
 public class User {
 	
-	private int user_id;
-	private String first_name;
-	private String last_name;
+	private int userid;
+	private String firstName;
+	private String lastName;
 	private String email;
 	private String password;
 	private String address1;
 	private String address2;
 	private String city;
 	private String province;
-	private String postal_code;
+	private String postalCode;
 	private String country;
 	private String credit_card_type;
 	private String credit_card_number;
 	private String credit_card_cvv;
 	private String credit_card_expiry;
-
-	public int getUser_id() {
-		return user_id;
+	
+	public int getUserid() {
+		return userid;
 	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserid(int userid) {
+		this.userid = userid;
 	}
-	public String getFirst_name() {
-		return first_name;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getLast_name() {
-		return last_name;
+	public String getLastName() {
+		return lastName;
 	}
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getEmail() {
 		return email;
@@ -72,11 +72,11 @@ public class User {
 	public void setProvince(String province) {
 		this.province = province;
 	}
-	public String getPostal_code() {
-		return postal_code;
+	public String getPostalCode() {
+		return postalCode;
 	}
-	public void setPostal_code(String postal_code) {
-		this.postal_code = postal_code;
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 	public String getCountry() {
 		return country;
@@ -108,5 +108,6 @@ public class User {
 	public void setCredit_card_expiry(String credit_card_expiry) {
 		this.credit_card_expiry = credit_card_expiry;
 	}
+	
 	
 }

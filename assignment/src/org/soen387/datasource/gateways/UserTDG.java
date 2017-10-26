@@ -1,17 +1,21 @@
 package org.soen387.datasource.gateways;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.soen387.beans.UserBean;
 import org.soen387.datasource.DatabaseConnection;
+import org.soen387.datasource.mappers.UserMapper;
+import org.soen387.domain.User;
 
 public class UserTDG {
 
+	private UserMapper userMapper;
 	private static UserTDG instance = null;
 	
 	private UserTDG() {
-		super();
+		this.userMapper = new UserMapper();
 	}
 	
 	public static UserTDG getInstance() {
@@ -44,5 +48,20 @@ public class UserTDG {
 			System.out.println("Failed to create user: " + se.getMessage());
 		}
 		return count;
+	}
+	
+	public User getUserByEmail(String email) {
+		final String selectUserEmailQuery = "SELECT * FROM User WHERE email='" + email + "';";
+		ResultSet resultSet = executeQuery(selectUserEmailQuery);
+		return userMapper.mapRow(resultSet);
+	}
+	
+	protected ResultSet executeQuery(String query) {
+		try {
+			return DatabaseConnection.getInstance().createStatement().executeQuery(query);
+		} catch (SQLException se) {
+			System.out.println("Failed to execute query: " + se.getMessage());
+		}
+		return null;
 	}
 }
