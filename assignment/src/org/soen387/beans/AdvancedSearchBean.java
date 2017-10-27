@@ -9,12 +9,14 @@ public class AdvancedSearchBean implements Serializable{
 	private String title;
 	private String console;
 	private String year;
+	private String publisher;
 	
-	public AdvancedSearchBean(String title, String console, String year) {
+	public AdvancedSearchBean(String title, String console, String year, String publisher) {
 		super();
 		this.title = title;
 		this.console = console;
 		this.year = year;
+		this.publisher = publisher;
 	}
 	
 	public String getTitle() {
@@ -35,6 +37,11 @@ public class AdvancedSearchBean implements Serializable{
 	public void setYear(String year) {
 		this.year = year;
 	}
-	
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
 	
 }

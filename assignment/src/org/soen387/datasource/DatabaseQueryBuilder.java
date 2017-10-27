@@ -37,12 +37,13 @@ public class DatabaseQueryBuilder {
 			for (String paramName : parameters.keySet()) {
 				Object paramValue = parameters.get(paramName);
 				if(paramValue != null) {
-					if(paramName.equals("title LIKE ")) {
+					if(paramName.equals("title LIKE ") || paramName.equals("publisher LIKE ")) {
 						ps.setString(index, "%" + paramValue.toString() + "%");
+						System.out.println(paramValue);
 					} else {
 						ps.setString(index, paramValue.toString());
+						System.out.println(paramValue);
 					}
-					System.out.println(paramValue);
 				}
 				index++;
 			}

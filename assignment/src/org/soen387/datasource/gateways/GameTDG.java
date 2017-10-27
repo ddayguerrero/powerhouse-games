@@ -81,6 +81,9 @@ public class GameTDG {
 			if(!advSearchBean.getTitle().isEmpty()) {
 				params.put("title LIKE ", advSearchBean.getTitle());
 			}
+			if(!advSearchBean.getPublisher().isEmpty()) {
+				params.put("publisher LIKE ", advSearchBean.getPublisher());
+			}
 			if(!advSearchBean.getConsole().equals("Console")) {
 				params.put("console = ", advSearchBean.getConsole());
 			}
