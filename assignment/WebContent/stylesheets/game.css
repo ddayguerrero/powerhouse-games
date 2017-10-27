@@ -1,0 +1,44 @@
+.game-container {
+	max-width: 60%;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.game-header {
+	overflow: auto;
+	border-bottom: solid 1px #d8d8d8;
+	margin: 5px 8px 20px 8px;
+	padding: 5px 15px;
+}
+
+.game-description {
+    clear: both;
+    margin: 0 8px;
+    padding: 0 0 60px 0;
+    border-top: solid 1px #d8d8d8;
+}
+
+.card {
+	border: none;
+}
+
+.game-description-title {
+	clear: both;
+    padding: 17px 0 20px 0;
+    text-align: center;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+.list-unstyled {
+	font-size: 12px;
+}
+
+.list-unstyled span {
+	font-weight: bold;
+}
+
+.media {
+    margin: 5px 8px 20px 8px;
+    padding: 5px 15px;
+}

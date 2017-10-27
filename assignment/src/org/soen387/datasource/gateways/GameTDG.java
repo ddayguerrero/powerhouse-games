@@ -31,18 +31,29 @@ public class GameTDG {
 	}
 	
 	public ArrayList<Game> getGameByTitle(String title) {
-		final String sql = "SELECT * FROM game WHERE title LIKE ?";
+		final String getGameByTitle = "SELECT * FROM game WHERE title LIKE ?";
 		try {
-			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql);
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(getGameByTitle);
 			ps.setString(1, "%" + title + "%");
 			ResultSet rs = ps.executeQuery();
 			return gameMapper.mapMultiple(rs);
 		} catch (SQLException se) {
-			System.out.println("Failed to execute query: " + se.getMessage());
+			System.out.println("Failed to execute getGameByTitle query: " + se.getMessage());
 		}
-		
-		ResultSet result = executeQuery(sql);
-		return gameMapper.mapMultiple(result);
+		return null;
+	}
+
+	public Game getGameById(int id) {
+		final String getGameByIdSql = "SELECT * FROM game WHERE id= ?";
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(getGameByIdSql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			return gameMapper.mapRow(rs);
+		} catch (SQLException se) {
+			System.out.println("Failed to execute getGameById query: " + se.getMessage());
+		}
+		return null;
 	}
 	
 	protected ResultSet executeQuery(String query) {

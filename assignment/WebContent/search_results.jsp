@@ -13,7 +13,7 @@
 	  <li class="media">
 	    <img class="mr-3" height="150" height="170" src="${game.front_box_art}" alt="Generic placeholder image">
 	    <div class="media-body">
-	      <h5 class="mt-0 mb-1">${game.gameTitle}</h5>
+	      <h5 class="mt-0 mb-1"> <a href="/app/game?id=<c:out value="${game.gameid}"/>">${game.gameTitle}</a> </h5>
     	      	<p> by ${game.developer} </p>
     	      	<p> ${game.console} </p>
 	      	${game.price}

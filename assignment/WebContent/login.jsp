@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <html>
 <jsp:include page="./WEB-INF/shared/head.html" />
-<link rel="stylesheet" href="http://localhost:8080/app/stylesheets/login.css">
+<link rel="stylesheet" href="./stylesheets/login.css">
 </head>
 <jsp:include page="./WEB-INF/shared/nav.jsp" />   
 <body>

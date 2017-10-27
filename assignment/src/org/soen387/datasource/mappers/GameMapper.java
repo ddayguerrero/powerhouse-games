@@ -25,7 +25,7 @@ public class GameMapper implements DataMapper<Game> {
 			try {
 				while (rs.next()) {
 					final Game game = new Game();
-					game.setGameid(rs.getInt("game_id"));
+					game.setGameid(rs.getInt("id"));
 					game.setGameTitle(rs.getString("title"));
 					game.setGameDescription(rs.getString("game_description"));
 					game.setConsole(rs.getString("console"));
