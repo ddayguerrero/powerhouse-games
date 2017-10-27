@@ -61,7 +61,7 @@ public class UserServlet extends HttpServlet {
 		} else {
 			// POST/REDIRECT/GET
 			response.setStatus(HttpServletResponse.SC_SEE_OTHER);
-			response.setHeader("Location", "register.jsp");
+			response.setHeader("Location", "register.jsp"); //TODO - Redirect to specials
 			response.getWriter().append("Register successful!");
 		}
 	}

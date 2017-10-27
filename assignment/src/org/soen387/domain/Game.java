@@ -1,6 +1,7 @@
 package org.soen387.domain;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Game {
@@ -11,7 +12,7 @@ public class Game {
 	private String numPlayers;
 	private boolean coop;
 	private ArrayList<String> genre;
-	private String release_date;
+	private Date release_date;
 	private String developer;
 	private String publisher;
 	private String front_box_art;
@@ -61,10 +62,10 @@ public class Game {
 	public void setGenre(ArrayList<String> genre) {
 		this.genre = genre;
 	}
-	public String getRelease_date() {
+	public Date getRelease_date() {
 		return release_date;
 	}
-	public void setRelease_date(String release_date) {
+	public void setRelease_date(Date release_date) {
 		this.release_date = release_date;
 	}
 	public String getDeveloper() {

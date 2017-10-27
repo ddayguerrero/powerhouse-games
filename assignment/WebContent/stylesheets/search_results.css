@@ -1,0 +1,17 @@
+.results-container {
+	max-width: 60%;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.results-header {
+	overflow: auto;
+	border-bottom: solid 1px #d8d8d8;
+	margin: 5px 8px 20px 8px;
+	padding: 5px 15px;
+}
+
+.rating-block{
+    padding: 15px 15px 5px 0px;
+    border-radius: 3px;
+}

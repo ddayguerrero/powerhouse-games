@@ -9,7 +9,9 @@
 <body>
 	<div class="search">
 		<div class="search-box">
-			<div class="text-center mb-4"></div>
+			<div class="text-center mb-4">
+				<img class="img-fluid logo c" src="http://localhost:8080/app/resources/phglogo.png">
+			</div>
 			<form action="http://localhost:8080/app/game" method="GET">
 				<div class="input-group">
 					<input type="text" class="form-control" name="title"
@@ -19,7 +21,7 @@
 					</span>
 				</div>
 				<p id="help">
-					Need help finding what you're looking for? Try the <a href="/app/advanced_search.jsp">Advanced Search</a>
+					Need help finding what you're looking for? Try the <a href="/app/advanced_search.jsp"> Advanced Search </a>
 				</p>
 			</form>
 		</div>

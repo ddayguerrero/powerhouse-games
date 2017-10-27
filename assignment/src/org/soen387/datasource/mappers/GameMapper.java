@@ -34,6 +34,7 @@ public class GameMapper implements DataMapper<Game> {
 					game.setCoop(isCoop);
 					game.setDeveloper(rs.getString("developer"));
 					game.setPublisher(rs.getString("publisher"));
+					game.setRelease_date(rs.getDate("release_date"));
 					game.setFront_box_art(rs.getString("front_box_art"));
 					game.setBack_box_art(rs.getString("back_box_art"));
 					game.setPrice(rs.getBigDecimal("price"));

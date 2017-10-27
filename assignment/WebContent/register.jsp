@@ -13,19 +13,19 @@
 	        <form action="http://localhost:8080/app/user" method="POST">
 	            <div class="form-group">
 	                <label for="form_firstname">First Name</label>
-	                <input type="text" name="firstname" class="form-control" id="form_firstname">
+	                <input type="text" name="firstname" class="form-control" id="form_firstname" required>
 	            </div>
 	            <div class="form-group">
 	                <label for="form_lastname">Last Name</label>
-	                <input type="text" name="lastname" class="form-control" id="form_lastname">
+	                <input type="text" name="lastname" class="form-control" id="form_lastname" required>
 	            </div>
 	            <div class="form-group">
 	                <label for="form_email">Email</label>
-	                <input type="email" name="email" class="form-control" id="form_email">
+	                <input type="email" name="email" class="form-control" id="form_email" required>
 	            </div>
 	            <div class="form-group">
 	                <label for="form_address1">Address 1</label>
-	                <input type="text" name="address1" class="form-control" id="form_address1">
+	                <input type="text" name="address1" class="form-control" id="form_address1" required>
 	            </div>
 	            <div class="form-group">
 	                <label for="form_address2">Address 2</label>
@@ -33,23 +33,23 @@
 	            </div>
 	            <div class="form-group">
 	                <label for="form_city">City</label>
-	                <input type="text" name="city" class="form-control" id="form_city">
+	                <input type="text" name="city" class="form-control" id="form_city" required>
 	            </div>
 	            <div class="form-group">
 	                <label for="form_province">Province</label>
-	                <input type="text" name="province" class="form-control" id="form_province">
+	                <input type="text" name="province" class="form-control" id="form_province" required>
 	            </div>
 	            <div class="form-group">
 	                <label for="postal_code">Postal Code</label>
-	                <input type="text" name="postal_code" class="form-control" id="form_postal_code">
+	                <input type="text" name="postal_code" class="form-control" id="form_postal_code" required>
 	            </div>
 	            <div class="form-group">
 	                <label for="form_country">Country</label>
-	                <input type="text" name="country" class="form-control" id="form_country">
+	                <input type="text" name="country" class="form-control" id="form_country" required>
 	            </div>
 	            <div class="form-group">
 	                <label for="form_password">Password</label>
-	                <input type="password" name="password" class="form-control" id="form_password">
+	                <input type="password" name="password" class="form-control" id="form_password" required>
 	            </div>
 	            <button class="btn btn-block btn-primary" type="submit">Register</button>
 	        </form>

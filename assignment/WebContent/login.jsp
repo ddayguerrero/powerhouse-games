@@ -11,10 +11,10 @@
 			<h2 class="form-signin-heading">Log In</h2>
 			<input
 				type="email" id="inputEmail" class="form-control"
-				placeholder="Email address" name="email" required="">
+				placeholder="Email address" name="email" required>
 			<input
 				type="password" id="inputPassword" class="form-control"
-				placeholder="Password" name="password" required="">
+				placeholder="Password" name="password" required>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
 		</form>
 	</div>

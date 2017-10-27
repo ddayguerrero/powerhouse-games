@@ -29,7 +29,7 @@
 							<li><span>Number of Players:</span> ${game.numPlayers}</li>
 							<li><span>Co-op:</span> <c:out default="None"
 									escapeXml="true" value="${game.coop?'Yes':'No'}" /></li>
-							<li><span>Release Date:</span></li>
+							<li><span>Release Date:</span> ${game.release_date}</li>
 							<li><span>Genres:</span></li>
 						</ul>
 						</p>
