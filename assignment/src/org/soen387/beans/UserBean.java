@@ -4,6 +4,19 @@ import java.io.Serializable;
 
 public class UserBean implements Serializable{
 	
+	private static final long serialVersionUID = 5829570767860026447L;
+	
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String password;
+	private String address1;
+	private String address2;
+	private String city;
+	private String province;
+	private String postalCode;
+	private String country;
+	
 	public UserBean(String first_name, String last_name, String email, String password, String address1,
 			String address2, String city, String province, String postal_code, String country) {
 		super();
@@ -18,19 +31,6 @@ public class UserBean implements Serializable{
 		this.postalCode = postal_code;
 		this.country = country;
 	}
-	
-	private static final long serialVersionUID = 5829570767860026447L;
-	
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String password;
-	private String address1;
-	private String address2;
-	private String city;
-	private String province;
-	private String postalCode;
-	private String country;
 	
 	public String getFirstName() {
 		return firstName;

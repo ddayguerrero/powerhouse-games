@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.soen387.beans.AdvancedSearchBean;
 import org.soen387.domain.Game;
 import org.soen387.services.GameService;
 import org.soen387.services.UserService;
@@ -17,10 +18,11 @@ import org.soen387.services.UserService;
 /**
  * Servlet implementation class GameServlet
  */
-@WebServlet("/game")
+@WebServlet(urlPatterns = {"/game", "/game/advanced"})
 public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private final String advancedSearchPath = "/game/advanced";
+    private final String simpleSearchPath = "/game";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -36,22 +38,53 @@ public class GameServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String searchType = request.getServletPath();
 		String title =  request.getParameter("title");
 		String id = request.getParameter("id");
+		String console = request.getParameter("console");
+		String year = request.getParameter("year");
 		System.out.println("title " + title);
 		System.out.println("id " + id);
-		int gameId = id == null ? 0 : Integer.parseInt(id);
+		System.out.println("console " + console);
+		System.out.println("year " + year);
+		System.out.println(searchType);
 		
-		if(title != null) {
-			System.out.println("Process search");
-			processSearch(request, response, title);
+		if(searchType.equals(this.simpleSearchPath)) {
+			int gameId = id == null ? 0 : Integer.parseInt(id);
+			
+			if(title != null) {
+				System.out.println("Process search");
+				processSearch(request, response, title);
+			}
+			else if (gameId != 0){
+				System.out.println("Get detailed game information");
+				getDetailedGameInformation(request, response, gameId);
+			}
+		} else if(searchType.equals(this.advancedSearchPath)) {
+			System.out.println("Process advanced search");
+			AdvancedSearchBean advSearchBean = new AdvancedSearchBean(title, console, year);
+			processAdvancedSearch(request, response, advSearchBean);
 		}
-		else if (gameId != 0){
-			System.out.println("Get detailed game information");
-			getDetailedGameInformation(request, response, gameId);
-		}
+
 	}
 	
+	/**
+	 * Search game by multiple fields
+	 * @param advSearchBean - Search query
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	private void processAdvancedSearch(HttpServletRequest request, HttpServletResponse response, AdvancedSearchBean advSearchBean) throws ServletException, IOException {
+		ArrayList<Game> games = GameService.getInstance().getGames(advSearchBean);
+		if (games != null) {
+			request.setAttribute("games", games);
+			request.getServletContext().getRequestDispatcher("/search_results.jsp").forward(request, response);
+		} else {
+			System.out.println("Game not found");
+			return;
+		}	
+	}
+
 	/**
 	 * Get detailed game information
 	 * @param request - HttpServletRequest
@@ -80,12 +113,12 @@ public class GameServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	private void processSearch(HttpServletRequest request, HttpServletResponse response, String title) throws ServletException, IOException {
-		ArrayList<Game> games = GameService.getInstance().getGameByTitle(title);
+		ArrayList<Game> games = GameService.getInstance().getGamesByTitle(title);
 		if (games != null) {
 			request.setAttribute("games", games);
 			request.getServletContext().getRequestDispatcher("/search_results.jsp").forward(request, response);
 		} else {
-			System.out.println("Game not found");
+			System.out.println("Games not found");
 			return;
 		}	
 	}

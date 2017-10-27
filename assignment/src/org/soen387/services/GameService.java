@@ -2,6 +2,7 @@ package org.soen387.services;
 
 import java.util.ArrayList;
 
+import org.soen387.beans.AdvancedSearchBean;
 import org.soen387.datasource.gateways.GameTDG;
 import org.soen387.domain.Game;
 
@@ -18,17 +19,26 @@ public class GameService {
 	
 	/**
 	 * Initiates call to retrieve a list of games by title
-	 * @param title
+	 * @param title - Game title
 	 * @return list of Games
 	 */
-	public ArrayList<Game> getGameByTitle(String title) {
-		return GameTDG.getInstance().getGameByTitle(title);
+	public ArrayList<Game> getGamesByTitle(String title) {
+		return GameTDG.getInstance().getGamesByTitle(title);
 	}
 	
 	/**
-	 * Initiates call to retrieve a list of games by title
-	 * @param title
+	 * Initiates call to retrieve a list of games by advanced search query
+	 * @param advSearchBean - Search query
 	 * @return list of Games
+	 */
+	public ArrayList<Game> getGames(AdvancedSearchBean advSearchBean) {
+		return GameTDG.getInstance().getGamesByAdvanced(advSearchBean);
+	}
+	
+	/**
+	 * Initiates call to retrieve a single game by its id
+	 * @param id - Game id
+	 * @return Game
 	 */
 	public Game getGameById(int id) {
 		return GameTDG.getInstance().getGameById(id);

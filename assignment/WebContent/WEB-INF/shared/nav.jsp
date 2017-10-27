@@ -9,7 +9,7 @@
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item"><a class="nav-link" href="#">Home</a></li>
 			<li class="nav-item"><a class="nav-link" href="/app/search.jsp">Search</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Specials</a>
+			<li class="nav-item"><a class="nav-link" href="/app/specials.jsp">Specials</a>
 			</li>
 		</ul>
 		<ul class="navbar-nav">
