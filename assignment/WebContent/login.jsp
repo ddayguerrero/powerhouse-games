@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
-<jsp:include page="./WEB-INF/shared/head.html" />
+<jsp:include page="./WEB-INF/shared/head.jsp" />
 <link rel="stylesheet" href="./stylesheets/login.css">
 </head>
 <jsp:include page="./WEB-INF/shared/nav.jsp" />   

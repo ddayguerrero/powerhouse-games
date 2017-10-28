@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <html>
-<jsp:include page="./WEB-INF/shared/head.html" />
+<jsp:include page="./WEB-INF/shared/head.jsp" />
 <link rel="stylesheet" href="./stylesheets/search.css">
 </head>
 <jsp:include page="./WEB-INF/shared/nav.jsp" />

@@ -4,6 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Map;
 
+/**
+ * DatabaseQueryBuilder
+ * @author Darrel Guerrero - 27352409
+ *
+ */
 public class DatabaseQueryBuilder {
 
 	/**
@@ -30,6 +35,12 @@ public class DatabaseQueryBuilder {
 		return selectQueryResult;
 	}
 	
+	/**
+	 * Setup the prepared statement with the correct values
+	 * @param query - Dynamically built prepared statement SQL query
+	 * @param parameters
+	 * @return Prepared Statement
+	 */
 	public static PreparedStatement prepareStatement(String query, Map<String, Object> parameters) {
 		try {
 			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(query);
@@ -37,7 +48,7 @@ public class DatabaseQueryBuilder {
 			for (String paramName : parameters.keySet()) {
 				Object paramValue = parameters.get(paramName);
 				if(paramValue != null) {
-					if(paramName.equals("title LIKE ") || paramName.equals("publisher LIKE ")) {
+					if(paramName.equals("title LIKE ") || paramName.equals("publisher LIKE ") || paramName.equals("genre LIKE ")) {
 						ps.setString(index, "%" + paramValue.toString() + "%");
 						System.out.println(paramValue);
 					} else {

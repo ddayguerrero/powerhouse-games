@@ -4,8 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
-<jsp:include page="./WEB-INF/shared/head.html" />
-<link rel="stylesheet" href="./stylesheets/search_results.css">
+<jsp:include page="./WEB-INF/shared/head.jsp" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/search_results.css">
 </head>
 <jsp:include page="./WEB-INF/shared/nav.jsp" />
 <body>

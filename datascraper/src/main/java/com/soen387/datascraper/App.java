@@ -17,6 +17,8 @@ import java.util.List;
 import com.soen387.datascraper.data.Boxart;
 import com.soen387.datascraper.data.Game;
 import com.soen387.datascraper.data.GameResponse;
+import com.soen387.datascraper.data.Genre;
+import com.soen387.datascraper.data.Genres;
 import com.soen387.datascraper.data.PlatformGamesResponse;
 
 import retrofit2.Call;
@@ -326,7 +328,18 @@ public class App {
 					hasCoop = true;
 				}
 				preparedStatement.setBoolean(6, hasCoop);
-				preparedStatement.setString(7, null); // TODO
+				
+				Genres genresObj = g.getGenres();
+				if(genresObj != null) {
+					List<Genre> genres =  genresObj.getList();
+					if(!genres.isEmpty()) {
+						preparedStatement.setString(7, genres.get(0).getGenre()); // TODO
+					} else {
+						preparedStatement.setString(7, null);
+					}
+				} else {
+					preparedStatement.setString(7, null);
+				}
 				
 				DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 				Date releaseDate = new Date(formatter.parse(g.getReleaseDate()).getTime());

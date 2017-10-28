@@ -29,7 +29,6 @@
 
 <script type="text/javascript" >
 $(document).ready(function() {
-	console.log("logout");
     $("#nav-logout").click(function(e) {
     		e.preventDefault();
     		$.ajax({

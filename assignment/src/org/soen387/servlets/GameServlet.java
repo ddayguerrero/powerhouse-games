@@ -44,6 +44,7 @@ public class GameServlet extends HttpServlet {
 		String console = request.getParameter("console");
 		String year = request.getParameter("year");
 		String publisher = request.getParameter("publisher");
+		String genre = request.getParameter("genre");
 		System.out.println(searchType);
 		
 		if(searchType.equals(this.simpleSearchPath)) {
@@ -59,7 +60,7 @@ public class GameServlet extends HttpServlet {
 			}
 		} else if(searchType.equals(this.advancedSearchPath)) {
 			System.out.println("Process advanced search");
-			AdvancedSearchBean advSearchBean = new AdvancedSearchBean(title, console, year, publisher);
+			AdvancedSearchBean advSearchBean = new AdvancedSearchBean(title, console, year, publisher, genre);
 			processAdvancedSearch(request, response, advSearchBean);
 		}
 

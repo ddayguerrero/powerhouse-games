@@ -25,6 +25,11 @@ public class UserTDG {
 		return instance;
 	}
 	
+	/**
+	 * Register a new user
+	 * @param newUser - New User
+	 * @return 1 success or -1 failure
+	 */
 	public int createUser(UserBean newUser) {
 		final String insertUserQuery = "INSERT INTO User " +
 				"(password, firstname, lastname, email, address1, address2," +
@@ -50,6 +55,11 @@ public class UserTDG {
 		return count;
 	}
 	
+	/**
+	 * Retrieve user by email
+	 * @param email - User's email
+	 * @return User
+	 */
 	public User getUserByEmail(String email) {
 		final String selectUserEmailQuery = "SELECT * FROM User WHERE email='" + email + "';";
 		ResultSet resultSet = executeQuery(selectUserEmailQuery);

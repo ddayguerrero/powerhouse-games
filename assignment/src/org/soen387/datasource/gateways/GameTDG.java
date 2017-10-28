@@ -90,6 +90,9 @@ public class GameTDG {
 			if(!advSearchBean.getYear().equals("Year")) {
 				params.put("YEAR(release_date) = ", advSearchBean.getYear());
 			}
+			if(!advSearchBean.getGenre().isEmpty()) {
+				params.put("genre LIKE ", advSearchBean.getGenre());
+			}
 			String advancedQuery = DatabaseQueryBuilder.generateSelect(params);
 			System.out.println("Advanced query: " + advancedQuery);
 			PreparedStatement ps = DatabaseQueryBuilder.prepareStatement(advancedQuery, params);
