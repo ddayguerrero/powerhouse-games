@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.soen387.beans.UserBean;
 import org.soen387.services.UserService;
@@ -61,8 +62,11 @@ public class UserServlet extends HttpServlet {
 		} else {
 			// POST/REDIRECT/GET
 			response.setStatus(HttpServletResponse.SC_SEE_OTHER);
-			response.setHeader("Location", "register.jsp"); //TODO - Redirect to specials
-			response.getWriter().append("Register successful!");
+			HttpSession session = request.getSession();
+			session.setMaxInactiveInterval(20*60); // session expires in 20 minutes
+			session.setAttribute("email", email);
+			session.setAttribute("firstname", fname);
+			request.getRequestDispatcher("search.jsp").forward(request, response);
 		}
 	}
 

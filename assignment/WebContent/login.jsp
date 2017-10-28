@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <jsp:include page="./WEB-INF/shared/head.html" />
 <link rel="stylesheet" href="./stylesheets/login.css">
@@ -16,6 +17,10 @@
 				type="password" id="inputPassword" class="form-control"
 				placeholder="Password" name="password" required>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+			
+			<p class="text-danger">
+				<c:out value="${requestScope.messages.get(\"login\")}"/>
+			</p>
 		</form>
 	</div>
 </body>

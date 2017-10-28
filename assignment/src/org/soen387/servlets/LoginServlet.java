@@ -59,18 +59,20 @@ public class LoginServlet extends HttpServlet {
             User user = getUserService().find(email, password);
             System.out.println("User: " + user);
             if (user != null) {
-                request.getSession().setAttribute("user", user);
-                response.sendRedirect(request.getContextPath() + "/home");
+       			request.removeAttribute("messages");
+            		HttpSession session = request.getSession();
+            		session.setMaxInactiveInterval(20*60); // session expires in 20 minutes
+        			session.setAttribute("email", email);
+        			session.setAttribute("firstname", user.getFirstName());
+        			response.sendRedirect(request.getContextPath() + "/search.jsp");
                 return;
             } else {
-                messages.put("login", "Unknown login, please try again");
+                messages.put("login", "Unable to log on. Please make sure the username and password are for a valid user.");
                 System.out.println("Error");
             }  
         }
         
         request.setAttribute("messages", messages);
-        HttpSession session = request.getSession(true);
-        System.out.println(session.getAttribute("user"));
         request.getRequestDispatcher("/login.jsp").forward(request, response);
 	}
 
