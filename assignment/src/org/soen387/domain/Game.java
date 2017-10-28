@@ -11,7 +11,7 @@ public class Game {
 	private String console;
 	private String numPlayers;
 	private boolean coop;
-	private ArrayList<String> genre;
+	private String genre;
 	private Date release_date;
 	private String developer;
 	private String publisher;
@@ -56,10 +56,10 @@ public class Game {
 	public void setCoop(boolean coop) {
 		this.coop = coop;
 	}
-	public ArrayList<String> getGenre() {
+	public String getGenre() {
 		return genre;
 	}
-	public void setGenre(ArrayList<String> genre) {
+	public void setGenre(String genre) {
 		this.genre = genre;
 	}
 	public Date getRelease_date() {

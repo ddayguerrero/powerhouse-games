@@ -366,7 +366,14 @@ public class App {
 					}
 				}
 				
-				preparedStatement.setBigDecimal(13, new BigDecimal(59.99));
+				BigDecimal random = generateRandomBigDecimalFromRange(
+				    new BigDecimal(12.99).setScale(2, BigDecimal.ROUND_HALF_UP),
+				    new BigDecimal(79.99).setScale(2, BigDecimal.ROUND_HALF_UP)
+				);
+				
+				System.out.println(random);
+				
+				preparedStatement.setBigDecimal(13, random);
 				preparedStatement.setBigDecimal(14, new BigDecimal(0));
 				int count = preparedStatement.executeUpdate();
 			}
@@ -383,6 +390,12 @@ public class App {
 			}
 
 		}
+	}
+	
+	public static BigDecimal generateRandomBigDecimalFromRange(BigDecimal min, BigDecimal max) {
+	    BigDecimal randomBigDecimal = min.add(new BigDecimal(Math.random()).multiply(max.subtract(min)));
+	    BigDecimal finalBD = new BigDecimal(Math.ceil(randomBigDecimal.doubleValue() * 20) / 20);
+	    return finalBD.setScale(2,BigDecimal.ROUND_HALF_UP);
 	}
 
 	private static void initTables() throws SQLException {

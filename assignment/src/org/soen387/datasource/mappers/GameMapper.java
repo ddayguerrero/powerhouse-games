@@ -39,6 +39,7 @@ public class GameMapper implements DataMapper<Game> {
 					game.setBack_box_art(rs.getString("back_box_art"));
 					game.setPrice(rs.getBigDecimal("price"));
 					game.setDiscount(rs.getBigDecimal("discount"));
+					game.setGenre(rs.getString("genre"));
 					games.add(game);
 				}
 			} catch (SQLException se) {

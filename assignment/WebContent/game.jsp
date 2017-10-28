@@ -30,7 +30,7 @@
 							<li><span>Co-op:</span> <c:out default="None"
 									escapeXml="true" value="${game.coop?'Yes':'No'}" /></li>
 							<li><span>Release Date:</span> ${game.release_date}</li>
-							<li><span>Genres:</span></li>
+							<li><span>Genres:</span> ${game.genre}</li>
 						</ul>
 						</p>
 						<a href="#" class="btn btn-primary">Add to Cart</a>

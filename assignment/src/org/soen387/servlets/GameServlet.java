@@ -23,16 +23,13 @@ public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private final String advancedSearchPath = "/game/advanced";
     private final String simpleSearchPath = "/game";
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
     public GameServlet() {
         super();
     }
-    
-//    protected GameService getUserService() {
-//		return UserService.getInstance();
-//    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
