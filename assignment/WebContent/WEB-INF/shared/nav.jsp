@@ -12,7 +12,7 @@
 			<li class="nav-item"><a class="nav-link" href="/app/search.jsp">Home</a></li>
 			<li class="nav-item"><a class="nav-link" href="/app/search.jsp">Search</a></li>
 			<% if(session != null && session.getAttribute("email") != null) { %>
-			<li class="nav-item"><a class="nav-link" href="/app/specials.jsp">Specials</a></li>
+			<li class="nav-item"><a class="nav-link" href="/app/specials">Specials</a></li>
 			<% } %>
 		</ul>
 		<ul class="navbar-nav">

@@ -33,12 +33,13 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 		    session.invalidate();
-		    response.sendRedirect(request.getContextPath() + "/search.jsp");
-		    return;
+		    request.getRequestDispatcher("home.jsp").forward(request, response);
+		    //response.sendRedirect(request.getContextPath() + "home.jsp");
+		    //response.sendRedirect("/home.jsp");
+			System.out.println("Session cleared...");
 		}
 	}
 

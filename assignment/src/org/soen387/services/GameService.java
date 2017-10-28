@@ -36,6 +36,16 @@ public class GameService {
 	}
 	
 	/**
+	 * Initiates call to retrieve a list of discounted games
+	 * @param advSearchBean
+	 * @return list of discounted Games
+	 */
+	public ArrayList<Game> getDiscountedGames() {
+		System.out.println("Getting games...");
+		return GameTDG.getInstance().getDiscountedGames();
+	}
+	
+	/**
 	 * Initiates call to retrieve a single game by its id
 	 * @param id - Game id
 	 * @return Game

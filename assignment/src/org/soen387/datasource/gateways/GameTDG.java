@@ -104,6 +104,18 @@ public class GameTDG {
 		return null;
 	}
 	
+	public ArrayList<Game> getDiscountedGames() {
+		final String getDiscountedGames = "SELECT * FROM game WHERE discount != 0";
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(getDiscountedGames);
+			ResultSet rs = ps.executeQuery();
+			return gameMapper.mapMultiple(rs);
+		} catch (SQLException se) {
+			System.out.println("Failed to execute getGameById query: " + se.getMessage());
+		}
+		return null;
+	}
+	
 	protected ResultSet executeQuery(String query) {
 		try {
 			return DatabaseConnection.getInstance().createStatement().executeQuery(query);

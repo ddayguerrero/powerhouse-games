@@ -7,6 +7,9 @@
 </head>
 <jsp:include page="./WEB-INF/shared/nav.jsp" />   
 <body>
+	<% if(session != null || session.getAttribute("email") != null) { %>
+		<c:redirect url="/search.jsp"/>
+	<% } %>
 	<div class="container">
 		<form action="http://localhost:8080/app/login" method="POST" class="form-signin">
 			<h2 class="form-signin-heading">Log In</h2>

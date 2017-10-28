@@ -2,7 +2,6 @@ package org.soen387.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.soen387.beans.AdvancedSearchBean;
 import org.soen387.domain.Game;
 import org.soen387.services.GameService;
-import org.soen387.services.UserService;
 
 /**
  * Servlet implementation class GameServlet

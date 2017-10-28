@@ -46,6 +46,7 @@ public class GameMapper implements DataMapper<Game> {
 				System.out.println("Error in mapping multiple games: " + se.getMessage());
 			}
 		}
+		System.out.println(games.size());
 		return games;
 	}
 

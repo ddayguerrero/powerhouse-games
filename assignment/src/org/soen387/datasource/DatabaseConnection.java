@@ -37,4 +37,14 @@ public class DatabaseConnection {
 			
 			return DatabaseConnection.instance;
 		}
+		
+		public static void clearConnection() {
+			if(instance != null) {
+				try {
+					instance.close();
+				} catch (SQLException se) {
+					System.out.println("Problem with closing connection... " + se.getMessage());
+				}
+			}
+		}
 }

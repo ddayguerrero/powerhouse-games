@@ -20,6 +20,9 @@ public class Game {
 	private BigDecimal price;
 	private BigDecimal discount;
 	
+	public BigDecimal getDiscountedPrice() {
+		return this.price.subtract(this.discount);
+	}
 	public int getGameid() {
 		return gameid;
 	}
