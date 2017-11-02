@@ -7,7 +7,7 @@
 </head>
 <jsp:include page="./WEB-INF/shared/nav.jsp" />   
 <body>
-	<% if(session != null || session.getAttribute("email") != null) { %>
+	<% if(session != null && session.getAttribute("email") != null) { %>
 		<c:redirect url="/search.jsp"/>
 	<% } %>
 	<div class="container">
