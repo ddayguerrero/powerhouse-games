@@ -45,6 +45,7 @@ public class UserServlet extends HttpServlet {
 		String lname = request.getParameter("lastname");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		String confirmPassword = request.getParameter("confirmPassword");
 		String address1 = request.getParameter("address1");
 		String address2 = request.getParameter("address2");
 		String city = request.getParameter("city");
@@ -52,21 +53,37 @@ public class UserServlet extends HttpServlet {
 		String postal_code = request.getParameter("postal_code");
 		String country = request.getParameter("country");
 		
-		UserBean newUser = new UserBean(fname, lname, email, password, address1, address2, city, province, postal_code, country);
-		System.out.println(newUser);
-		int result = getUserService().register(newUser);
-		
-		if (result == -1) {
+		if((fname.equals(null) || fname.isEmpty()) || (lname.equals(null) || lname.isEmpty()) || (email.equals(null) || email.isEmpty()) || (password.equals(null) || password.isEmpty())) {
 			response.sendRedirect("register.jsp");
+			System.out.println("EMPTY");
 			return;
-		} else {
-			// POST/REDIRECT/GET
-			response.setStatus(HttpServletResponse.SC_SEE_OTHER);
-			HttpSession session = request.getSession();
-			session.setMaxInactiveInterval(20*60); // session expires in 20 minutes
-			session.setAttribute("email", email);
-			session.setAttribute("firstname", fname);
-			request.getRequestDispatcher("search.jsp").forward(request, response);
+		}
+		else {
+			if(!password.equals(confirmPassword)) {
+				request.setAttribute("password_error", "Passwords don't match!");
+			    request.getRequestDispatcher("register.jsp").forward(request, response);
+			    System.out.println("PASSWORD");
+			    return;
+			} else {
+				UserBean newUser = new UserBean(fname, lname, email, password, address1, address2, city, province, postal_code, country);
+				System.out.println(newUser);
+				int result = getUserService().register(newUser);
+				
+				if (result == -1) {
+					response.sendRedirect("register.jsp");
+					System.out.println("BAD REGISTER");
+					return;
+				} else {
+					// POST/REDIRECT/GET
+					response.setStatus(HttpServletResponse.SC_SEE_OTHER);
+					System.out.println("GOOD REGISTER");
+					HttpSession session = request.getSession();
+					session.setMaxInactiveInterval(20*60); // session expires in 20 minutes
+					session.setAttribute("email", email);
+					session.setAttribute("firstname", fname);
+					request.getRequestDispatcher("search.jsp").forward(request, response);
+				}
+			}
 		}
 	}
 
