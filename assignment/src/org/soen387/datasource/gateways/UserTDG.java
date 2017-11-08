@@ -66,6 +66,29 @@ public class UserTDG {
 		return userMapper.mapRow(resultSet);
 	}
 	
+	public String updateLastLogin(User user, String lastLogin) {
+		final String getOldLoginQuery = "SELECT last_login FROM User WHERE user_id = ?";
+		final String updateLastLoginQuery = "UPDATE user SET last_login = ? WHERE user_id = ?";
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(getOldLoginQuery);
+			ps.setInt(1, user.getUserid());
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			String oldLogin = rs.getString("last_login");
+			
+			ps = DatabaseConnection.getInstance().prepareStatement(updateLastLoginQuery);
+			ps.setString(1, lastLogin);
+			ps.setInt(2, user.getUserid());
+			int result = ps.executeUpdate();
+			return oldLogin;
+		}
+		catch(SQLException se) {
+			se.printStackTrace();
+			System.out.println("Failed to create user: " + se.getMessage());
+			return "";
+		}
+	}
+	
 	protected ResultSet executeQuery(String query) {
 		try {
 			return DatabaseConnection.getInstance().createStatement().executeQuery(query);

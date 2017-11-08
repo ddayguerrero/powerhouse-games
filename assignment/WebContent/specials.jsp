@@ -27,7 +27,7 @@
 	        		<c:forEach begin="0" end="2" step="1">
 	        			<div class="card">
 						<div class="card-body">
-							<img class="card-img-top" style="margin-bottom: 5px;" src="${games.get(index).front_box_art}" height="250" alt="Card image cap">
+							<img class="" style="margin-bottom: 5px;" src="${games.get(index).front_box_art}" width="150" height="200" alt="Card image cap">
 							<h5 class="card-title">${games.get(index).gameTitle}</h5>
 							<p class="card-text">${games.get(index).console}</p>
 							<p class="text-warning">$ ${games.get(index).getDiscountedPrice()}<p>
@@ -82,5 +82,5 @@
 	</div>
 
 </body>
-<jsp:include page="./WEB-INF/shared/footer.html" />
+<jsp:include page="./WEB-INF/shared/footer.jsp" />
 </html>

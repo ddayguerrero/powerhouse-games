@@ -38,7 +38,7 @@ $(document).ready(function() {
     			cache: false,
     			processData: false,
     			success: function(){
-    				 window.location="/app//login.jsp";
+    				 window.location="/app/login.jsp";
     			},
     			error: function(){}
  			});

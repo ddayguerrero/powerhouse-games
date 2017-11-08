@@ -49,6 +49,12 @@ public class UserService {
 		}
 	}
 	
+	public String updateLastLogin(User user, String lastLogin) {
+		String oldLogin = UserTDG.getInstance().updateLastLogin(user, lastLogin);
+		return oldLogin;
+		
+	}
+	
 	/**
 	 * Singleton instance of user service
 	 * @return

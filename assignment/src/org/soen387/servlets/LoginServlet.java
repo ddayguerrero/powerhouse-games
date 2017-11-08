@@ -1,6 +1,10 @@
 package org.soen387.servlets;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,9 +65,14 @@ public class LoginServlet extends HttpServlet {
             if (user != null) {
        			request.removeAttribute("messages");
             		HttpSession session = request.getSession();
+            		//DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+            		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+            		String old_login = getUserService().updateLastLogin(user, date.toString());
+            		
             		session.setMaxInactiveInterval(20*60); // session expires in 20 minutes
         			session.setAttribute("email", email);
         			session.setAttribute("firstname", user.getFirstName());
+        			session.setAttribute("last_login", old_login);
         			response.sendRedirect(request.getContextPath() + "/search.jsp");
                 return;
             } else {
