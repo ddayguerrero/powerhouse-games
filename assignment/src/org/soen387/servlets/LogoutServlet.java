@@ -36,7 +36,8 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 		    session.invalidate();
-		    request.getRequestDispatcher("home.jsp").forward(request, response);
+		    //response.sendRedirect(request.getContextPath() + "/home.jsp");
+		    //request.getRequestDispatcher("home.jsp").forward(request, response);
 		    //response.sendRedirect(request.getContextPath() + "home.jsp");
 		    //response.sendRedirect("/home.jsp");
 			System.out.println("Session cleared...");

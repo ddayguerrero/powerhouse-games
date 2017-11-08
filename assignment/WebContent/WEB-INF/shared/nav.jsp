@@ -37,7 +37,9 @@ $(document).ready(function() {
     			contentType: false,
     			cache: false,
     			processData: false,
-    			success: function(){},
+    			success: function(){
+    				 window.location="/app//login.jsp";
+    			},
     			error: function(){}
  			});
     });
