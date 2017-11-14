@@ -434,7 +434,9 @@ public class App {
 				"credit_card_type TINYTEXT," + 
 				"credit_card_number VARCHAR(16) ," + 
 				"credit_card_cvv VARCHAR(3)," + 
-				"credit_card_expiry DATE," + 
+				"credit_card_expiry DATE," +
+				"failed_logins TINYINT DEFAULT 0, " +
+				"locked BOOLEAN NOT NULL DEFAULT 0," +
 				"last_login DATE" + 
 				");";
 		

@@ -17,6 +17,8 @@ public class User {
 	private String credit_card_number;
 	private String credit_card_cvv;
 	private String credit_card_expiry;
+	private int failed_logins;
+	private Boolean locked;
 	
 	public int getUserid() {
 		return userid;
@@ -107,6 +109,18 @@ public class User {
 	}
 	public void setCredit_card_expiry(String credit_card_expiry) {
 		this.credit_card_expiry = credit_card_expiry;
+	}
+	public Boolean getLocked() {
+		return locked;
+	}
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
+	}
+	public int getFailed_logins() {
+		return failed_logins;
+	}
+	public void setFailed_logins(int failed_logins) {
+		this.failed_logins = failed_logins;
 	}
 	
 	

@@ -36,6 +36,8 @@ public class UserMapper implements DataMapper<User>{
 					user.setProvince(rs.getString("province"));
 					user.setPostalCode(rs.getString("postalcode"));
 					user.setCountry(rs.getString("country"));
+					user.setFailed_logins(rs.getInt("failed_logins"));
+					user.setLocked(rs.getBoolean("locked"));
 					
 					users.add(user);
 				}

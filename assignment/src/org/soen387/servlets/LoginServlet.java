@@ -63,21 +63,24 @@ public class LoginServlet extends HttpServlet {
             User user = getUserService().find(email, password);
             System.out.println("User: " + user);
             if (user != null) {
-       			request.removeAttribute("messages");
-            		HttpSession session = request.getSession();
-            		//DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-            		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
-            		String old_login = getUserService().updateLastLogin(user, date.toString());
-            		
-            		session.setMaxInactiveInterval(20*60); // session expires in 20 minutes
-        			session.setAttribute("email", email);
-        			session.setAttribute("firstname", user.getFirstName());
-        			session.setAttribute("last_login", old_login);
-        			response.sendRedirect(request.getContextPath() + "/search.jsp");
-                return;
+	    			if(user.getLocked()) {
+	    				messages.put("login", "Sorry, you have exceeded the maximum attempts to login. Please contact Power House Games!");
+	    			} else {
+	       			request.removeAttribute("messages");
+	            		HttpSession session = request.getSession();
+	            		//DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+	            		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+	            		String old_login = getUserService().updateLastLogin(user, date.toString());
+	            		
+	            		session.setMaxInactiveInterval(20*60); // session expires in 20 minutes
+	        			session.setAttribute("email", email);
+	        			session.setAttribute("firstname", user.getFirstName());
+	        			session.setAttribute("last_login", old_login);
+	        			response.sendRedirect(request.getContextPath() + "/search.jsp");
+	                return;
+	    			}
             } else {
                 messages.put("login", "Unable to log in. Please make sure that the username and password are for a valid user.");
-                System.out.println("Error");
             }  
         }
         

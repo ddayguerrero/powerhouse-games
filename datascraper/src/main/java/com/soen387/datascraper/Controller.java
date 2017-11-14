@@ -29,19 +29,5 @@ public class Controller{
 	public Call<GameResponse> fetchGameInfo(int gameId) {
 		return dscraper.fetchGameInfo(Integer.toString(gameId));
 	}
-	
-//	public void onFailure(Call<PlatformGame> arg0l, Throwable t) {
-//        t.printStackTrace();
-//    }
-//
-//	public void onResponse(Call<PlatformGame> call, Response<PlatformGame> response) {
-//        if (response.isSuccessful()) {
-//        		PlatformGame platformGames = response.body();
-//        		App.setPlatformGames(platformGames.getList());
-//            
-//        } else {
-//            System.out.println(response.errorBody());
-//        }
-//    }
 
 }

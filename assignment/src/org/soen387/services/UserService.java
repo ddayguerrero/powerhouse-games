@@ -42,8 +42,20 @@ public class UserService {
 	 */
 	public User find(String email, String password) {
 		User user = UserTDG.getInstance().getUserByEmail(email);
-		if (user != null && user.getPassword().equals(password)) {
-			return user;
+		if (user != null) {
+			if(user.getPassword().equals(password)) {
+				return user;
+			}
+			else {
+				System.out.println("Logins : " + user.getFailed_logins());
+				if(user.getFailed_logins() < 3) {
+					int result = UserTDG.getInstance().updateFailedLogin(user, user.getFailed_logins() + 1);
+					return null;
+				} else {
+					user = UserTDG.getInstance().lockUser(user);
+					return user;
+				}
+			}
 		} else {
 			return null;
 		}

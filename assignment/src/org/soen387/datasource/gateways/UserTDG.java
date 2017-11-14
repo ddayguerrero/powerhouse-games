@@ -66,6 +66,12 @@ public class UserTDG {
 		return userMapper.mapRow(resultSet);
 	}
 	
+	/**
+	 * Update last login date of user
+	 * @param user - User
+	 * @param lastLogin - Last login of user
+	 * @return Plain text of last login
+	 */
 	public String updateLastLogin(User user, String lastLogin) {
 		final String getOldLoginQuery = "SELECT last_login FROM User WHERE user_id = ?";
 		final String updateLastLoginQuery = "UPDATE user SET last_login = ? WHERE user_id = ?";
@@ -87,6 +93,47 @@ public class UserTDG {
 			System.out.println("Failed to create user: " + se.getMessage());
 			return "";
 		}
+	}
+	
+	/**
+	 * Update failed login attempts of user
+	 * @param user - User
+	 * @param count - Last login of user
+	 * @return Amount of login attempts
+	 */
+	public int updateFailedLogin(User user, int count) {
+		final String incrementFailLoginAttemptQuery = "UPDATE user SET failed_logins = ? WHERE user_id = ?";
+		int result = -1;
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(incrementFailLoginAttemptQuery);
+			ps.setInt(1, count);
+			ps.setInt(2, user.getUserid());
+			result = ps.executeUpdate();
+		} catch (SQLException se) {
+			System.out.println("Failed to increment failed login: " + se.getMessage());
+		}
+		return result;
+		
+	}
+	
+	/**
+	 * Lock user access
+	 * @param user - User
+	 * @return
+	 */
+	public User lockUser(User user) {
+		final String lockUserQuery = "UPDATE user SET locked = 1 WHERE user_id = ?";
+		int result = -1;
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(lockUserQuery);
+			ps.setInt(1, user.getUserid());
+			result = ps.executeUpdate();
+			return getUserByEmail(user.getEmail());
+			
+		} catch (SQLException se) {
+			System.out.println("Failed to lock user: " + se.getMessage());
+		}
+		return null;
 	}
 	
 	protected ResultSet executeQuery(String query) {
