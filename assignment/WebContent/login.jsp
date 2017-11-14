@@ -25,7 +25,7 @@
 				<c:out value="${requestScope.messages.get(\"login\")}"/>
 			</p>
 			
-			<a class="nav-link" href="/app/password">Forgot Password?</a>
+			<a href="/app/password">Forgot Password?</a>
 		</form>
 	</div>
 </body>

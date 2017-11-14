@@ -110,7 +110,7 @@
 	                <input type="password" name="confirmPassword" class="form-control" id="form_confirm" required>
 	            </div>
 	            
-	            <p class="text-danger">${requestScope.password_error}</p>
+	            <p class="text-danger">${requestScope.error}</p>
 	            
          	    <button class="btn btn-block btn-primary" type="submit">Register</button>
 	        </form>

@@ -60,9 +60,8 @@ public class UserServlet extends HttpServlet {
 		}
 		else {
 			if(!password.equals(confirmPassword)) {
-				request.setAttribute("password_error", "Passwords don't match!");
+				request.setAttribute("error", "Passwords don't match!");
 			    request.getRequestDispatcher("register.jsp").forward(request, response);
-			    System.out.println("PASSWORD");
 			    return;
 			} else {
 				UserBean newUser = new UserBean(fname, lname, email, password, address1, address2, city, province, postal_code, country);
@@ -70,8 +69,8 @@ public class UserServlet extends HttpServlet {
 				int result = getUserService().register(newUser);
 				
 				if (result == -1) {
-					response.sendRedirect("register.jsp");
-					System.out.println("BAD REGISTER");
+					request.setAttribute("error", "An error occured while registering, please try again!");
+				    request.getRequestDispatcher("register.jsp").forward(request, response);
 					return;
 				} else {
 					// POST/REDIRECT/GET
