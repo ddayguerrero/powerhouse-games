@@ -12,7 +12,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.soen387.datascraper.data.Boxart;
 import com.soen387.datascraper.data.Game;
@@ -293,6 +295,7 @@ public class App {
 		
 		try {
 			initTables();
+			populateAdmin();
 			populateTables(games);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -300,6 +303,32 @@ public class App {
 		}
 	}
 
+	private static void populateAdmin() throws SQLException, ParseException {
+		Connection dbConnection = null;
+		String insertAdminQuery = "INSERT INTO Admin (email, password) " +
+		"VALUES(?, ?);";
+		Map<String, String> admins = new HashMap<String, String>(){
+			{
+				put("johnappleseed@pgh.com", "123");
+				put("timcook@pgh.com", "123");
+			}
+		};
+		
+		try {
+			dbConnection = getDBConnection();
+			for(Map.Entry<String, String> admin : admins.entrySet()) {
+				PreparedStatement preparedStatement = dbConnection.prepareStatement(insertAdminQuery);
+				preparedStatement.setString(1, admin.getKey());
+				preparedStatement.setString(2, admin.getValue());
+				int count = preparedStatement.executeUpdate();
+			}
+			System.out.println("All admins created!");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+
+		}
+	}
+	
 	private static void populateTables(List<Game> games) throws SQLException, ParseException {
 		Connection dbConnection = null;
 		String populateGamesQuery = "INSERT INTO Game " +
@@ -449,6 +478,12 @@ public class App {
 				"ratings INT" + 
 				");";
 		
+		String createAdminTableSQL = "CREATE TABLE IF NOT EXISTS Admin(" +
+				"admin_id SERIAL NOT NULL PRIMARY KEY, " +
+				"email TINYTEXT NOT NULL," + 
+				"password TINYTEXT NOT NULL" +
+				");";
+		
 		try {
 			dbConnection = getDBConnection();
 			statement = dbConnection.createStatement();
@@ -456,6 +491,8 @@ public class App {
 			System.out.println("Table GAME is created!");
 			statement.execute(createUserTableSQL);
 			System.out.println("Table USER is created!");
+			statement.execute(createAdminTableSQL);
+			System.out.println("Table ADMIN is created!");
 			statement.execute(createCommentsTableSQL);
 			System.out.println("Table COMMENTS is created!");
 
