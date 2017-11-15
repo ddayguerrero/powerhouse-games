@@ -3,6 +3,7 @@ package org.soen387.services;
 import java.util.ArrayList;
 
 import org.soen387.beans.AdvancedSearchBean;
+import org.soen387.beans.GamePayload;
 import org.soen387.datasource.gateways.GameTDG;
 import org.soen387.domain.Game;
 
@@ -16,6 +17,13 @@ public class GameService {
 	public static GameService instance = null;
 	
 	private GameService() { }
+	
+	/**
+	 * Initiates call to retrieve a list of all game inventory
+	 */
+	public ArrayList<Game> getAllGames() {
+		return GameTDG.getInstance().getAllGames();
+	}
 	
 	/**
 	 * Initiates call to retrieve a list of games by title
@@ -52,6 +60,14 @@ public class GameService {
 	 */
 	public Game getGameById(int id) {
 		return GameTDG.getInstance().getGameById(id);
+	}
+	
+	/**
+	 * Initiates call to insert new game
+	 * @return
+	 */
+	public int insertNewGame(GamePayload gamePayload) {
+		return GameTDG.getInstance().insertGame(gamePayload);
 	}
 	
 	/**
