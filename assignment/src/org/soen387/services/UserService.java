@@ -1,5 +1,8 @@
 package org.soen387.services;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+
 import org.soen387.beans.UserBean;
 import org.soen387.datasource.gateways.UserTDG;
 import org.soen387.domain.User;
@@ -61,8 +64,37 @@ public class UserService {
 		}
 	}
 	
-	public String updateLastLogin(User user, String lastLogin) {
-		String oldLogin = UserTDG.getInstance().updateLastLogin(user, lastLogin);
+	/**
+	 * Fetch all users
+	 * @return
+	 */
+	public ArrayList<User> getAllUsers() {
+		return UserTDG.getInstance().getAllUsers();
+	}
+	
+	
+	public User updateUser(int userId, int locked) {
+		User user = UserTDG.getInstance().getUserById(userId);
+		if (user != null) {
+			if (locked == 0) {
+				user = UserTDG.getInstance().unlockUser(user);
+			} else {
+				user = UserTDG.getInstance().lockUser(user);
+			}
+			return user;
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * Update last login of user
+	 * @param user - User
+	 * @param lastLogin - Timestamp
+	 * @return Old login
+	 */
+	public Timestamp updateLastLogin(User user, Timestamp lastLogin) {
+		Timestamp oldLogin = UserTDG.getInstance().updateLastLogin(user, lastLogin);
 		return oldLogin;
 		
 	}

@@ -466,7 +466,7 @@ public class App {
 				"credit_card_expiry DATE," +
 				"failed_logins TINYINT DEFAULT 0, " +
 				"locked BOOLEAN NOT NULL DEFAULT 0," +
-				"last_login DATE" + 
+				"last_login DATETIME" + 
 				");";
 		
 		String createCommentsTableSQL = "CREATE TABLE IF NOT EXISTS Comments(" + 

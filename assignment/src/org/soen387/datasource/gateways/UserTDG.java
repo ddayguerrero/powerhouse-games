@@ -3,6 +3,11 @@ package org.soen387.datasource.gateways;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.soen387.beans.UserBean;
 import org.soen387.datasource.DatabaseConnection;
@@ -33,8 +38,8 @@ public class UserTDG {
 	public int createUser(UserBean newUser) {
 		final String insertUserQuery = "INSERT INTO User " +
 				"(password, firstname, lastname, email, address1, address2," +
-				"city, postalcode, province, country) " +
-				"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+				"city, postalcode, province, country, last_login) " +
+				"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		int count = -1;
 		try {
 			PreparedStatement preparedStatement = DatabaseConnection.getInstance().prepareStatement(insertUserQuery);
@@ -48,11 +53,20 @@ public class UserTDG {
 			preparedStatement.setString(8, newUser.getPostalCode());
 			preparedStatement.setString(9, newUser.getProvince());
 			preparedStatement.setString(10, newUser.getCountry());
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+			Calendar cal = Calendar.getInstance(); 
+			preparedStatement.setTimestamp(11, new Timestamp(cal.getTimeInMillis()));
 			count = preparedStatement.executeUpdate();
 		} catch (SQLException se) {
 			System.out.println("Failed to create user: " + se.getMessage());
 		}
 		return count;
+	}
+	
+	public ArrayList<User> getAllUsers() {
+		final String selectUserEmailQuery = "SELECT * FROM User;";
+		ResultSet resultSet = executeQuery(selectUserEmailQuery);
+		return userMapper.mapMultiple(resultSet);
 	}
 	
 	/**
@@ -67,12 +81,32 @@ public class UserTDG {
 	}
 	
 	/**
+	 * Retrieve user by id
+	 * @param id - User's id
+	 * @return User
+	 */
+	public User getUserById(int id) {
+		final String selectUserEmailQuery = "SELECT * FROM User WHERE user_id = ? ;";
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(selectUserEmailQuery);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			return userMapper.mapRow(rs);
+		}
+		catch(SQLException se) {
+			se.printStackTrace();
+			System.out.println("Failed to retrieve user: " + se.getMessage());
+			return null;
+		}
+	}
+	
+	/**
 	 * Update last login date of user
 	 * @param user - User
 	 * @param lastLogin - Last login of user
-	 * @return Plain text of last login
+	 * @return Timestamp of last login
 	 */
-	public String updateLastLogin(User user, String lastLogin) {
+	public Timestamp updateLastLogin(User user, Timestamp lastLogin) {
 		final String getOldLoginQuery = "SELECT last_login FROM User WHERE user_id = ?";
 		final String updateLastLoginQuery = "UPDATE user SET last_login = ? WHERE user_id = ?";
 		try {
@@ -80,10 +114,10 @@ public class UserTDG {
 			ps.setInt(1, user.getUserid());
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			String oldLogin = rs.getString("last_login");
+			Timestamp oldLogin = rs.getTimestamp("last_login");
 			
 			ps = DatabaseConnection.getInstance().prepareStatement(updateLastLoginQuery);
-			ps.setString(1, lastLogin);
+			ps.setTimestamp(1, lastLogin);
 			ps.setInt(2, user.getUserid());
 			int result = ps.executeUpdate();
 			return oldLogin;
@@ -91,7 +125,7 @@ public class UserTDG {
 		catch(SQLException se) {
 			se.printStackTrace();
 			System.out.println("Failed to create user: " + se.getMessage());
-			return "";
+			return null;
 		}
 	}
 	
@@ -126,6 +160,26 @@ public class UserTDG {
 		int result = -1;
 		try {
 			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(lockUserQuery);
+			ps.setInt(1, user.getUserid());
+			result = ps.executeUpdate();
+			return getUserByEmail(user.getEmail());
+			
+		} catch (SQLException se) {
+			System.out.println("Failed to lock user: " + se.getMessage());
+		}
+		return null;
+	}
+	
+	/**
+	 * Unlock user access
+	 * @param user - User
+	 * @return
+	 */
+	public User unlockUser(User user) {
+		final String unlockUserQuery = "UPDATE user SET locked = 0, failed_logins = 0 WHERE user_id = ?";
+		int result = -1;
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(unlockUserQuery);
 			ps.setInt(1, user.getUserid());
 			result = ps.executeUpdate();
 			return getUserByEmail(user.getEmail());

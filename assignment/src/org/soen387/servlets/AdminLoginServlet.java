@@ -68,7 +68,7 @@ public class AdminLoginServlet extends HttpServlet {
         			session.setAttribute("email", email);
 //        			session.setAttribute("firstname", user.getFirstName());
 //        			session.setAttribute("last_login", old_login);
-        			response.sendRedirect(request.getContextPath() + "/admin/users.jsp");
+        			response.sendRedirect(request.getContextPath() + "/admin/users");
         			System.out.println("Login Admin!");
                 return;
             } else {

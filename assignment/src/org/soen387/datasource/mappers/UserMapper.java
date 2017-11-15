@@ -38,7 +38,7 @@ public class UserMapper implements DataMapper<User>{
 					user.setCountry(rs.getString("country"));
 					user.setFailed_logins(rs.getInt("failed_logins"));
 					user.setLocked(rs.getBoolean("locked"));
-					
+					user.setLastLogin(rs.getTimestamp("last_login"));
 					users.add(user);
 				}
 			} catch (SQLException se) {

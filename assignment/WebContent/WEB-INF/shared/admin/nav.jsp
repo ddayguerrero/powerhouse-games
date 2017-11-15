@@ -10,14 +10,12 @@
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 		<ul class="navbar-nav mr-auto">
 			<% if(session != null && session.getAttribute("email") != null) { %>
-				<li class="nav-item"><a class="nav-link" href="">Users</a></li>
-				<li class="nav-item"><a class="nav-link" href="">Games</a></li>
 			<% } else { %>
 			<% } %>
 		</ul>
 		<ul class="navbar-nav">
 			<% if(session != null && session.getAttribute("email") != null) { %>
-				<li class="nav-item"><span class="nav-link">Greetings, <c:out value="${sessionScope.firstname}"/></span></li>
+				<li class="nav-item"><span class="nav-link">Greetings, <c:out value="${sessionScope.email}"/></span></li>
 				<li class="nav-item"><a id="nav-logout" class="nav-link">Logout</a></li>
 			<% } else { %>
 				<li class="nav-item"><a class="nav-link" href="/app/admin/login">Login</a></li>

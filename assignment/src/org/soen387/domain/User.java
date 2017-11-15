@@ -1,5 +1,8 @@
 package org.soen387.domain;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 public class User {
 	
 	private int userid;
@@ -18,6 +21,7 @@ public class User {
 	private String credit_card_cvv;
 	private String credit_card_expiry;
 	private int failed_logins;
+	private Timestamp lastLogin;
 	private Boolean locked;
 	
 	public int getUserid() {
@@ -121,6 +125,12 @@ public class User {
 	}
 	public void setFailed_logins(int failed_logins) {
 		this.failed_logins = failed_logins;
+	}
+	public Timestamp getLastLogin() {
+		return lastLogin;
+	}
+	public void setLastLogin(Timestamp lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 	
 	

@@ -2,6 +2,7 @@ package org.soen387.servlets;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -67,15 +68,16 @@ public class LoginServlet extends HttpServlet {
 	    				messages.put("login", "Sorry, you have exceeded the maximum attempts to login. Please contact Power House Games!");
 	    			} else {
 	       			request.removeAttribute("messages");
-	            		HttpSession session = request.getSession();
-	            		//DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-	            		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
-	            		String old_login = getUserService().updateLastLogin(user, date.toString());
+	            		HttpSession session = request.getSession();	            		
+	            		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+	        			Calendar cal = Calendar.getInstance(); 
+	        			
+	        			Timestamp old_login = getUserService().updateLastLogin(user, new Timestamp(cal.getTimeInMillis()));
 	            		
 	            		session.setMaxInactiveInterval(20*60); // session expires in 20 minutes
 	        			session.setAttribute("email", email);
 	        			session.setAttribute("firstname", user.getFirstName());
-	        			session.setAttribute("last_login", old_login);
+	        			session.setAttribute("last_login", old_login.toString());
 	        			response.sendRedirect(request.getContextPath() + "/search.jsp");
 	                return;
 	    			}
