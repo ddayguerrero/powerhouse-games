@@ -6,7 +6,7 @@
 <html>
 <jsp:include page="../WEB-INF/shared/head.jsp" />
 <link rel="stylesheet" href="../stylesheets/login.css">
-<link rel="stylesheet" href="../admin/sidebar.css">
+<link rel="stylesheet" href="../stylesheets/sidebar.css">
 </head>
 <jsp:include page="../WEB-INF/shared/admin/nav.jsp" />
 <body>
