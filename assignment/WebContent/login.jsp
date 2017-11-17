@@ -25,9 +25,25 @@
 				<c:out value="${requestScope.messages.get(\"login\")}"/>
 			</p>
 			
-			<a href="/app/password">Forgot Password?</a>
+			<a id="resetPassword">Forgot Password?</a>
 		</form>
 	</div>
 </body>
 <jsp:include page="./WEB-INF/shared/footer.jsp" />
+<script type="text/javascript" >
+$(document).ready(function() {
+    $("#resetPassword").click(function(e) {
+    		e.preventDefault();
+    		$.ajax({
+    			url:"/app/password",
+    			type: "POST",
+    			contentType: false,
+    			cache: false,
+    			processData: false,
+    			success: function(){},
+    			error: function(){}
+ 			});
+    });
+});
+</script>
 </html>
