@@ -171,6 +171,28 @@ public class UserTDG {
 	}
 	
 	/**
+	 * Change Update password
+	 * @param tempPassword - Password
+	 * @return
+	 */
+	public int updatePassword(int id, String password, Timestamp expiry) {
+		final String lockUserQuery = "UPDATE user SET password = ?, password_expiry = ? WHERE user_id = ?";
+		int result = -1;
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(lockUserQuery);
+			ps.setString(1, password);
+			ps.setTimestamp(2, expiry);
+			ps.setInt(3, id);
+			result = ps.executeUpdate();
+			return result;
+			
+		} catch (SQLException se) {
+			System.out.println("Failed to update password user: " + se.getMessage());
+		}
+		return result;
+	}
+	
+	/**
 	 * Unlock user access
 	 * @param user - User
 	 * @return

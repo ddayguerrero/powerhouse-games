@@ -39,6 +39,7 @@ public class UserMapper implements DataMapper<User>{
 					user.setFailed_logins(rs.getInt("failed_logins"));
 					user.setLocked(rs.getBoolean("locked"));
 					user.setLastLogin(rs.getTimestamp("last_login"));
+					user.setPasswordExpiry(rs.getTimestamp("password_expiry"));
 					users.add(user);
 				}
 			} catch (SQLException se) {

@@ -31,12 +31,31 @@ public class UserService {
 	}
 	
 	/**
+	 * Set a new temporary password with 24H expiration
+	 * @return
+	 */
+	public int setTemporaryPassword(int id, String tempPassword, Timestamp expiry) {
+		int result = UserTDG.getInstance().updatePassword(id, tempPassword, expiry);
+		return result;
+	}
+	
+	/**
 	 * Fetch user by ID
 	 * @return
 	 */
 	public User fetchUser() {
 		// TODO
 		return null;
+	}
+	
+	/**
+	 * 
+	 * @param email
+	 * @return
+	 */
+	public User findByEmail(String email) {
+		User user = UserTDG.getInstance().getUserByEmail(email);
+		return (user != null) ? user : null;
 	}
 	
 	/**
@@ -72,7 +91,12 @@ public class UserService {
 		return UserTDG.getInstance().getAllUsers();
 	}
 	
-	
+	/**
+	 * 
+	 * @param userId
+	 * @param locked
+	 * @return
+	 */
 	public User updateUser(int userId, int locked) {
 		User user = UserTDG.getInstance().getUserById(userId);
 		if (user != null) {

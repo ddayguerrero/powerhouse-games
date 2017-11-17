@@ -67,18 +67,28 @@ public class LoginServlet extends HttpServlet {
 	    			if(user.getLocked()) {
 	    				messages.put("login", "Sorry, you have exceeded the maximum attempts to login. Please contact Power House Games!");
 	    			} else {
-	       			request.removeAttribute("messages");
-	            		HttpSession session = request.getSession();	            		
-	            		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-	        			Calendar cal = Calendar.getInstance(); 
-	        			
-	        			Timestamp old_login = getUserService().updateLastLogin(user, new Timestamp(cal.getTimeInMillis()));
-	            		
-	            		session.setMaxInactiveInterval(20*60); // session expires in 20 minutes
-	        			session.setAttribute("email", email);
-	        			session.setAttribute("firstname", user.getFirstName());
-	        			session.setAttribute("last_login", old_login.toString());
-	        			response.sendRedirect(request.getContextPath() + "/search.jsp");
+	    				Calendar cal = Calendar.getInstance();
+	    				Timestamp today = new Timestamp(cal.getTimeInMillis());
+	    				Timestamp expiry = user.getPasswordExpiry();
+	    				System.out.println("Timestamp Now: " + today);
+	    				System.out.println("Password Expiry: " + user.getPasswordExpiry());
+	    				
+	    				if(expiry == null || !today.before(expiry)) {
+	    					request.removeAttribute("messages");
+		            		HttpSession session = request.getSession();	            		
+		            		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		        			
+		        			Timestamp old_login = getUserService().updateLastLogin(user, new Timestamp(cal.getTimeInMillis()));
+		            		
+		            		session.setMaxInactiveInterval(20*60); // session expires in 20 minutes
+		        			session.setAttribute("email", email);
+		        			session.setAttribute("firstname", user.getFirstName());
+		        			session.setAttribute("last_login", old_login.toString());
+		        			response.sendRedirect(request.getContextPath() + "/search.jsp");
+		                return;
+	    				} else {
+	    					messages.put("login", "Unable to log in.");
+	    				}
 	                return;
 	    			}
             } else {

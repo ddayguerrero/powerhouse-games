@@ -22,6 +22,7 @@ public class User {
 	private String credit_card_expiry;
 	private int failed_logins;
 	private Timestamp lastLogin;
+	private Timestamp passwordExpiry;
 	private Boolean locked;
 	
 	public int getUserid() {
@@ -131,6 +132,12 @@ public class User {
 	}
 	public void setLastLogin(Timestamp lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+	public Timestamp getPasswordExpiry() {
+		return passwordExpiry;
+	}
+	public void setPasswordExpiry(Timestamp password_expiry) {
+		this.passwordExpiry = password_expiry;
 	}
 	
 	
