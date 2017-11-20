@@ -22,38 +22,42 @@
 				<li class="media"><img class="mr-3" height="150" height="170"
 					src="${game.front_box_art}" alt="Generic placeholder image">
 					<div class="media-body">
-						<div class="container">
-							<div class="row">
-								<div class="col col-md-6">
-									<h5 class="mt-0 mb-1">
-										<a href="/app/game?id=<c:out value="${game.gameid}"/>">${game.gameTitle}</a>
-									</h5>
-									<h6>by ${game.developer}</h6>
-									<p>${game.console}</p>
-								</div>
-								<div class="col col-md-6">
-									<div class="rating-block">
-										Rating
-										<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-										  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										</button>
-										<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-										  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										</button>
-										<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-										  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										</button>
-										<button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
-										  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										</button>
-										<button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
-										  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										</button>
+						<form action="${pageContext.request.contextPath}/cart" method="post">
+							<div class="container">
+								<div class="row">
+									<div class="col col-md-6">
+										<h5 class="mt-0 mb-1">
+											<a href="/app/game?id=<c:out value="${game.gameid}"/>">${game.gameTitle}</a>
+										</h5>
+										<h6>by ${game.developer}</h6>
+										<p>${game.console}</p>
+										<h3 class=".text-primary"> $${game.price} </h3>
 									</div>
-									<button type="button" class="btn btn-dark">NEW $${game.price}</button>
+									<div class="col col-md-6">
+										<div class="rating-block">
+											Rating
+											<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+											  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+											</button>
+											<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+											  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+											</button>
+											<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+											  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+											</button>
+											<button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+											  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+											</button>
+											<button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+											  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+											</button>
+											<input type="hidden" name="gameId" value="${game.gameid}">
+										</div>
+										<button type="submit" class="btn btn-primary">Add To Cart</button>
+									</div>
 								</div>
-							</div>
-						</div>
+							</div>	
+						</form>
 					</div>
 				</li>
 			</c:forEach>

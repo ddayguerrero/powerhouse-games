@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.soen387.business.ShoppingCart;
 import org.soen387.domain.User;
+import org.soen387.services.GameService;
 import org.soen387.services.UserService;
 
 /**
@@ -73,7 +75,8 @@ public class LoginServlet extends HttpServlet {
 	    				System.out.println("Timestamp Now: " + today);
 	    				System.out.println("Password Expiry: " + user.getPasswordExpiry());
 	    				
-	    				if(expiry == null || !today.before(expiry)) {
+	    				if(expiry == null || today.before(expiry)) {
+	    					System.out.println("Login time is before expiry");
 	    					request.removeAttribute("messages");
 		            		HttpSession session = request.getSession();	            		
 		            		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -84,6 +87,14 @@ public class LoginServlet extends HttpServlet {
 		        			session.setAttribute("email", email);
 		        			session.setAttribute("firstname", user.getFirstName());
 		        			session.setAttribute("last_login", old_login.toString());
+		        			
+		        			ShoppingCart cart = new ShoppingCart();
+		        			if(session.getAttribute("cart") == null) {
+		        				session.setAttribute("cart", cart);
+		        			} else {
+		        				cart = (ShoppingCart) session.getAttribute("cart");
+		        			}
+		        			
 		        			response.sendRedirect(request.getContextPath() + "/search.jsp");
 		                return;
 	    				} else {

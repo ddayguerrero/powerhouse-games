@@ -23,10 +23,22 @@
 				<li class="nav-item"><a class="nav-link" href="/app/login">Login</a></li>
 				<li class="nav-item"><a class="nav-link" href="/app/register">Register Now!</a></li>
 			<% } %>
+			
+			<% if(session != null && session.getAttribute("cart") != null) { %>
+			<li class="nav-item">
+			  <a class="nav-link" href="/app/cart"><span class="oi oi-cart" title="cart" aria-hidden="true"></span> <c:out value="${sessionScope.cart.getCartSize()}"/> item(s)</a>
+			</li>
+			<% } else { %>
+			<li class="nav-item">
+			  <a class="nav-link" href=""><span class="oi oi-cart" title="cart" aria-hidden="true"></span> My Cart </a>
+			</li>
+			<% } %>
 		</ul>
 	</div>
 </nav>
-
+				<c:forEach items="${sessionScope}" var="attr">
+			    ${attr.key}=${attr.value}<br>
+			</c:forEach>
 <script type="text/javascript" >
 $(document).ready(function() {
     $("#nav-logout").click(function(e) {
