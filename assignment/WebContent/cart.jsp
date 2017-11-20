@@ -28,6 +28,7 @@
 							<th>Quantity</th>
 							<th>Price</th>
 							<th>Total</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -35,9 +36,12 @@
 							<tr>
 								<td>${game.getItem().gameid}</td>
 								<td><a href="/app/game?id=<c:out value="${game.getItem().gameid}"/>">${game.getItem().gameTitle}</a></td>
-								<td>${game.getQuantity()}</td>
+								<td> - ${game.getQuantity()} + </td>
 								<td>${game.getItem().price}</td>
 								<td>${game.getTotal()}</td>
+								<td>
+									<a class="removeItem" data-id="${game.getItem().gameid}" href="#"> Remove </a>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -48,4 +52,27 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".removeItem").click(function(e) {
+			e.preventDefault();
+			var itemId = e.target.dataset.id;
+			$.ajax({
+				url : "/app/cart/item",
+				type : "DELETE",
+				contentType : 'application/json',
+				data : JSON.stringify({
+					'itemId' : itemId
+				}),
+				success : function() {
+					console.log('success');
+					window.location = "/app/cart";
+				},
+				error : function(e) {
+					alert(JSON.stringify(e))
+				}
+			});
+		});
+	});
+</script>
 </html>

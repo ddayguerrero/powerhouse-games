@@ -16,8 +16,9 @@ public class DatabaseConnection {
 		private static final String DB_PASSWORD = "password";
 		private static Connection instance = null;
 		
-		public static Connection getInstance() {
-			if (instance == null) {
+		public static Connection getInstance() throws SQLException {
+			if (instance == null || instance.isClosed()) {
+				System.out.println("Creating new connection instance..");
 				try {
 					Class.forName(DB_DRIVER);
 					instance = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
@@ -40,6 +41,7 @@ public class DatabaseConnection {
 		
 		public static void clearConnection() {
 			if(instance != null) {
+				System.out.println("Closing connection instance..");
 				try {
 					instance.close();
 				} catch (SQLException se) {

@@ -77,7 +77,7 @@ public class UserServlet extends HttpServlet {
 					response.setStatus(HttpServletResponse.SC_SEE_OTHER);
 					System.out.println("GOOD REGISTER");
 					HttpSession session = request.getSession();
-					session.setMaxInactiveInterval(20*60); // session expires in 20 minutes
+					session.setMaxInactiveInterval(60*60*24); // session expires in 20 minutes
 					session.setAttribute("email", email);
 					session.setAttribute("firstname", fname);
 					request.getRequestDispatcher("search.jsp").forward(request, response);

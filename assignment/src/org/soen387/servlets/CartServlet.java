@@ -13,12 +13,17 @@ import org.soen387.domain.CartItem;
 import org.soen387.domain.Game;
 import org.soen387.services.GameService;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 /**
  * Servlet implementation class CartServlet
  */
-@WebServlet("/cart")
+@WebServlet(urlPatterns = { "/cart", "/cart/item" })
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	 private final String itemPath = "/cart/item";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -49,7 +54,6 @@ public class CartServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();	 
-		String searchType = request.getScheme();
 		ShoppingCart cart = new ShoppingCart();
 		if(session.getAttribute("cart") == null) {
 			session.setAttribute("cart", cart);
@@ -62,7 +66,29 @@ public class CartServlet extends HttpServlet {
 		item.setItem(game);
 		cart.addToCart(item);
 		response.setStatus(HttpServletResponse.SC_SEE_OTHER);
-		request.getServletContext().getRequestDispatcher("/cart.jsp").forward(request, response);
+		//request.getServletContext().getRequestDispatcher("/cart.jsp").forward(request, response);
+		response.sendRedirect("cart.jsp");
+	}
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String searchType = request.getServletPath();
+		if (searchType.equals(this.itemPath)) {
+			Gson gson = new Gson();
+	        JsonParser parser = new JsonParser();
+	        JsonObject obj = (JsonObject) parser.parse(request.getReader());
+	        int gameId = obj.get("itemId").getAsInt();
+	        System.out.println("item id to delete: " + gameId);
+	        
+	        ShoppingCart cart = new ShoppingCart();
+	        HttpSession session = request.getSession();
+	        if(session.getAttribute("cart") == null) {
+				session.setAttribute("cart", cart);
+			} else {
+				cart = (ShoppingCart) session.getAttribute("cart");
+			}
+	        cart.removeFromCart(gameId);
+	        response.setStatus(HttpServletResponse.SC_OK);
+		}
 	}
 
 }

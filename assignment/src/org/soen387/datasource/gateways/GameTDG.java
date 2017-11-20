@@ -87,6 +87,8 @@ public class GameTDG {
 			return gameMapper.mapRow(rs);
 		} catch (SQLException se) {
 			System.out.println("Failed to execute getGameById query: " + se.getMessage());
+		} finally {
+			DatabaseConnection.clearConnection();
 		}
 		return null;
 	}

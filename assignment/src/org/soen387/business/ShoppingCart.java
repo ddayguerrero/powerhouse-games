@@ -96,6 +96,20 @@ public class ShoppingCart {
 		System.out.println("Item added! Current cart size: " + cartSize);
 	}
 	
+	public void removeFromCart(int id) {
+		CartItem<?> itemToRemove = null;
+		for(CartItem<?> i : items) {
+			Game cartGame = (Game)i.getItem();
+			if(cartGame.getGameid() == id) {
+				itemToRemove = i;
+				int quantity = i.getQuantity();
+				cartSize = cartSize - quantity;
+			}
+		}
+		items.remove(itemToRemove);
+		System.out.println("Item removed! Current cart size: " + cartSize);
+	}
+	
 	/**
 	 * Update quantity is item exists in cart
 	 * @param cartItem
@@ -112,5 +126,14 @@ public class ShoppingCart {
 			}
 		}
 		return false;
+	}
+	
+	public void emptyCart() {
+		this.setItems(new ArrayList<CartItem>());
+		items = new ArrayList<CartItem>();
+		subTotal = new BigDecimal(0);
+		calculatedTaxes = new BigDecimal(0);
+		cartSize = 0;
+		isCartEmpty = true;
 	}
 }

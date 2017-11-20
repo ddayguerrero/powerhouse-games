@@ -11,6 +11,9 @@
 		<form action="http://localhost:8080/app/password" method="POST" class="form-signin">
 			<h2 class="form-forgotpassword-heading">Forgot Password</h2>
 			<input
+				type="text" id="inputName" class="form-control"
+				placeholder="Name" name="name">
+			<input
 				type="email" id="inputEmail" class="form-control"
 				placeholder="Email address" name="email" required>
 			<p>
