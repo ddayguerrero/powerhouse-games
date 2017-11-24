@@ -70,6 +70,30 @@ public class CartServlet extends HttpServlet {
 		response.sendRedirect("cart.jsp");
 	}
 	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String searchType = request.getServletPath();
+		if (searchType.equals(this.itemPath)) {
+			Gson gson = new Gson();
+	        JsonParser parser = new JsonParser();
+	        JsonObject obj = (JsonObject) parser.parse(request.getReader());
+	        int gameId = obj.get("itemId").getAsInt();
+	        int action = obj.get("action").getAsInt();
+	        
+	        ShoppingCart cart = new ShoppingCart();
+	        HttpSession session = request.getSession();
+	        if(session.getAttribute("cart") == null) {
+				session.setAttribute("cart", cart);
+			} else {
+				cart = (ShoppingCart) session.getAttribute("cart");
+			}
+	        
+	        cart.updateQuantity(gameId, action);
+		}
+	}
+	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchType = request.getServletPath();
 		if (searchType.equals(this.itemPath)) {

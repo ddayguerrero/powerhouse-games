@@ -83,6 +83,27 @@ public class ShoppingCart {
 		this.isCartEmpty = isCartEmpty;
 	}
 	
+	public void updateQuantity(int id, int action) {
+		for(CartItem<?> i : items) {
+			Game cartGame = (Game)i.getItem();
+			if(cartGame.getGameid() == id) {
+				if(action == 0) {
+					if(i.getQuantity() == 1) {
+						removeFromCart(id);
+					} else {
+						i.setQuantity(i.getQuantity() - 1);
+						cartSize -= 1;
+					}
+				} else if(action == 1) {
+					i.setQuantity(i.getQuantity() + 1);
+					cartSize += 1;
+				}
+				break;
+			}
+		}
+		System.out.println("Quantity of item" + id + " updated!");
+	}
+	
 	public void addToCart(CartItem cartItem) {
 		if(hasUpdatedQuantity(cartItem)) {
 			

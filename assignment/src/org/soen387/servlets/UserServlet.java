@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.soen387.beans.UserBean;
+import org.soen387.business.ShoppingCart;
 import org.soen387.services.UserService;
 
 /**
@@ -80,6 +81,12 @@ public class UserServlet extends HttpServlet {
 					session.setMaxInactiveInterval(60*60*24); // session expires in 20 minutes
 					session.setAttribute("email", email);
 					session.setAttribute("firstname", fname);
+					
+					ShoppingCart cart = new ShoppingCart();
+	        			if(session.getAttribute("cart") == null) {
+	        				session.setAttribute("cart", cart);
+	        			}
+	        			
 					request.getRequestDispatcher("search.jsp").forward(request, response);
 				}
 			}

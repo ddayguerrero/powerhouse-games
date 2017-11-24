@@ -36,11 +36,15 @@
 							<tr>
 								<td>${game.getItem().gameid}</td>
 								<td><a href="/app/game?id=<c:out value="${game.getItem().gameid}"/>">${game.getItem().gameTitle}</a></td>
-								<td> - ${game.getQuantity()} + </td>
+								<td> 
+									<a class="updateQuantity" data-id="${game.getItem().gameid}" data-action="0" href="#"> - </a>
+									${game.getQuantity()} 
+									<a class="updateQuantity" data-id="${game.getItem().gameid}" data-action="1" href="#"> + </a>
+								</td>
 								<td>${game.getItem().price}</td>
 								<td>${game.getTotal()}</td>
 								<td>
-									<a class="removeItem" data-id="${game.getItem().gameid}" href="#"> Remove </a>
+									<a id="removeItem" data-id="${game.getItem().gameid}" href="#"> Remove </a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -54,7 +58,7 @@
 </body>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$(".removeItem").click(function(e) {
+		$("#removeItem").click(function(e) {
 			e.preventDefault();
 			var itemId = e.target.dataset.id;
 			$.ajax({
@@ -65,7 +69,29 @@
 					'itemId' : itemId
 				}),
 				success : function() {
-					console.log('success');
+					console.log('delete success');
+					window.location = "/app/cart";
+				},
+				error : function(e) {
+					alert(JSON.stringify(e))
+				}
+			});
+		});
+		
+		$(".updateQuantity").click(function(e) {
+			e.preventDefault();
+			var itemId = e.target.dataset.id;
+			var action = e.target.dataset.action;
+			$.ajax({
+				url : "/app/cart/item",
+				type : "PUT",
+				contentType : 'application/json',
+				data : JSON.stringify({
+					'itemId' : itemId,
+					'action' : action
+				}),
+				success : function() {
+					console.log('update success');
 					window.location = "/app/cart";
 				},
 				error : function(e) {
