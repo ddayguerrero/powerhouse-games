@@ -59,6 +59,11 @@ public class ShoppingCart {
 		this.currentQuantity = currentQuantity;
 	}
 	public BigDecimal getSubTotal() {
+		BigDecimal amount = BigDecimal.ZERO;
+		for (CartItem<?> i : items) {
+			amount = amount.add(i.getTotal());
+		}
+		setSubTotal(amount);
 		return subTotal;
 	}
 	public void setSubTotal(BigDecimal subTotal) {

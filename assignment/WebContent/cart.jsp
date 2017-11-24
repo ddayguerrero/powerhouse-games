@@ -28,7 +28,7 @@
 							<th>Quantity</th>
 							<th>Price</th>
 							<th>Total</th>
-							<th></th>
+							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -41,15 +41,29 @@
 									${game.getQuantity()} 
 									<a class="updateQuantity" data-id="${game.getItem().gameid}" data-action="1" href="#"> + </a>
 								</td>
-								<td>${game.getItem().price}</td>
-								<td>${game.getTotal()}</td>
+								<td>$ ${game.getItem().price}</td>
+								<td>$ ${game.getTotal()}</td>
 								<td>
 									<a id="removeItem" data-id="${game.getItem().gameid}" href="#"> Remove </a>
 								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="5"></td>
+							<td>	<b>Sub-total:</b> $ <c:out value="${cart.getSubTotal()}"/></td>
+						</tr>
+					</tfoot>
 				</table>
+				<c:choose>
+					<c:when test="${cart.getCartSize() > 0}">
+						<a role="button" class="btn btn-primary btn-lg" href="/app/checkout.jsp"> Go To Checkout</a>
+					</c:when>
+					<c:otherwise>
+						<a role="button" class="btn btn-primary btn-lg disabled" href="/app/checkout.jsp"> Go To Checkout</a>
+					</c:otherwise> 
+				</c:choose>
 			</div>			
 			</main>
 			<div class="col-sm-2 col-md-2"></div>
