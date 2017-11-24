@@ -485,6 +485,23 @@ public class App {
 				"password TINYTEXT NOT NULL" +
 				");";
 		
+		String createInvoiceTableSQL = "CREATE TABLE IF NOT EXISTS Invoice(" +
+				"invoice_id SERIAL NOT NULL PRIMARY KEY," +
+				"sale_date DATETIME," +
+				"client_id INT REFERENCES User(user_id)," +
+				"net_price DECIMAL(4,2)," +
+				"tax DECIMAL(4,2)," +
+				"total DECIMAL(4,2)" +
+				");";
+		
+		String createInvoiceDetailsTableSQL = "CREATE TABLE IF NOT EXISTS Invoice_Details(" +
+				"detail_id SERIAL NOT NULL PRIMARY KEY," +
+				"invoice_id INT REFERENCES Invoice(invoice_id)," +
+				"quantity TINYINT," +
+				"book_id INT REFERENCES Game(game_id)," +
+				"book_price DECIMAL(4,2)" +
+				");";
+		
 		try {
 			dbConnection = getDBConnection();
 			statement = dbConnection.createStatement();
@@ -496,6 +513,10 @@ public class App {
 			System.out.println("Table ADMIN is created!");
 			statement.execute(createCommentsTableSQL);
 			System.out.println("Table COMMENTS is created!");
+			statement.execute(createInvoiceTableSQL);
+			System.out.println("Table INVOICE is created!");
+			statement.execute(createInvoiceDetailsTableSQL);
+			System.out.println("Table INVOICE_DETAILS is created!");
 
 		} catch (SQLException e) {
 

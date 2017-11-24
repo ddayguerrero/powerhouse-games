@@ -98,9 +98,8 @@ public class LoginServlet extends HttpServlet {
 		        			response.sendRedirect(request.getContextPath() + "/search.jsp");
 		                return;
 	    				} else {
-	    					messages.put("login", "Unable to log in.");
+	    					messages.put("login", "Unable to log in. Please contact an admin.");
 	    				}
-	                return;
 	    			}
             } else {
                 messages.put("login", "Unable to log in. Please make sure that the username and password are for a valid user.");
