@@ -61,7 +61,7 @@
 						<a role="button" class="btn btn-primary btn-lg" href="/app/checkout.jsp"> Go To Checkout</a>
 					</c:when>
 					<c:otherwise>
-						<a role="button" class="btn btn-primary btn-lg disabled" href="/app/checkout.jsp"> Go To Checkout</a>
+						<a role="button" class="btn btn-primary btn-lg disabled" href="/app/checkout"> Go To Checkout</a>
 					</c:otherwise> 
 				</c:choose>
 			</div>			

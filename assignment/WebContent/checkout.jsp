@@ -16,7 +16,7 @@
 			<main role="main" class="col-sm-8 ml-sm-auto col-md-8 pt-3">
 			<h1>Checkout</h1>
 			<h5>Order Summary</h5>
-			<div class="table-responsive">
+			<div>
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -40,30 +40,46 @@
 						<tr>
 							<td>
 								<b>Sub-total:</b> $ <c:out value="${cart.getSubTotal()}"/> <br/>
-								<b>Taxes:</b> $ <c:out value="${cart.getSubTotal()}"/> <br/>
-								<b>Total:</b> $ <c:out value="${cart.getSubTotal()}"/>
+								<b>Taxes:</b> $ <c:out value="${cart.getCalculatedTaxes()}"/> <br/>
+								<b>Total:</b> $ <c:out value="${cart.getGrandTotal()}"/>
 							</td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
-			<h3>Payment</h3>
-			<form class="form-horizontal" role="form">
+			<h5>Payment</h5>
+			<hr>
+			<form action="http://localhost:8080/app/checkout" method="POST" class="form-horizontal" role="form">
 				<fieldset>
+					<div class="form-group">
+					<label class="col-sm-3 control-label" for="card-holder-name">Card Association </label>
+							<div class="form-check">
+						    <label class="form-check-label">
+							    <input class="form-check-input" type="radio" name="association" id="exampleRadios1" value="0" checked>
+							    Visa
+							  </label>
+							</div>
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input class="form-check-input" type="radio" name="association" id="exampleRadios2" value="1">
+							    Mastercard
+							  </label>
+							</div>
+					</div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="card-holder-name">Name
 							on Card</label>
 						<div class="col-sm-12">
-							<input type="text" class="form-control" name="card-holder-name"
-								id="card-holder-name" placeholder="Cardholder's Name">
+							<input type="text" class="form-control" name="cardholdername"
+								id="cardholdername" placeholder="Cardholder's Name" required>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="card-number">Card
 							Number</label>
 						<div class="col-sm-12">
-							<input type="text" class="form-control" name="card-number"
-								id="card-number" placeholder="Card Number">
+							<input type="text" class="form-control" name="cardnumber"
+								id="cardnumber" placeholder="Card Number" required>
 						</div>
 					</div>
 					<div class="form-group">
@@ -72,7 +88,7 @@
 						<div class="col-sm-12">
 							<div class="row">
 								<div class="col-sm-3 col-xs-3">
-									<select class="form-control" name="expiry-month"
+									<select class="form-control" name="expirymonth"
 										id="expiry-month">
 										<option value="01">Jan (01)</option>
 										<option value="02">Feb (02)</option>
@@ -89,26 +105,26 @@
 									</select>
 								</div>
 								<div class="col-sm-3 col-xs-3">
-									<select class="form-control" name="expiry-year">
-										<option value="17">2017</option>
-										<option value="18">2018</option>
-										<option value="19">2019</option>
-										<option value="20">2020</option>
-										<option value="21">2021</option>
-										<option value="22">2022</option>
-										<option value="23">2023</option>
+									<select class="form-control" name="expiryyear">
+										<option value="2017">2017</option>
+										<option value="2018">2018</option>
+										<option value="2019">2019</option>
+										<option value="2020">2020</option>
+										<option value="2021">2021</option>
+										<option value="2022">2022</option>
+										<option value="2023">2023</option>
 									</select>
 								</div>
 								<div class="col-sm-4 col-xs-4">
 									<input type="text" class="form-control" name="cvv" id="cvv"
-										placeholder="Security Code">
+										placeholder="Security Code" required>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-9">
-							<button type="button" class="btn btn-success">Pay Now</button>
+							<button type="submit" class="btn btn-success">Pay Now</button>
 						</div>
 					</div>
 				</fieldset>
@@ -116,6 +132,14 @@
 			</main>
 			<div class="col-sm-2 col-md-2"></div>
 		</div>
+		<div class="row">
+		<div class="col-sm-2 col-md-2"></div>
+		<div class="col-sm-8 col-md-8">
+			<p class="text-danger">
+				<c:out value="${requestScope.messages.get(\"error\")}"/>
+			</p>
+		</div>
+		<div class="col-sm-2 col-md-2"></div>
 	</div>
 </body>
 </html>
