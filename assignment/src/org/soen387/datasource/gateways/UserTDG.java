@@ -76,8 +76,13 @@ public class UserTDG {
 	 */
 	public User getUserByEmail(String email) {
 		final String selectUserEmailQuery = "SELECT * FROM User WHERE email='" + email + "';";
-		ResultSet resultSet = executeQuery(selectUserEmailQuery);
-		return userMapper.mapRow(resultSet);
+		try {
+			ResultSet resultSet = executeQuery(selectUserEmailQuery);
+			return userMapper.mapRow(resultSet);
+		}
+		finally {
+			DatabaseConnection.clearConnection();
+		}
 	}
 	
 	/**

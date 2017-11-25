@@ -70,6 +70,9 @@ public class GameTDG {
 		} catch (SQLException se) {
 			System.out.println("Failed to execute getGameByTitle query: " + se.getMessage());
 		}
+		finally {
+			DatabaseConnection.clearConnection();
+		}
 		return null;
 	}
 	

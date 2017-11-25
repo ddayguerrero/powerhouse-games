@@ -8,19 +8,15 @@ import org.soen387.domain.Game;
 
 public class ShoppingCart {
 	
-//	private static ShoppingCart instance = null;
-//	
-//	/**
-//	 * Singleton instance of a shopping cart
-//	 * @return
-//	 */
-//	public static ShoppingCart getInstance () {
-//		if (instance == null) {
-//			instance = new ShoppingCart();
-//		}
-//		return instance;
-//	}
-//	
+	private final BigDecimal TAXES = new BigDecimal("0.15");
+	private ArrayList<CartItem> items;
+	private int cartSize;
+	private int currentQuantity;
+	private BigDecimal subTotal;
+	private BigDecimal calculatedTaxes;
+	private BigDecimal grandTotal;
+	private boolean isCartEmpty;
+	
 	public ShoppingCart() {
 		super();
 		items = new ArrayList<CartItem>();
@@ -29,15 +25,6 @@ public class ShoppingCart {
 		cartSize = 0;
 		isCartEmpty = true;
 	}
-	
-	private ArrayList<CartItem> items;
-
-	private int cartSize;
-	private int currentQuantity;
-	private BigDecimal subTotal;
-	private BigDecimal calculatedTaxes;
-	private BigDecimal grandTotal;
-	private boolean isCartEmpty;
 	
 	public ArrayList<CartItem> getItems() {
 		return items;
@@ -63,6 +50,7 @@ public class ShoppingCart {
 		for (CartItem<?> i : items) {
 			amount = amount.add(i.getTotal());
 		}
+		amount.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		setSubTotal(amount);
 		return subTotal;
 	}
@@ -70,12 +58,16 @@ public class ShoppingCart {
 		this.subTotal = subTotal;
 	}
 	public BigDecimal getCalculatedTaxes() {
+		calculatedTaxes = getSubTotal().multiply(TAXES);
+		calculatedTaxes = calculatedTaxes.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		return calculatedTaxes;
 	}
 	public void setCalculatedTaxes(BigDecimal calculatedTaxes) {
 		this.calculatedTaxes = calculatedTaxes;
 	}
 	public BigDecimal getGrandTotal() {
+		grandTotal = getSubTotal().add(getCalculatedTaxes());
+		grandTotal = grandTotal.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		return grandTotal;
 	}
 	public void setGrandTotal(BigDecimal grandTotal) {
