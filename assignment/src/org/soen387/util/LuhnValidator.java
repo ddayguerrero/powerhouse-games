@@ -7,7 +7,7 @@ package org.soen387.util;
 public class LuhnValidator {
 
 	public static boolean isValid(String value) {
-		return luhnCheck(value.replaceAll("\\D", "")); // remove non-digits
+		return checkLunh(value.replaceAll("\\D", "")); // remove non-digits
 	}
 
 	/**
@@ -16,7 +16,7 @@ public class LuhnValidator {
 	 * @param cardNumber
 	 * @return is a valid credit card number
 	 */
-	private static boolean luhnCheck(String cardNumber) {
+	private static boolean checkLunh(String cardNumber) {
 		int sum = 0;
 
 		for (int i = cardNumber.length() - 1; i >= 0; i -= 2) {

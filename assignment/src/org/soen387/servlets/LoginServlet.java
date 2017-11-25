@@ -86,10 +86,11 @@ public class LoginServlet extends HttpServlet {
 		            		session.setMaxInactiveInterval(20*60); // session expires in 20 minutes
 		        			session.setAttribute("email", email);
 		        			session.setAttribute("firstname", user.getFirstName());
+		        			session.setAttribute("id", user.getUserid());
 		        			session.setAttribute("last_login", old_login.toString());
 		        			
 		        			ShoppingCart cart = new ShoppingCart();
-		        			if(session.getAttribute("cart") == null) {
+		        			if (session.getAttribute("cart") == null) {
 		        				session.setAttribute("cart", cart);
 		        			} else {
 		        				cart = (ShoppingCart) session.getAttribute("cart");

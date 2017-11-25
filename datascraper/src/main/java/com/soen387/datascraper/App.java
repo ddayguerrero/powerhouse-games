@@ -498,8 +498,8 @@ public class App {
 				"detail_id SERIAL NOT NULL PRIMARY KEY," +
 				"invoice_id INT REFERENCES Invoice(invoice_id)," +
 				"quantity TINYINT," +
-				"book_id INT REFERENCES Game(game_id)," +
-				"book_price DECIMAL(4,2)" +
+				"game_id INT REFERENCES Game(game_id)," +
+				"game_price DECIMAL(4,2)" +
 				");";
 		
 		try {
