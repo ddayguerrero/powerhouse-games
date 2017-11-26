@@ -489,9 +489,9 @@ public class App {
 				"invoice_id SERIAL NOT NULL PRIMARY KEY," +
 				"sale_date DATETIME," +
 				"client_id INT REFERENCES User(user_id)," +
-				"net_price DECIMAL(4,2)," +
-				"tax DECIMAL(4,2)," +
-				"total DECIMAL(4,2)" +
+				"net_price DECIMAL(8,2)," +
+				"tax DECIMAL(8,2)," +
+				"total DECIMAL(10,2)" +
 				");";
 		
 		String createInvoiceDetailsTableSQL = "CREATE TABLE IF NOT EXISTS Invoice_Details(" +

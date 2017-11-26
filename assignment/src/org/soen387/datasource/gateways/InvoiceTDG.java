@@ -48,10 +48,31 @@ public class InvoiceTDG {
 		} 
 		catch (SQLException se) {
 			System.out.println("Failed to execute insertInvoiceSql query: " + se.getMessage());
+		}
+		return result;
+	}
+	
+	/**
+	 * Fetch last inserted invoice ID
+	 * @return invoice ID
+	 * @throws SQLException
+	 */
+	public long fetchInvoiceId() throws SQLException{
+		final String selectLastInsertId = "SELECT LAST_INSERT_ID()";
+		
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(selectLastInsertId);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getLong("last_insert_id()");
+			}
+		}
+		catch (SQLException se) {
+			System.out.println("Failed to execute insertInvoiceSql query: " + se.getMessage());
 		} 
 		finally {
 			DatabaseConnection.clearConnection();
 		}
-		return result;
+		return 0;
 	}
 }
