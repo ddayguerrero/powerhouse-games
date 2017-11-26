@@ -43,9 +43,9 @@ public class UserService {
 	 * Fetch user by ID
 	 * @return
 	 */
-	public User fetchUser() {
-		// TODO
-		return null;
+	public User fetchUser(int userId) {
+		User user = UserTDG.getInstance().getUserById(userId);
+		return user != null ? user : null;
 	}
 	
 	/**

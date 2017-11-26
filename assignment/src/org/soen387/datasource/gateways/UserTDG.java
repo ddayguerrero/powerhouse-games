@@ -65,8 +65,13 @@ public class UserTDG {
 	
 	public ArrayList<User> getAllUsers() {
 		final String selectUserEmailQuery = "SELECT * FROM User;";
-		ResultSet resultSet = executeQuery(selectUserEmailQuery);
-		return userMapper.mapMultiple(resultSet);
+		try {
+			ResultSet resultSet = executeQuery(selectUserEmailQuery);
+			return userMapper.mapMultiple(resultSet);
+		}
+		finally {
+			DatabaseConnection.clearConnection();
+		}
 	}
 	
 	/**
@@ -102,6 +107,9 @@ public class UserTDG {
 			se.printStackTrace();
 			System.out.println("Failed to retrieve user: " + se.getMessage());
 			return null;
+		}
+		finally {
+			DatabaseConnection.clearConnection();
 		}
 	}
 	

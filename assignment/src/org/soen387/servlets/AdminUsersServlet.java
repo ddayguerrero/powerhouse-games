@@ -35,14 +35,18 @@ public class AdminUsersServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<User> users = UserService.getInstance().getAllUsers();
-		if (users != null) {
-			request.setAttribute("users", users);
-			request.getServletContext().getRequestDispatcher("/admin/users.jsp").forward(request, response);
-		} else {
-			System.out.println("Users not found");
-			return;
+		String pathInfo = request.getPathInfo();
+		if(pathInfo == null) {
+			ArrayList<User> users = UserService.getInstance().getAllUsers();
+			if (users != null) {
+				request.setAttribute("users", users);
+				request.getServletContext().getRequestDispatcher("/admin/users.jsp").forward(request, response);
+			} else {
+				System.out.println("Users not found");
+				return;
+			}
 		}
+		return;
 	}
 
 	/**
@@ -53,13 +57,15 @@ public class AdminUsersServlet extends HttpServlet {
 	}
 	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String searchType = request.getServletPath();
+		String searchType2 = request.getRequestURI();
 		Gson gson = new Gson();
         JsonParser parser = new JsonParser();
         JsonObject obj = (JsonObject) parser.parse(request.getReader());
         int locked = obj.get("locked").getAsInt();
-        System.out.println("locked:" + locked);
+        System.out.println("User locked: " + locked);
         int userId = Integer.parseInt(request.getPathInfo().substring(1));
-        System.out.println("id:" + userId);
+        System.out.println("User id: " + userId);
         User user = UserService.getInstance().updateUser(userId, locked); //TODO - Generic REST PUT
         response.setStatus(HttpServletResponse.SC_OK);
 	}

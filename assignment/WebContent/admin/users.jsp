@@ -26,6 +26,7 @@
 						<tr>
 							<th>#</th>
 							<th>Name</th>
+							<th>Email</th>
 							<th>Last Login</th>
 							<th>Purchase History</th>
 							<th>Status</th>
@@ -36,8 +37,9 @@
 							<tr>
 								<td>${user.userid}</td>
 								<td>${user.firstName} ${user.lastName}</td>
+								<td>${user.email}</td>
 								<td>${user.lastLogin}</td>
-								<td>Orders</td>
+								<td><a href="/app/admin/invoice?user=<c:out value="${user.userid}"/>">Orders</a></td>
 								<td>
 									<c:choose>
 										<c:when test="${user.locked}">

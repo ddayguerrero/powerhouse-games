@@ -1,7 +1,12 @@
 package org.soen387.services;
 
+import java.util.ArrayList;
+
 import org.soen387.datasource.gateways.AdminTDG;
+import org.soen387.datasource.gateways.InvoiceTDG;
 import org.soen387.domain.Admin;
+import org.soen387.domain.Invoice;
+import org.soen387.domain.User;
 
 public class AdminService {
 
@@ -23,6 +28,15 @@ public class AdminService {
 		} else {
 			return null;
 		}
+	}
+	
+	/**
+	 * Initiate call to retrieve all user invoices
+	 * @param user
+	 * @return Invoices
+	 */
+	public ArrayList<Invoice> getUserOrders(User user) {
+		return InvoiceTDG.getInstance().getAllUserInvoices(user.getUserid());
 	}
 	
 	/**

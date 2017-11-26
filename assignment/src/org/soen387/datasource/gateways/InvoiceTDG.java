@@ -9,15 +9,19 @@ import java.util.Calendar;
 
 import org.soen387.business.ShoppingCart;
 import org.soen387.datasource.DatabaseConnection;
+import org.soen387.datasource.mappers.AdminMapper;
+import org.soen387.datasource.mappers.InvoiceMapper;
 import org.soen387.domain.Game;
+import org.soen387.domain.Invoice;
 import org.soen387.domain.User;
 
 public class InvoiceTDG {
 
 	private static InvoiceTDG instance = null;
-
+	private InvoiceMapper invoiceMapper;
+	
 	private InvoiceTDG() {
-		
+		this.invoiceMapper = new InvoiceMapper();
 	}
 	
 	public static InvoiceTDG getInstance() {
@@ -25,6 +29,27 @@ public class InvoiceTDG {
 			instance = new InvoiceTDG();
 		}
 		return instance;
+	}
+	/**
+	 * Get all invoices for user
+	 * @param id - User id
+	 * @return User invoices
+	 */
+	public ArrayList<Invoice> getAllUserInvoices(int id){
+		final String preparedQuery = "SELECT * FROM Invoice WHERE client_id = ?";
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(preparedQuery);
+			ps.setInt(1, id);
+			ResultSet resultSet = ps.executeQuery();
+			return invoiceMapper.mapMultiple(resultSet);
+		}
+		catch (SQLException se) {
+			System.out.println("Failed to execute getAllUserInvoices query: " + se.getMessage());
+		}
+		finally {
+			DatabaseConnection.clearConnection();
+		}
+		return null;
 	}
 	
 	/**
