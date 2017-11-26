@@ -40,7 +40,7 @@
 								<td>${invoice.subTotal}</td>
 								<td>${invoice.tax}</td>
 								<td>${invoice.total}</td>
-								<td>View</td>
+								<td><a class="viewDetails" href="" data-href="/app/admin/details?invoice=<c:out value="${invoice.id}"/>">View</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -50,4 +50,24 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".viewDetails").click(function(e) {
+			e.preventDefault();
+			var href = e.target.dataset.href;
+			console.log(href);
+			$.ajax({
+				url : href,
+				contentType : 'application/json',
+				type : "GET",
+				success : function() {
+					console.log('get success');
+				},
+				error : function(e) {
+					alert(JSON.stringify(e))
+				}
+			});
+		});
+	});
+</script>
 </html>

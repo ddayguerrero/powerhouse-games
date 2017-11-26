@@ -1,21 +1,21 @@
 package org.soen387.datasource.gateways;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Calendar;
-
-import org.soen387.business.ShoppingCart;
+import java.util.ArrayList;
 import org.soen387.datasource.DatabaseConnection;
+import org.soen387.datasource.mappers.InvoiceDetailsMapper;
 import org.soen387.domain.CartItem;
 import org.soen387.domain.Game;
-import org.soen387.domain.User;
+import org.soen387.domain.InvoiceDetails;
 
 public class InvoiceDetailsTDG {
 	private static InvoiceDetailsTDG instance = null;
+	private InvoiceDetailsMapper invoiceDetailsMapper;
 
 	private InvoiceDetailsTDG() {
-		
+		this.invoiceDetailsMapper = new InvoiceDetailsMapper();
 	}
 	
 	public static InvoiceDetailsTDG getInstance() {
@@ -24,6 +24,32 @@ public class InvoiceDetailsTDG {
 		}
 		return instance;
 	}
+	/**
+	 * Get details for existing invoice
+	 * @param invoiceId
+	 * @return
+	 */
+	public ArrayList<InvoiceDetails> getInvoiceDetails(int invoiceId) {
+//		final String getInvoiceDetailsSql = "SELECT INVOICE_ID, QUANTITY, invoice_details.GAME_ID, GAME_PRICE,"
+//				+ "game.TITLE FROM Invoice_Details JOIN Game USING(GAME_ID) WHERE INVOICE_ID = ?";
+		
+		final String getInvoiceDetailsSql = "SELECT invoice_id, quantity, game_id, game_price"
+				+ " FROM Invoice_Details LEFT JOIN Game ON Invoice_Details.game_id = Game.game_id WHERE invoice_id = ?;";
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(getInvoiceDetailsSql);
+			ps.setInt(1, invoiceId);
+			ResultSet rs = ps.executeQuery();
+			return invoiceDetailsMapper.mapMultiple(rs);
+		}
+		catch (SQLException se) {
+			System.out.println("Failed to execute getAllUserInvoices query: " + se.getMessage());
+		}
+		finally {
+			DatabaseConnection.clearConnection();
+		}
+		return null;
+	}
+	
 	
 	/**
 	 * Insert invoice details for existing invoice

@@ -11,8 +11,10 @@ import org.soen387.business.ShoppingCart;
 import org.soen387.datasource.DatabaseConnection;
 import org.soen387.datasource.mappers.AdminMapper;
 import org.soen387.datasource.mappers.InvoiceMapper;
+import org.soen387.domain.CartItem;
 import org.soen387.domain.Game;
 import org.soen387.domain.Invoice;
+import org.soen387.domain.InvoiceDetails;
 import org.soen387.domain.User;
 
 public class InvoiceTDG {
@@ -36,9 +38,9 @@ public class InvoiceTDG {
 	 * @return User invoices
 	 */
 	public ArrayList<Invoice> getAllUserInvoices(int id){
-		final String preparedQuery = "SELECT * FROM Invoice WHERE client_id = ?";
+		final String getUserInvoicesSql = "SELECT * FROM Invoice WHERE client_id = ?";
 		try {
-			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(preparedQuery);
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(getUserInvoicesSql);
 			ps.setInt(1, id);
 			ResultSet resultSet = ps.executeQuery();
 			return invoiceMapper.mapMultiple(resultSet);

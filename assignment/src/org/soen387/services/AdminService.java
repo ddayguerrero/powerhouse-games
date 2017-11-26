@@ -3,9 +3,11 @@ package org.soen387.services;
 import java.util.ArrayList;
 
 import org.soen387.datasource.gateways.AdminTDG;
+import org.soen387.datasource.gateways.InvoiceDetailsTDG;
 import org.soen387.datasource.gateways.InvoiceTDG;
 import org.soen387.domain.Admin;
 import org.soen387.domain.Invoice;
+import org.soen387.domain.InvoiceDetails;
 import org.soen387.domain.User;
 
 public class AdminService {
@@ -37,6 +39,15 @@ public class AdminService {
 	 */
 	public ArrayList<Invoice> getUserOrders(User user) {
 		return InvoiceTDG.getInstance().getAllUserInvoices(user.getUserid());
+	}
+	
+	/**
+	 * Initiate call to retrieve invoice details
+	 * @param invoiceId
+	 * @return
+	 */
+	public ArrayList<InvoiceDetails> getOrderDetails(int invoiceId) {
+		return InvoiceDetailsTDG.getInstance().getInvoiceDetails(invoiceId);
 	}
 	
 	/**
