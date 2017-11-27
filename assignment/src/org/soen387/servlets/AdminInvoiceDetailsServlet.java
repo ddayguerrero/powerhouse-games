@@ -16,6 +16,8 @@ import org.soen387.domain.InvoiceDetails;
 import org.soen387.services.AdminService;
 import org.soen387.util.URLEncodedUtils;
 
+import com.google.gson.Gson;
+
 /**
  * Servlet implementation class AdminInvoiceDetailsServlet
  */
@@ -42,7 +44,11 @@ public class AdminInvoiceDetailsServlet extends HttpServlet {
 	    
 	    ArrayList<InvoiceDetails> invoices = AdminService.getInstance().getOrderDetails(invoiceId);
 		System.out.println("INVOICE DETAILS: " + invoices.size());
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setStatus(HttpServletResponse.SC_OK);
+		response.setContentType("application/json");
+		Gson gson = new Gson();
+		String json = gson.toJson(invoices);
+		response.getWriter().write(json);
 	}
 
 	/**

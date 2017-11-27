@@ -33,7 +33,7 @@ public class InvoiceDetailsTDG {
 //		final String getInvoiceDetailsSql = "SELECT INVOICE_ID, QUANTITY, invoice_details.GAME_ID, GAME_PRICE,"
 //				+ "game.TITLE FROM Invoice_Details JOIN Game USING(GAME_ID) WHERE INVOICE_ID = ?";
 		
-		final String getInvoiceDetailsSql = "SELECT invoice_id, quantity, game_id, game_price"
+		final String getInvoiceDetailsSql = "SELECT invoice_id, quantity, Invoice_Details.game_id, game_price"
 				+ " FROM Invoice_Details LEFT JOIN Game ON Invoice_Details.game_id = Game.game_id WHERE invoice_id = ?;";
 		try {
 			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(getInvoiceDetailsSql);
@@ -42,7 +42,7 @@ public class InvoiceDetailsTDG {
 			return invoiceDetailsMapper.mapMultiple(rs);
 		}
 		catch (SQLException se) {
-			System.out.println("Failed to execute getAllUserInvoices query: " + se.getMessage());
+			System.out.println("Failed to execute getInvoiceDetails query: " + se.getMessage());
 		}
 		finally {
 			DatabaseConnection.clearConnection();

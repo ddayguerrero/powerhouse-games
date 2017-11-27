@@ -1,12 +1,14 @@
 package org.soen387.domain;
 
+import java.math.BigDecimal;
+
 public class InvoiceDetails {
 
 	private int id;
 	private int invoiceId;
 	private int quantity;
 	private int gameId;
-	private int gamePrice;
+	private BigDecimal gamePrice;
 	
 	public int getId() {
 		return id;
@@ -32,10 +34,10 @@ public class InvoiceDetails {
 	public void setGameId(int gameId) {
 		this.gameId = gameId;
 	}
-	public int getGamePrice() {
+	public BigDecimal getGamePrice() {
 		return gamePrice;
 	}
-	public void setGamePrice(int gamePrice) {
+	public void setGamePrice(BigDecimal gamePrice) {
 		this.gamePrice = gamePrice;
 	}
 	

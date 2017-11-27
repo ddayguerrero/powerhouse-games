@@ -27,7 +27,7 @@ public class InvoiceDetailsMapper implements DataMapper<InvoiceDetails>{
 					detail.setInvoiceId(set.getInt("invoice_id"));
 					detail.setQuantity(set.getInt("quantity"));
 					detail.setGameId(set.getInt("game_id"));
-					detail.setGamePrice(set.getInt("game_price"));
+					detail.setGamePrice(set.getBigDecimal("game_price"));
 					details.add(detail);
 				}
 			} catch (SQLException se) {
