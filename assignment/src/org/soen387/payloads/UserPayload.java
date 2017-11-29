@@ -1,8 +1,8 @@
-package org.soen387.beans;
+package org.soen387.payloads;
 
 import java.io.Serializable;
 
-public class UserBean implements Serializable{
+public class UserPayload implements Serializable{
 	
 	private static final long serialVersionUID = 5829570767860026447L;
 	
@@ -17,11 +17,11 @@ public class UserBean implements Serializable{
 	private String postalCode;
 	private String country;
 	
-	public UserBean(String first_name, String last_name, String email, String password, String address1,
+	public UserPayload(String fname, String lname, String email, String password, String address1,
 			String address2, String city, String province, String postal_code, String country) {
 		super();
-		this.firstName = first_name;
-		this.lastName = last_name;
+		this.firstName = fname;
+		this.lastName = lname;
 		this.email = email;
 		this.password = password;
 		this.address1 = address1;
@@ -32,6 +32,19 @@ public class UserBean implements Serializable{
 		this.country = country;
 	}
 	
+	public UserPayload(String fname, String lname, String email, String address1, String address2, String city,
+			String province, String postalCode, String country) {
+		this.firstName = fname;
+		this.lastName = lname;
+		this.email = email;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.city = city;
+		this.province = province;
+		this.postalCode = postalCode;
+		this.country = country;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}

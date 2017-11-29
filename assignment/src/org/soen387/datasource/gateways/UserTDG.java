@@ -9,10 +9,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import org.soen387.beans.UserBean;
 import org.soen387.datasource.DatabaseConnection;
 import org.soen387.datasource.mappers.UserMapper;
 import org.soen387.domain.User;
+import org.soen387.payloads.UserPayload;
 
 public class UserTDG {
 
@@ -35,7 +35,7 @@ public class UserTDG {
 	 * @param newUser - New User
 	 * @return 1 success or -1 failure
 	 */
-	public int createUser(UserBean newUser) {
+	public int createUser(UserPayload newUser) {
 		final String insertUserQuery = "INSERT INTO User " +
 				"(password, firstname, lastname, email, address1, address2," +
 				"city, postalcode, province, country, last_login) " +
@@ -223,6 +223,33 @@ public class UserTDG {
 			System.out.println("Failed to lock user: " + se.getMessage());
 		}
 		return null;
+	}
+	
+	/**
+	 * Update User Profile
+	 * @param id - User Id
+	 * @param updatedUserInfo - New user information
+	 */
+	public void updateUserProfile(int id, UserPayload userInfo) {
+		final String updateUserProfileQuery = "UPDATE user SET firstname = ?, lastname = ?, email = ?, address1 = ?, address2 = ?, city = ?, province = ?, postalcode = ?, country = ? WHERE user_id = ?";
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(updateUserProfileQuery);
+			ps.setString(1, userInfo.getFirstName());
+			ps.setString(2, userInfo.getLastName());
+			ps.setString(3, userInfo.getEmail());
+			ps.setString(4, userInfo.getAddress1());
+			ps.setString(5, userInfo.getAddress2());
+			ps.setString(6, userInfo.getCity());
+			ps.setString(7, userInfo.getProvince());
+			ps.setString(8, userInfo.getPostalCode());
+			ps.setString(9, userInfo.getCountry());
+			ps.setInt(10, id);
+			int rs = ps.executeUpdate();
+		} catch(SQLException e){
+			System.out.println("Failed to update user: " + e.getMessage());
+        } finally {
+        		DatabaseConnection.clearConnection();
+        }
 	}
 	
 	protected ResultSet executeQuery(String query) {

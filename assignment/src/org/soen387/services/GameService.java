@@ -2,10 +2,10 @@ package org.soen387.services;
 
 import java.util.ArrayList;
 
-import org.soen387.beans.AdvancedSearchBean;
-import org.soen387.beans.GamePayload;
 import org.soen387.datasource.gateways.GameTDG;
 import org.soen387.domain.Game;
+import org.soen387.payloads.AdvancedSearchPayload;
+import org.soen387.payloads.GamePayload;
 
 /**
  * Service used to access defined Game models
@@ -41,7 +41,7 @@ public class GameService {
 	 * @param advSearchBean - Search query
 	 * @return list of Games
 	 */
-	public ArrayList<Game> getGames(AdvancedSearchBean advSearchBean) {
+	public ArrayList<Game> getGames(AdvancedSearchPayload advSearchBean) {
 		System.out.println("Getting games via advanced search...");
 		return GameTDG.getInstance().getGamesByAdvanced(advSearchBean);
 	}

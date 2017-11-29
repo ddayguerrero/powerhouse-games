@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.soen387.beans.AdvancedSearchBean;
 import org.soen387.domain.Game;
+import org.soen387.payloads.AdvancedSearchPayload;
 import org.soen387.services.GameService;
 
 /**
@@ -55,7 +55,7 @@ public class GameServlet extends HttpServlet {
 			}
 		} else if(searchType.equals(this.advancedSearchPath)) {
 			System.out.println("Process advanced search");
-			AdvancedSearchBean advSearchBean = new AdvancedSearchBean(title, console, year, publisher, genre);
+			AdvancedSearchPayload advSearchBean = new AdvancedSearchPayload(title, console, year, publisher, genre);
 			processAdvancedSearch(request, response, advSearchBean);
 		}
 
@@ -67,7 +67,7 @@ public class GameServlet extends HttpServlet {
 	 * @throws IOException 
 	 * @throws ServletException 
 	 */
-	private void processAdvancedSearch(HttpServletRequest request, HttpServletResponse response, AdvancedSearchBean advSearchBean) throws ServletException, IOException {
+	private void processAdvancedSearch(HttpServletRequest request, HttpServletResponse response, AdvancedSearchPayload advSearchBean) throws ServletException, IOException {
 		ArrayList<Game> games = GameService.getInstance().getGames(advSearchBean);
 		if (games != null) {
 			request.setAttribute("games", games);

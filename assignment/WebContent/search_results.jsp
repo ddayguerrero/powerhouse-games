@@ -55,7 +55,7 @@
 										</div>
 										<button type="submit" class="btn btn-primary">Add To Cart</button>
 										</form>
-										<form action="favorites" method="post">
+										<form action="${pageContext.request.contextPath}/favorites" method="post">
 			                                <input type="hidden" name="gameId" value="${game.gameid}" />
 			                                <input type="hidden" name="remove" value="false" />
 			                                <input type="submit" class="btn btn-secondary" value="Add To Favorites" />

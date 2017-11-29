@@ -11,12 +11,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.soen387.beans.AdvancedSearchBean;
-import org.soen387.beans.GamePayload;
 import org.soen387.datasource.DatabaseConnection;
 import org.soen387.datasource.DatabaseQueryBuilder;
 import org.soen387.datasource.mappers.GameMapper;
 import org.soen387.domain.Game;
+import org.soen387.payloads.AdvancedSearchPayload;
+import org.soen387.payloads.GamePayload;
 
 /**
  * Game Table Data Gateway
@@ -101,7 +101,7 @@ public class GameTDG {
 	 * @param advSearchBean - Custom search query
 	 * @return Matching games
 	 */
-	public ArrayList<Game> getGamesByAdvanced(AdvancedSearchBean advSearchBean) {
+	public ArrayList<Game> getGamesByAdvanced(AdvancedSearchPayload advSearchBean) {
 		try {
 			Map<String, Object> params = new HashMap<>();
 			if(!advSearchBean.getTitle().isEmpty()) {

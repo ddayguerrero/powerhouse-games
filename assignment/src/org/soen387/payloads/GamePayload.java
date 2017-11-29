@@ -1,4 +1,4 @@
-package org.soen387.beans;
+package org.soen387.payloads;
 
 import java.math.BigDecimal;
 import java.sql.Date;

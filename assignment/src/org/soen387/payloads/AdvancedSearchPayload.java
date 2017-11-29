@@ -1,8 +1,8 @@
-package org.soen387.beans;
+package org.soen387.payloads;
 
 import java.io.Serializable;
 
-public class AdvancedSearchBean implements Serializable{
+public class AdvancedSearchPayload implements Serializable{
 
 	private static final long serialVersionUID = -6687987549363966472L;
 	
@@ -12,7 +12,7 @@ public class AdvancedSearchBean implements Serializable{
 	private String publisher;
 	private String genre;
 	
-	public AdvancedSearchBean(String title, String console, String year, String publisher, String genre) {
+	public AdvancedSearchPayload(String title, String console, String year, String publisher, String genre) {
 		super();
 		this.title = title;
 		this.console = console;

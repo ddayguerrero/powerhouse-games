@@ -1,6 +1,5 @@
 package org.soen387.domain;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class User {

@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.soen387.beans.GamePayload;
 import org.soen387.domain.Game;
+import org.soen387.payloads.GamePayload;
 import org.soen387.services.GameService;
 import org.soen387.services.UserService;
 
