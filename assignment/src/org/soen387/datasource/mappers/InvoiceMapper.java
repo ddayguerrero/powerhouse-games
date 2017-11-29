@@ -27,7 +27,7 @@ public class InvoiceMapper implements DataMapper<Invoice> {
 					final Invoice invoice = new Invoice();
 					invoice.setId(set.getInt("invoice_id"));
 					invoice.setDate(set.getTimestamp("sale_date"));
-					invoice.setId(set.getInt("client_id"));
+					invoice.setClientId(set.getInt("client_id"));
 					invoice.setSubTotal(set.getBigDecimal("net_price"));
 					invoice.setTax(set.getBigDecimal("tax"));
 					invoice.setTotal(set.getBigDecimal("total"));

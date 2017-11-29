@@ -1,6 +1,9 @@
 package org.soen387.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,10 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.soen387.business.ShoppingCart;
+import org.soen387.datasource.gateways.InvoiceDetailsTDG;
+import org.soen387.domain.CartItem;
+import org.soen387.domain.Game;
 import org.soen387.domain.User;
 import org.soen387.services.CheckoutService;
 import org.soen387.services.UserService;
+import org.soen387.util.Generator;
 import org.soen387.util.LuhnValidator;
+import org.soen387.util.Mailer;
 
 /**
  * Servlet implementation class CheckoutServlet
@@ -37,8 +45,6 @@ public class CheckoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		ShoppingCart cart = new ShoppingCart();
 		if(session.getAttribute("cart") == null) {
@@ -79,10 +85,44 @@ public class CheckoutServlet extends HttpServlet {
 			} else {
 				cart = (ShoppingCart) session.getAttribute("cart");
 			}
+			// Create Invoice
 			User user = UserService.getInstance().findByEmail((String)session.getAttribute("email"));
 			int result = CheckoutService.getInstance().createInvoice(user, cart);
+			
+			// Send Invoice Email
+			String recipient = user.getEmail();
+			Timestamp dateOfSale = new Timestamp(System.currentTimeMillis());
+	        String subject = "Thank you for ordering from Power House Games!";	        
+	        StringWriter stringWriter = new StringWriter();
+	        PrintWriter writer = new PrintWriter(stringWriter, true);
+	        writer.println("Hi " + user.getFirstName() + ",");
+	        writer.println("Your order was successfully received and we're processing it for you right now!");
+	        writer.println("");
+	        writer.println("Order Details");
+	        writer.println("Time: " + dateOfSale);
+	        writer.println("");
+	        writer.println("Title ========== Console ========== Quantity ========== Total");
+	        for (CartItem<?> item: cart.getItems()) {
+	        		Game game = (Game)item.getItem();
+	        		writer.println(game.getGameTitle() + "          " + game.getConsole() + "           " + item.getQuantity() + "           " + item.getTotal());
+			}
+	        writer.println("");
+	        writer.println("Sub-total: " + cart.getSubTotal());
+	        writer.println("Taxes: " +cart.getCalculatedTaxes());
+	        writer.println("Grand Total: " +cart.getGrandTotal());
+	        String content = stringWriter.toString();
+	        
+	        try {
+	            Mailer.sendEmail(recipient, subject, content);
+	        } catch (Exception ex) {
+	            System.out.println("Error in sending email: " + ex.getMessage());
+	        }
+	        
+	        cart.emptyCart();
+	        session.setAttribute("cart", cart);
 			//Post / Redirect / Get
 			response.setStatus(HttpServletResponse.SC_SEE_OTHER);
+			request.getRequestDispatcher("search.jsp").forward(request, response);
 		} else {
 			messages.put("error", "Expired Card or Invalid Payment Info");
 			request.setAttribute("messages", messages);

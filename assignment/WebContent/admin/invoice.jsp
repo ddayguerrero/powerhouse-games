@@ -84,7 +84,6 @@
 		$(".viewDetails").click(function(e) {
 			e.preventDefault();
 			var href = e.target.dataset.href;
-			console.log(href);
 			$("#invoiceDetailsBody").empty();
 			$.ajax({
 				url : href,
