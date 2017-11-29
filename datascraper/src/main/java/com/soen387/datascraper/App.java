@@ -502,6 +502,12 @@ public class App {
 				"game_price DECIMAL(4,2)" +
 				");";
 		
+		String createFavoritesTableSQL = "CREATE TABLE IF NOT EXISTS Favorites(" +
+				"user_id INT NOT NULL REFERENCES User(user_id), " +
+				"game_id INT NOT NULL REFERENCES Game(game_id), " +
+				"PRIMARY KEY (user_id, game_id)" +
+				");";
+		
 		try {
 			dbConnection = getDBConnection();
 			statement = dbConnection.createStatement();
@@ -517,6 +523,8 @@ public class App {
 			System.out.println("Table INVOICE is created!");
 			statement.execute(createInvoiceDetailsTableSQL);
 			System.out.println("Table INVOICE_DETAILS is created!");
+			statement.execute(createFavoritesTableSQL);
+			System.out.println("Table FAVORITES is created!");
 
 		} catch (SQLException e) {
 

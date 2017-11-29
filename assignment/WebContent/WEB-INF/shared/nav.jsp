@@ -13,6 +13,7 @@
 			<li class="nav-item"><a class="nav-link" href="/app/search.jsp">Search</a></li>
 			<% if(session != null && session.getAttribute("email") != null) { %>
 			<li class="nav-item"><a class="nav-link" href="/app/specials">Specials</a></li>
+			<li class="nav-item"><a class="nav-link" href="/app/favorites">Favorites</a></li>
 			<% } %>
 		</ul>
 		<ul class="navbar-nav">

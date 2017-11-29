@@ -25,15 +25,21 @@
 						<h3 class="card-title">$ ${game.price}</h3>
 						<h6 class="card-subtitle mb-2 text-muted">${game.console}</h6>
 						<p class="card-text">
-						<ul class="list-unstyled">
-							<li><span>Number of Players:</span> ${game.numPlayers}</li>
-							<li><span>Co-op:</span> <c:out default="None"
-									escapeXml="true" value="${game.coop?'Yes':'No'}" /></li>
-							<li><span>Release Date:</span> ${game.release_date}</li>
-							<li><span>Genre:</span> ${game.genre}</li>
-							<li><span>Publisher:</span> ${game.publisher}</li>
-						</ul>
+							<ul class="list-unstyled">
+								<li><span>Number of Players:</span> ${game.numPlayers}</li>
+								<li><span>Co-op:</span> <c:out default="None"
+										escapeXml="true" value="${game.coop?'Yes':'No'}" /></li>
+								<li><span>Release Date:</span> ${game.release_date}</li>
+								<li><span>Genre:</span> ${game.genre}</li>
+								<li><span>Publisher:</span> ${game.publisher}</li>
+							</ul>
 						</p>
+							<form action="favorites" method="post">
+                                <input type="hidden" name="gameId" value="${game.gameid}" />
+                                <input type="hidden" name="remove" value="false" />
+                                <input type="submit" class="btn btn-primary" value="Add To Favorites" />
+                            </form><%-- 
+							<input type="hidden" name="gameId" value="${game.gameid}"> --%>
 						<a href="#" class="btn btn-primary">Add to Cart</a>
 					</div>
 				</div>

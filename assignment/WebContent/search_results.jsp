@@ -22,7 +22,6 @@
 				<li class="media"><img class="mr-3" height="150" height="170"
 					src="${game.front_box_art}" alt="Generic placeholder image">
 					<div class="media-body">
-						<form action="${pageContext.request.contextPath}/cart" method="post">
 							<div class="container">
 								<div class="row">
 									<div class="col col-md-6">
@@ -34,6 +33,7 @@
 										<h3 class=".text-primary"> $${game.price} </h3>
 									</div>
 									<div class="col col-md-6">
+										<form action="${pageContext.request.contextPath}/cart" method="post">
 										<div class="rating-block">
 											Rating
 											<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
@@ -54,10 +54,15 @@
 											<input type="hidden" name="gameId" value="${game.gameid}">
 										</div>
 										<button type="submit" class="btn btn-primary">Add To Cart</button>
+										</form>
+										<form action="favorites" method="post">
+			                                <input type="hidden" name="gameId" value="${game.gameid}" />
+			                                <input type="hidden" name="remove" value="false" />
+			                                <input type="submit" class="btn btn-secondary" value="Add To Favorites" />
+			                            </form>
 									</div>
 								</div>
-							</div>	
-						</form>
+							</div>
 					</div>
 				</li>
 			</c:forEach>

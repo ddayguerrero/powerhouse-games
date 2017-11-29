@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import org.soen387.beans.UserBean;
+import org.soen387.datasource.gateways.FavoritesTDG;
 import org.soen387.datasource.gateways.UserTDG;
 import org.soen387.domain.User;
 
@@ -112,6 +113,24 @@ public class UserService {
 	}
 	
 	/**
+	 * Mark game as favorite for user
+	 * @param userid - User Id
+	 * @param gameId - Game Id
+	 */
+	public void addFavorite(int userId, String gameId) {
+		FavoritesTDG.getInstance().addToFavorites(userId, gameId);
+	}
+	
+	/**
+	 * Remove game as favorite for user
+	 * @param userid - User Id
+	 * @param gameId - Game Id
+	 */
+	public void removeFavorite(int userId, String gameId) {
+		FavoritesTDG.getInstance().removeFromFavorites(userId, gameId);
+	}
+	
+	/**
 	 * Update last login of user
 	 * @param user - User
 	 * @param lastLogin - Timestamp
@@ -133,5 +152,7 @@ public class UserService {
 		}
 		return instance;
 	}
+
+
 
 }

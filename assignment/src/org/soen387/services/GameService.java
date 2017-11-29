@@ -22,6 +22,7 @@ public class GameService {
 	 * Initiates call to retrieve a list of all game inventory
 	 */
 	public ArrayList<Game> getAllGames() {
+		System.out.println("Getting all games...");
 		return GameTDG.getInstance().getAllGames();
 	}
 	
@@ -31,6 +32,7 @@ public class GameService {
 	 * @return list of Games
 	 */
 	public ArrayList<Game> getGamesByTitle(String title) {
+		System.out.println("Getting games by title...");
 		return GameTDG.getInstance().getGamesByTitle(title);
 	}
 	
@@ -40,6 +42,7 @@ public class GameService {
 	 * @return list of Games
 	 */
 	public ArrayList<Game> getGames(AdvancedSearchBean advSearchBean) {
+		System.out.println("Getting games via advanced search...");
 		return GameTDG.getInstance().getGamesByAdvanced(advSearchBean);
 	}
 	
@@ -49,7 +52,7 @@ public class GameService {
 	 * @return list of discounted Games
 	 */
 	public ArrayList<Game> getDiscountedGames() {
-		System.out.println("Getting games...");
+		System.out.println("Getting discounted games...");
 		return GameTDG.getInstance().getDiscountedGames();
 	}
 	
