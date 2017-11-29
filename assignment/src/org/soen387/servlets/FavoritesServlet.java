@@ -1,6 +1,8 @@
 package org.soen387.servlets;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.soen387.domain.Game;
 import org.soen387.domain.User;
 import org.soen387.services.UserService;
 
@@ -30,7 +33,10 @@ public class FavoritesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = UserService.getInstance().findByEmail((String)request.getSession().getAttribute("email"));
 		response.setContentType("text/html");
+		List<Game> favorites = UserService.getInstance().getFavorites(user.getUserid());
+        request.setAttribute("favorites", favorites);
         request.getRequestDispatcher("/profile.jsp").forward(request, response);
 	}
 
@@ -49,6 +55,8 @@ public class FavoritesServlet extends HttpServlet {
         		UserService.getInstance().addFavorite(user.getUserid(), gameId);
         }
         response.setContentType("text/html");
+        List<Game> favorites = UserService.getInstance().getFavorites(user.getUserid());
+        request.setAttribute("favorites", favorites);
         request.getRequestDispatcher("/profile.jsp").forward(request, response);
 	}
 

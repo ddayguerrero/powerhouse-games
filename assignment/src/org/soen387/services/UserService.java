@@ -2,10 +2,12 @@ package org.soen387.services;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.soen387.beans.UserBean;
 import org.soen387.datasource.gateways.FavoritesTDG;
 import org.soen387.datasource.gateways.UserTDG;
+import org.soen387.domain.Game;
 import org.soen387.domain.User;
 
 /**
@@ -130,6 +132,10 @@ public class UserService {
 		FavoritesTDG.getInstance().removeFromFavorites(userId, gameId);
 	}
 	
+	public List<Game> getFavorites(int userId) {
+		return FavoritesTDG.getInstance().getUserFavoriteGames(userId);
+	}
+	
 	/**
 	 * Update last login of user
 	 * @param user - User
@@ -152,7 +158,4 @@ public class UserService {
 		}
 		return instance;
 	}
-
-
-
 }
