@@ -58,10 +58,12 @@
 				</table>
 				<c:choose>
 					<c:when test="${cart.getCartSize() > 0}">
-						<a role="button" class="btn btn-primary btn-lg" href="/app/checkout.jsp"> Go To Checkout</a>
+						<a role="button" class="btn btn-primary btn-md" href="/app/checkout.jsp"> Go To Checkout</a>
+						<a id="emptyCart" role="button" class="btn btn-warning btn-md" href=""> Empty Cart</a>
 					</c:when>
 					<c:otherwise>
-						<a role="button" class="btn btn-primary btn-lg disabled" href="/app/checkout"> Go To Checkout</a>
+						<a role="button" class="btn btn-primary btn-md disabled" href="/app/checkout"> Go To Checkout</a>
+						<a id="emptyCart" role="button" class="btn btn-warning btn-md disabled" href=""> Empty Cart</a>
 					</c:otherwise> 
 				</c:choose>
 			</div>			
@@ -106,6 +108,24 @@
 				}),
 				success : function() {
 					console.log('update success');
+					window.location = "/app/cart";
+				},
+				error : function(e) {
+					alert(JSON.stringify(e))
+				}
+			});
+		});
+		
+		$("#emptyCart").click(function(e) {
+			e.preventDefault();
+			console.log("emptying..");
+			$.ajax({
+				url : "/app/cart",
+				type : "DELETE",
+				contentType : 'application/json',
+				data : JSON.stringify({}),
+				success : function() {
+					console.log('empty cart success');
 					window.location = "/app/cart";
 				},
 				error : function(e) {

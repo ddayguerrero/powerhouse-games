@@ -24,6 +24,7 @@ import com.google.gson.JsonParser;
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	 private final String itemPath = "/cart/item";
+	 private final String cartPath = "/cart";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -96,22 +97,28 @@ public class CartServlet extends HttpServlet {
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchType = request.getServletPath();
+		System.out.println(searchType);
+		
+		ShoppingCart cart = new ShoppingCart();
+        HttpSession session = request.getSession();
+        if(session.getAttribute("cart") == null) {
+			session.setAttribute("cart", cart);
+		} else {
+			cart = (ShoppingCart) session.getAttribute("cart");
+		}
+		
 		if (searchType.equals(this.itemPath)) {
-			Gson gson = new Gson();
 	        JsonParser parser = new JsonParser();
 	        JsonObject obj = (JsonObject) parser.parse(request.getReader());
 	        int gameId = obj.get("itemId").getAsInt();
 	        System.out.println("item id to delete: " + gameId);
-	        
-	        ShoppingCart cart = new ShoppingCart();
-	        HttpSession session = request.getSession();
-	        if(session.getAttribute("cart") == null) {
-				session.setAttribute("cart", cart);
-			} else {
-				cart = (ShoppingCart) session.getAttribute("cart");
-			}
+
 	        cart.removeFromCart(gameId);
 	        response.setStatus(HttpServletResponse.SC_OK);
+		} else if(searchType.equals(this.cartPath)) {
+			System.out.println("Emptying cart...");
+			cart.emptyCart();
+			response.setStatus(HttpServletResponse.SC_OK);
 		}
 	}
 

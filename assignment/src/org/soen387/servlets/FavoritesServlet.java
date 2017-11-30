@@ -58,6 +58,7 @@ public class FavoritesServlet extends HttpServlet {
         response.setContentType("text/html");
         List<Game> favorites = UserService.getInstance().getFavorites(user.getUserid());
         request.setAttribute("favorites", favorites);
+        request.setAttribute("user", user);
         request.getRequestDispatcher("/profile.jsp").forward(request, response);
 	}
 

@@ -37,9 +37,10 @@
 		</ul>
 	</div>
 </nav>
-				<c:forEach items="${sessionScope}" var="attr">
+			<c:forEach items="${sessionScope}" var="attr">
 			    ${attr.key}=${attr.value}<br>
 			</c:forEach>
+			
 <script type="text/javascript" >
 $(document).ready(function() {
     $("#nav-logout").click(function(e) {
