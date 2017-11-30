@@ -34,12 +34,13 @@
 								<li><span>Publisher:</span> ${game.publisher}</li>
 							</ul>
 						</p>
+							<% if(session != null && session.getAttribute("email") != null) { %>
 							<form action="favorites" method="post">
                                 <input type="hidden" name="gameId" value="${game.gameid}" />
                                 <input type="hidden" name="remove" value="false" />
-                                <input type="submit" class="btn btn-primary" value="Add To Favorites" />
-                            </form><%-- 
-							<input type="hidden" name="gameId" value="${game.gameid}"> --%>
+                                <input type="submit" class="btn btn-secondary" value="Add To Favorites" />
+                            </form>
+                            <% } %>
 						<a href="#" class="btn btn-primary">Add to Cart</a>
 					</div>
 				</div>

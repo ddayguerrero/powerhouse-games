@@ -74,6 +74,15 @@ public class GameService {
 	}
 	
 	/**
+	 * Initiates call to modify a game
+	 * @param id - Game id
+	 * @param gp - Game information
+	 */
+	public void modifyGame(int id, GamePayload gp) {
+		GameTDG.getInstance().updateGame(id, gp);	
+	}
+	
+	/**
 	 * Singleton instance of user service
 	 * @return GameService
 	 */
@@ -83,4 +92,5 @@ public class GameService {
 		}
 		return instance;
 	}
+
 }

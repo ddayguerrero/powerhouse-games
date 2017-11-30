@@ -52,6 +52,9 @@ public class GameTDG {
 		} catch (SQLException se) {
 			System.out.println("Failed to execute getAllGames query: " + se.getMessage());
 		}
+		finally {
+			DatabaseConnection.clearConnection();
+		}
 		return null;
 	}
 	
@@ -126,7 +129,9 @@ public class GameTDG {
 			return gameMapper.mapMultiple(rs);
 		} catch (SQLException se) {
 			System.out.println("Failed to execute getGamesByAdvanced query: " + se.getMessage());
-		}
+		} finally {
+	    		DatabaseConnection.clearConnection();
+	    }
 		return null;
 	}
 	
@@ -172,8 +177,44 @@ public class GameTDG {
 			count = preparedStatement.executeUpdate();
 		} catch (SQLException se) {
 			System.out.println("Failed to insert game: " + se.getMessage());
-		}
+		} finally {
+	    		DatabaseConnection.clearConnection();
+	    }
 		return count;
+	}
+	
+	/**
+	 * Update game from inventory
+	 * @param id - Game Id
+	 * @param game - Game Information
+	 * @return
+	 */
+	public void updateGame(int id, GamePayload game) {
+		final String updateGameQuery = "UPDATE Game SET title = ?, game_description = ?, console = ?, num_players = ?, coop = ?, genre = ?, release_date = ?, developer = ?, publisher = ?, " +
+				"front_box_art = ?, back_box_art = ?, price = ?, discount = ? WHERE id = ?;";
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(updateGameQuery);
+			ps.setString(1, game.getTitle());
+			ps.setString(2, game.getDescription());
+			ps.setString(3, game.getConsole());
+			ps.setString(4, game.getPlayers());
+			ps.setBoolean(5, game.isCoop());
+			ps.setString(6, game.getGenre());
+			ps.setDate(7, game.getRelease());
+			ps.setString(8, game.getDeveloper());
+			ps.setString(9, game.getPublisher());
+			ps.setString(10, game.getFront_cover());
+			ps.setString(11, game.getBack_cover());
+			ps.setBigDecimal(12, game.getPrice());
+			ps.setBigDecimal(13, game.getDiscount());
+			ps.setInt(14, id);
+			int rs = ps.executeUpdate();
+		} catch(SQLException e){
+			System.out.println("Failed to update game: " + e.getMessage());
+        } finally {
+        		DatabaseConnection.clearConnection();
+        }
+		
 	}
 	
 	protected ResultSet executeQuery(String query) {
