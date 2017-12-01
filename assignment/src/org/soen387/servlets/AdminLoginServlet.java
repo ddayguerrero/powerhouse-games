@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.soen387.datasource.mappers.AdminMapper;
 import org.soen387.domain.Admin;
-import org.soen387.services.AdminService;
 
 /**
  * Servlet implementation class AdminLogin
@@ -29,8 +29,8 @@ public class AdminLoginServlet extends HttpServlet {
         super();
     }
     
-    protected AdminService getAdminService() {
-		return AdminService.getInstance();
+    protected AdminMapper getAdminService() {
+		return AdminMapper.getInstance();
     }
 
 	/**

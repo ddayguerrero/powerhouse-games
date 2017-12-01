@@ -1,4 +1,4 @@
-package org.soen387.services;
+package org.soen387.datasource.mappers;
 
 import java.sql.SQLException;
 
@@ -8,10 +8,10 @@ import org.soen387.datasource.gateways.InvoiceTDG;
 import org.soen387.domain.CartItem;
 import org.soen387.domain.User;
 
-public class CheckoutService {
-	public static CheckoutService instance = null;
+public class InvoiceMapper {
+	public static InvoiceMapper instance = null;
 	
-	private CheckoutService() { }
+	private InvoiceMapper() { }
 	
 	public int createInvoice(User user, ShoppingCart cart) {
 		try {
@@ -32,9 +32,9 @@ public class CheckoutService {
 	 * Singleton instance of checkout service
 	 * @return CheckoutService
 	 */
-	public static CheckoutService getInstance() {
+	public static InvoiceMapper getInstance() {
 		if (instance == null) {
-			instance = new CheckoutService();
+			instance = new InvoiceMapper();
 		}
 		return instance;
 	}

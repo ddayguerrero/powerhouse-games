@@ -17,9 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.soen387.business.ShoppingCart;
+import org.soen387.datasource.mappers.GameMapper;
+import org.soen387.datasource.mappers.UserMapper;
 import org.soen387.domain.User;
-import org.soen387.services.GameService;
-import org.soen387.services.UserService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -35,8 +35,8 @@ public class LoginServlet extends HttpServlet {
         super();
     }
     
-    protected UserService getUserService() {
-		return UserService.getInstance();
+    protected UserMapper getUserService() {
+		return UserMapper.getInstance();
     }
 
 	/**

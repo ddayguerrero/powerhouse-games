@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.soen387.business.ShoppingCart;
+import org.soen387.datasource.mappers.UserMapper;
 import org.soen387.payloads.UserPayload;
-import org.soen387.services.UserService;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -29,8 +29,8 @@ public class UserServlet extends HttpServlet {
         super();
     }
     
-    protected UserService getUserService() {
-    		return UserService.getInstance();
+    protected UserMapper getUserService() {
+    		return UserMapper.getInstance();
     }
 
 	/**
@@ -119,7 +119,7 @@ public class UserServlet extends HttpServlet {
 		} else {
 			System.out.println("Userid: " + id);
 			UserPayload updatedUserInfo = new UserPayload(fname, lname, email, address1, address2, city, province, postal_code, country);
-			UserService.getInstance().updateProfile(id, updatedUserInfo);
+			UserMapper.getInstance().updateProfile(id, updatedUserInfo);
 			response.setStatus(HttpServletResponse.SC_OK);
 		}
 	}

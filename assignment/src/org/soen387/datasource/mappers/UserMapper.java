@@ -1,4 +1,4 @@
-package org.soen387.services;
+package org.soen387.datasource.mappers;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -15,11 +15,11 @@ import org.soen387.payloads.UserPayload;
  * @author Darrel-Day Guerrero 27352409
  *
  */
-public class UserService {
+public class UserMapper {
 
-	private static UserService instance = null;
+	private static UserMapper instance = null;
 	
-	public UserService() {
+	public UserMapper() {
 		super();
 	}
 	
@@ -156,9 +156,9 @@ public class UserService {
 	 * Singleton instance of user service
 	 * @return
 	 */
-	public static UserService getInstance () {
+	public static UserMapper getInstance () {
 		if (instance == null) {
-			instance = new UserService();
+			instance = new UserMapper();
 		}
 		return instance;
 	}

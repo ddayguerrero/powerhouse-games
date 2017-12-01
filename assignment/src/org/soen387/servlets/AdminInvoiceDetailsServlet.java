@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.soen387.datasource.mappers.AdminMapper;
 import org.soen387.domain.InvoiceDetails;
-import org.soen387.services.AdminService;
 import org.soen387.util.URLEncodedUtils;
 
 import com.google.gson.Gson;
@@ -42,7 +42,7 @@ public class AdminInvoiceDetailsServlet extends HttpServlet {
 	    System.out.println("invoice details parameters" + queryParams.get("invoice"));
 	    int invoiceId = Integer.parseInt(queryParams.get("invoice").get(0));
 	    
-	    ArrayList<InvoiceDetails> invoices = AdminService.getInstance().getOrderDetails(invoiceId);
+	    ArrayList<InvoiceDetails> invoices = AdminMapper.getInstance().getOrderDetails(invoiceId);
 		System.out.println("INVOICE DETAILS: " + invoices.size());
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType("application/json");

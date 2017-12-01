@@ -1,4 +1,4 @@
-package org.soen387.services;
+package org.soen387.datasource.mappers;
 
 import java.util.ArrayList;
 
@@ -12,11 +12,11 @@ import org.soen387.payloads.GamePayload;
  * @author Darrel Guerrero - 27352409
  *
  */
-public class GameService {
+public class GameMapper {
 	
-	public static GameService instance = null;
+	public static GameMapper instance = null;
 	
-	private GameService() { }
+	private GameMapper() { }
 	
 	/**
 	 * Initiates call to retrieve a list of all game inventory
@@ -86,9 +86,9 @@ public class GameService {
 	 * Singleton instance of user service
 	 * @return GameService
 	 */
-	public static GameService getInstance() {
+	public static GameMapper getInstance() {
 		if (instance == null) {
-			instance = new GameService();
+			instance = new GameMapper();
 		}
 		return instance;
 	}

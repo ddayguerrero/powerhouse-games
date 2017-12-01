@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.soen387.datasource.mappers.UserMapper;
 import org.soen387.domain.User;
-import org.soen387.services.UserService;
 import org.soen387.util.Generator;
 import org.soen387.util.Mailer;
 
@@ -31,8 +31,8 @@ public class PasswordServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    protected UserService getUserService() {
-		return UserService.getInstance();
+    protected UserMapper getUserService() {
+		return UserMapper.getInstance();
     }
 
 	/**

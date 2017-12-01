@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.soen387.datasource.mappers.GameMapper;
 import org.soen387.domain.Game;
-import org.soen387.services.GameService;
 
 /**
  * Servlet implementation class SpecialsServlet
@@ -31,7 +31,7 @@ public class SpecialsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Game> games = GameService.getInstance().getDiscountedGames();
+		ArrayList<Game> games = GameMapper.getInstance().getDiscountedGames();
 		int numOfRows = games.size() / 3;
 		int index = 0;
 		int remainder = games.size() % 3;

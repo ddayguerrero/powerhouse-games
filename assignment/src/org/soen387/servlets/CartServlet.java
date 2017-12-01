@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.soen387.business.ShoppingCart;
+import org.soen387.datasource.mappers.GameMapper;
 import org.soen387.domain.CartItem;
 import org.soen387.domain.Game;
-import org.soen387.services.GameService;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -63,7 +63,7 @@ public class CartServlet extends HttpServlet {
 		}
 		int gameId = Integer.parseInt(request.getParameter("gameId"));
 		CartItem<Game> item = new CartItem<Game>();
-		Game game = GameService.getInstance().getGameById(gameId);
+		Game game = GameMapper.getInstance().getGameById(gameId);
 		item.setItem(game);
 		cart.addToCart(item);
 		response.setStatus(HttpServletResponse.SC_SEE_OTHER);

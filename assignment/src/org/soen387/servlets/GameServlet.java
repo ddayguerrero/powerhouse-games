@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.soen387.datasource.mappers.GameMapper;
 import org.soen387.domain.Game;
 import org.soen387.payloads.AdvancedSearchPayload;
-import org.soen387.services.GameService;
 
 /**
  * Servlet implementation class GameServlet
@@ -68,7 +68,7 @@ public class GameServlet extends HttpServlet {
 	 * @throws ServletException 
 	 */
 	private void processAdvancedSearch(HttpServletRequest request, HttpServletResponse response, AdvancedSearchPayload advSearchBean) throws ServletException, IOException {
-		ArrayList<Game> games = GameService.getInstance().getGames(advSearchBean);
+		ArrayList<Game> games = GameMapper.getInstance().getGames(advSearchBean);
 		if (games != null) {
 			request.setAttribute("games", games);
 			request.getServletContext().getRequestDispatcher("/search_results.jsp").forward(request, response);
@@ -87,7 +87,7 @@ public class GameServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	private void getDetailedGameInformation(HttpServletRequest request, HttpServletResponse response, int gameId) throws ServletException, IOException {
-		Game game = GameService.getInstance().getGameById(gameId);
+		Game game = GameMapper.getInstance().getGameById(gameId);
 		if (game != null) {
 			request.setAttribute("game", game);
 			request.getServletContext().getRequestDispatcher("/game.jsp").forward(request, response);
@@ -106,7 +106,7 @@ public class GameServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	private void processSearch(HttpServletRequest request, HttpServletResponse response, String title) throws ServletException, IOException {
-		ArrayList<Game> games = GameService.getInstance().getGamesByTitle(title);
+		ArrayList<Game> games = GameMapper.getInstance().getGamesByTitle(title);
 		if (games != null) {
 			request.setAttribute("games", games);
 			request.getServletContext().getRequestDispatcher("/search_results.jsp").forward(request, response);

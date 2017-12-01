@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.soen387.datasource.mappers.GameMapper;
+import org.soen387.datasource.mappers.UserMapper;
 import org.soen387.domain.Game;
 import org.soen387.payloads.GamePayload;
-import org.soen387.services.GameService;
-import org.soen387.services.UserService;
 
 /**
  * Servlet implementation class AdminGamesServlet
@@ -34,15 +34,15 @@ public class AdminGamesServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    protected GameService getGameService() {
-		return GameService.getInstance();
+    protected GameMapper getGameService() {
+		return GameMapper.getInstance();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Game> games = GameService.getInstance().getAllGames();
+		ArrayList<Game> games = GameMapper.getInstance().getAllGames();
 		if (games != null) {
 			request.setAttribute("games", games);
 			request.getServletContext().getRequestDispatcher("/admin/games.jsp").forward(request, response);
@@ -90,7 +90,7 @@ public class AdminGamesServlet extends HttpServlet {
 			BigDecimal discount = new BigDecimal(request.getParameter("edit_discount"));
 			GamePayload gp = new GamePayload(id, title, description, console, players, coop, genre, release, developer, publisher, front_cover, back_cover, price, discount);
 			
-			GameService.getInstance().modifyGame(id, gp);
+			GameMapper.getInstance().modifyGame(id, gp);
 			// POST/REDIRECT/GET
 			response.setStatus(HttpServletResponse.SC_SEE_OTHER);
 			doGet(request, response);

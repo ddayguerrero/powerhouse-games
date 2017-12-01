@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.soen387.datasource.mappers.UserMapper;
 import org.soen387.domain.User;
-import org.soen387.services.UserService;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -37,7 +37,7 @@ public class AdminUsersServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pathInfo = request.getPathInfo();
 		if(pathInfo == null) {
-			ArrayList<User> users = UserService.getInstance().getAllUsers();
+			ArrayList<User> users = UserMapper.getInstance().getAllUsers();
 			if (users != null) {
 				request.setAttribute("users", users);
 				request.getServletContext().getRequestDispatcher("/admin/users.jsp").forward(request, response);
@@ -66,7 +66,7 @@ public class AdminUsersServlet extends HttpServlet {
         System.out.println("User locked: " + locked);
         int userId = Integer.parseInt(request.getPathInfo().substring(1));
         System.out.println("User id: " + userId);
-        User user = UserService.getInstance().updateUser(userId, locked); //TODO - Generic REST PUT
+        User user = UserMapper.getInstance().updateUser(userId, locked); //TODO - Generic REST PUT
         response.setStatus(HttpServletResponse.SC_OK);
 	}
 

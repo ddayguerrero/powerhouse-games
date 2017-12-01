@@ -1,4 +1,4 @@
-package org.soen387.services;
+package org.soen387.datasource.mappers;
 
 import java.util.ArrayList;
 
@@ -10,9 +10,9 @@ import org.soen387.domain.Invoice;
 import org.soen387.domain.InvoiceDetails;
 import org.soen387.domain.User;
 
-public class AdminService {
+public class AdminMapper {
 
-	private static AdminService instance = null;
+	private static AdminMapper instance = null;
 	
 	/**
 	 * Authenticate admin
@@ -54,9 +54,9 @@ public class AdminService {
 	 * Singleton instance of admin service
 	 * @return
 	 */
-	public static AdminService getInstance () {
+	public static AdminMapper getInstance () {
 		if (instance == null) {
-			instance = new AdminService();
+			instance = new AdminMapper();
 		}
 		return instance;
 	}

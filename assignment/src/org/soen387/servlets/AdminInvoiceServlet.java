@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.soen387.datasource.mappers.AdminMapper;
+import org.soen387.datasource.mappers.UserMapper;
 import org.soen387.domain.Invoice;
 import org.soen387.domain.User;
-import org.soen387.services.AdminService;
-import org.soen387.services.UserService;
 import org.soen387.util.URLEncodedUtils;
 
 /**
@@ -42,10 +42,10 @@ public class AdminInvoiceServlet extends HttpServlet {
 	    
 		System.out.println("invoice parameters" + queryParams.get("user"));
 		int userId = Integer.parseInt(queryParams.get("user").get(0));
-		User user = UserService.getInstance().fetchUser(userId);
+		User user = UserMapper.getInstance().fetchUser(userId);
 		
 		if (user != null) {
-			ArrayList<Invoice> invoices = AdminService.getInstance().getUserOrders(user);
+			ArrayList<Invoice> invoices = AdminMapper.getInstance().getUserOrders(user);
 			request.setAttribute("user", user);
 			request.setAttribute("invoices", invoices);
 			request.getServletContext().getRequestDispatcher("/admin/invoice.jsp").forward(request, response);

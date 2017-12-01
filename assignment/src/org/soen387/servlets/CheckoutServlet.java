@@ -17,11 +17,11 @@ import javax.servlet.http.HttpSession;
 
 import org.soen387.business.ShoppingCart;
 import org.soen387.datasource.gateways.InvoiceDetailsTDG;
+import org.soen387.datasource.mappers.InvoiceMapper;
+import org.soen387.datasource.mappers.UserMapper;
 import org.soen387.domain.CartItem;
 import org.soen387.domain.Game;
 import org.soen387.domain.User;
-import org.soen387.services.CheckoutService;
-import org.soen387.services.UserService;
 import org.soen387.util.Generator;
 import org.soen387.util.LuhnValidator;
 import org.soen387.util.Mailer;
@@ -86,8 +86,8 @@ public class CheckoutServlet extends HttpServlet {
 				cart = (ShoppingCart) session.getAttribute("cart");
 			}
 			// Create Invoice
-			User user = UserService.getInstance().findByEmail((String)session.getAttribute("email"));
-			int result = CheckoutService.getInstance().createInvoice(user, cart);
+			User user = UserMapper.getInstance().findByEmail((String)session.getAttribute("email"));
+			int result = InvoiceMapper.getInstance().createInvoice(user, cart);
 			
 			// Send Invoice Email
 			String recipient = user.getEmail();
