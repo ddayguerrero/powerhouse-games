@@ -4,16 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.soen387.datasource.DatabaseConnection;
-import org.soen387.datasource.mappers.AdminMapper;
+import org.soen387.datasource.orm.AdminORM;
 import org.soen387.domain.Admin;
 
 public class AdminTDG {
 	
-	private AdminMapper adminMapper;
+	private AdminORM adminMapper;
 	private static AdminTDG instance = null;
 	
 	private AdminTDG() {
-		this.adminMapper = new AdminMapper();
+		this.adminMapper = new AdminORM();
 	}
 	
 	public static AdminTDG getInstance() {

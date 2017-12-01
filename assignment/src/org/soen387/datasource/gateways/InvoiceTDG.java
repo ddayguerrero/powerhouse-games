@@ -9,8 +9,8 @@ import java.util.Calendar;
 
 import org.soen387.business.ShoppingCart;
 import org.soen387.datasource.DatabaseConnection;
-import org.soen387.datasource.mappers.AdminMapper;
-import org.soen387.datasource.mappers.InvoiceMapper;
+import org.soen387.datasource.orm.AdminORM;
+import org.soen387.datasource.orm.InvoiceORM;
 import org.soen387.domain.CartItem;
 import org.soen387.domain.Game;
 import org.soen387.domain.Invoice;
@@ -20,10 +20,10 @@ import org.soen387.domain.User;
 public class InvoiceTDG {
 
 	private static InvoiceTDG instance = null;
-	private InvoiceMapper invoiceMapper;
+	private InvoiceORM invoiceMapper;
 	
 	private InvoiceTDG() {
-		this.invoiceMapper = new InvoiceMapper();
+		this.invoiceMapper = new InvoiceORM();
 	}
 	
 	public static InvoiceTDG getInstance() {

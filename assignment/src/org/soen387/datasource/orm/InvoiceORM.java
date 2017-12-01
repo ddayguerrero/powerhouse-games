@@ -1,4 +1,4 @@
-package org.soen387.datasource.mappers;
+package org.soen387.datasource.orm;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.soen387.domain.Invoice;
 
-public class InvoiceMapper implements DataMapper<Invoice> {
+public class InvoiceORM implements ObjectRelationalMapper<Invoice> {
 
 	@Override
 	public Invoice mapRow(ResultSet set) {

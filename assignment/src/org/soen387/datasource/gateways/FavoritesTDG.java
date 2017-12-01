@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.soen387.datasource.DatabaseConnection;
-import org.soen387.datasource.mappers.GameMapper;
+import org.soen387.datasource.orm.GameORM;
 import org.soen387.domain.Game;
 
 public class FavoritesTDG {
 	private static FavoritesTDG instance = null;
-	private GameMapper gameMapper;
+	private GameORM gameMapper;
 	
 	private FavoritesTDG() {
-		this.gameMapper = new GameMapper();
+		this.gameMapper = new GameORM();
 	}
 	
 	public static FavoritesTDG getInstance() {

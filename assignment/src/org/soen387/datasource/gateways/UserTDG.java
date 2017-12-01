@@ -10,17 +10,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.soen387.datasource.DatabaseConnection;
-import org.soen387.datasource.mappers.UserMapper;
+import org.soen387.datasource.orm.UserORM;
 import org.soen387.domain.User;
 import org.soen387.payloads.UserPayload;
 
 public class UserTDG {
 
-	private UserMapper userMapper;
+	private UserORM userMapper;
 	private static UserTDG instance = null;
 	
 	private UserTDG() {
-		this.userMapper = new UserMapper();
+		this.userMapper = new UserORM();
 	}
 	
 	public static UserTDG getInstance() {

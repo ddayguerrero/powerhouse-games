@@ -5,17 +5,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.soen387.datasource.DatabaseConnection;
-import org.soen387.datasource.mappers.InvoiceDetailsMapper;
+import org.soen387.datasource.orm.InvoiceDetailsORM;
 import org.soen387.domain.CartItem;
 import org.soen387.domain.Game;
 import org.soen387.domain.InvoiceDetails;
 
 public class InvoiceDetailsTDG {
 	private static InvoiceDetailsTDG instance = null;
-	private InvoiceDetailsMapper invoiceDetailsMapper;
+	private InvoiceDetailsORM invoiceDetailsMapper;
 
 	private InvoiceDetailsTDG() {
-		this.invoiceDetailsMapper = new InvoiceDetailsMapper();
+		this.invoiceDetailsMapper = new InvoiceDetailsORM();
 	}
 	
 	public static InvoiceDetailsTDG getInstance() {

@@ -1,4 +1,4 @@
-package org.soen387.datasource.mappers;
+package org.soen387.datasource.orm;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.soen387.domain.Admin;
 
-public class AdminMapper implements DataMapper<Admin>{
+public class AdminORM implements ObjectRelationalMapper<Admin>{
 
 	@Override
 	public Admin mapRow(ResultSet rs) {

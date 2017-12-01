@@ -13,7 +13,7 @@ import java.util.Map;
 
 import org.soen387.datasource.DatabaseConnection;
 import org.soen387.datasource.DatabaseQueryBuilder;
-import org.soen387.datasource.mappers.GameMapper;
+import org.soen387.datasource.orm.GameORM;
 import org.soen387.domain.Game;
 import org.soen387.payloads.AdvancedSearchPayload;
 import org.soen387.payloads.GamePayload;
@@ -25,11 +25,11 @@ import org.soen387.payloads.GamePayload;
  */
 public class GameTDG {
 
-	private GameMapper gameMapper;
+	private GameORM gameMapper;
 	private static GameTDG instance = null;
 
 	private GameTDG() {
-		this.gameMapper = new GameMapper();
+		this.gameMapper = new GameORM();
 	}
 	
 	public static GameTDG getInstance() {
