@@ -7,7 +7,7 @@
       <a class="nav-link" href="/app/admin/games">Inventory</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Specials</a>
+      <a class="nav-link" href="/app/admin/specials">Specials</a>
     </li>
   </ul>
 </nav>

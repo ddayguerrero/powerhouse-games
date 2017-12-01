@@ -143,7 +143,9 @@ public class GameTDG {
 			return gameMapper.mapMultiple(rs);
 		} catch (SQLException se) {
 			System.out.println("Failed to execute getGameById query: " + se.getMessage());
-		}
+		} finally {
+	    		DatabaseConnection.clearConnection();
+	    }
 		return null;
 	}
 	
