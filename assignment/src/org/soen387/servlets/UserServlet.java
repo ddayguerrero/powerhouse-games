@@ -86,6 +86,7 @@ public class UserServlet extends HttpServlet {
 					session.setAttribute("firstname", fname);
 					
 					ShoppingCart cart = new ShoppingCart();
+					cart.setHasMemberPricing(true);
 	        			if(session.getAttribute("cart") == null) {
 	        				session.setAttribute("cart", cart);
 	        			}

@@ -32,14 +32,23 @@ public class SpecialsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Game> games = GameMapper.getInstance().getDiscountedGames();
-		int numOfRows = games.size() / 3;
-		int index = 0;
+		System.out.println(games.size());
+		int numOfRows = 0;
+		int numOfCols = 0;
+		if(games.size() < 3 && games.size() > 0) {
+			numOfRows = 1;
+			numOfCols = games.size()-1;
+		} else {
+			numOfRows = games.size() / 3;
+			numOfCols = 2;
+		}
 		int remainder = games.size() % 3;
-		System.out.println("GAMESS");
+		System.out.println("Discounted Games");
 		
 		if (games != null) {
 			request.setAttribute("games", games);
 			request.setAttribute("numOfRows", numOfRows-1);
+			request.setAttribute("numOfCols", numOfCols);
 			request.setAttribute("remainder", remainder);
 			request.getServletContext().getRequestDispatcher("/specials.jsp").forward(request, response);
 		}

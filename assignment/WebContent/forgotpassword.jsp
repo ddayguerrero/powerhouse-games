@@ -19,7 +19,7 @@
 			<p>
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Send Verification Link</button>
 			</p>
-			<p class="text-danger">
+			<p class="text-primary">
 				<c:out value="${requestScope.messages.get(\"pass\")}"/>
 			</p>
 		</form>

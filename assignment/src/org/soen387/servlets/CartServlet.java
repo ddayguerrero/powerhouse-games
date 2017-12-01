@@ -56,6 +56,11 @@ public class CartServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();	 
 		ShoppingCart cart = new ShoppingCart();
+		
+		if(session != null && session.getAttribute("email") != null) {
+			cart.setHasMemberPricing(true);
+		}
+		
 		if(session.getAttribute("cart") == null) {
 			session.setAttribute("cart", cart);
 		} else {

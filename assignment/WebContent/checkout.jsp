@@ -32,7 +32,11 @@
 								<td> 
 									${game.getQuantity()} 
 								</td>
-								<td>$ ${game.getTotal()}</td>
+								<% if(session != null && session.getAttribute("cart") != null) { %>
+									<td>$ ${game.getMemberPricingTotal()}</td>
+								<% } else { %>
+									<td>$ ${game.getTotal()}</td>
+								<% } %>
 							</tr>
 						</c:forEach>
 					</tbody>

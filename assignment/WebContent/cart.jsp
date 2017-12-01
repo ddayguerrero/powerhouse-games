@@ -27,6 +27,7 @@
 							<th>Title</th>
 							<th>Quantity</th>
 							<th>Price</th>
+							<th>Member Discount (per game)</th>
 							<th>Total</th>
 							<th>Actions</th>
 						</tr>
@@ -41,8 +42,15 @@
 									${game.getQuantity()} 
 									<a class="updateQuantity" data-id="${game.getItem().gameid}" data-action="1" href="#"> + </a>
 								</td>
-								<td>$ ${game.getItem().price}</td>
-								<td>$ ${game.getTotal()}</td>
+								<% if(session != null && session.getAttribute("email") != null) { %>
+									<td>$ ${game.getItem().price}</td>
+									<td>$ ${game.getItem().getDiscount()}</td>
+									<td>$ ${game.getMemberPricingTotal()}</td>
+								<% } else { %>
+									<td>$ ${game.getItem().price}</td>
+									<td>N/A</td>
+									<td>$ ${game.getTotal()}</td>
+								<% } %>
 								<td>
 									<a id="removeItem" data-id="${game.getItem().gameid}" href="#"> Remove </a>
 								</td>

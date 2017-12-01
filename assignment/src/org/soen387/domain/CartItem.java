@@ -26,6 +26,17 @@ public class CartItem<T> {
 		this.total = g.getPrice().multiply(new BigDecimal(this.quantity));
 		return total;
 	}
+	
+	public BigDecimal getMemberPricingTotal() {
+		Game g = (Game) item;
+		if(g.getDiscount().compareTo(BigDecimal.ZERO) == 0) {
+			this.total = g.getPrice().multiply(new BigDecimal(this.quantity));
+		} else {
+			BigDecimal discountedPrice = g.getPrice().subtract(g.getDiscount());
+			this.total = discountedPrice.multiply(new BigDecimal(this.quantity));
+		}
+		return total;
+	}
 
 	public void setTotal(BigDecimal total) {
 		this.total = total;

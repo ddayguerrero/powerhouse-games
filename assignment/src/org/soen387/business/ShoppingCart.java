@@ -16,6 +16,7 @@ public class ShoppingCart {
 	private BigDecimal calculatedTaxes;
 	private BigDecimal grandTotal;
 	private boolean isCartEmpty;
+	private boolean hasMemberPricing;
 	
 	public ShoppingCart() {
 		super();
@@ -24,6 +25,7 @@ public class ShoppingCart {
 		calculatedTaxes = new BigDecimal(0);
 		cartSize = 0;
 		isCartEmpty = true;
+		setHasMemberPricing(false);
 	}
 	
 	public ArrayList<CartItem> getItems() {
@@ -47,8 +49,14 @@ public class ShoppingCart {
 	}
 	public BigDecimal getSubTotal() {
 		BigDecimal amount = BigDecimal.ZERO;
-		for (CartItem<?> i : items) {
-			amount = amount.add(i.getTotal());
+		if(this.isHasMemberPricing()) {
+			for (CartItem<?> i : items) {
+				amount = amount.add(i.getMemberPricingTotal());
+			}
+		} else {
+			for (CartItem<?> i : items) {
+				amount = amount.add(i.getTotal());
+			}
 		}
 		amount.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		setSubTotal(amount);
@@ -153,5 +161,13 @@ public class ShoppingCart {
 		calculatedTaxes = new BigDecimal(0);
 		cartSize = 0;
 		isCartEmpty = true;
+	}
+
+	public boolean isHasMemberPricing() {
+		return hasMemberPricing;
+	}
+
+	public void setHasMemberPricing(boolean hasMemberPricing) {
+		this.hasMemberPricing = hasMemberPricing;
 	}
 }

@@ -96,19 +96,29 @@ public class CheckoutServlet extends HttpServlet {
 	        StringWriter stringWriter = new StringWriter();
 	        PrintWriter writer = new PrintWriter(stringWriter, true);
 	        writer.println("Hi " + user.getFirstName() + ",");
+	        writer.println("");
 	        writer.println("Your order was successfully received and we're processing it for you right now!");
 	        writer.println("");
 	        writer.println("Order Details");
 	        writer.println("Time: " + dateOfSale);
 	        writer.println("");
-	        writer.println("Title ========== Console ========== Quantity ========== Total");
-	        for (CartItem<?> item: cart.getItems()) {
-	        		Game game = (Game)item.getItem();
-	        		writer.println(game.getGameTitle() + "          " + game.getConsole() + "           " + item.getQuantity() + "           " + item.getTotal());
+	        writer.println("Title ========== Console ========== Price ========== Discount ========== Quantity ========== Total");
+	        writer.println("");
+	        if(session != null && session.getAttribute("email") != null) {
+		        	for (CartItem<?> item: cart.getItems()) {
+	        			Game game = (Game)item.getItem();
+	        			writer.println(game.getGameTitle() + "          " + game.getConsole() + "           " + game.getPrice() + "           " + game.getDiscount() + "           " + item.getQuantity() + "           " + item.getMemberPricingTotal());
+		        }
+			} else {
+		        for (CartItem<?> item: cart.getItems()) {
+	        			Game game = (Game)item.getItem();
+	        			writer.println(game.getGameTitle() + "          " + game.getConsole() + "           " + game.getPrice() + "           " + game.getDiscount() + "           " + item.getQuantity() + "           " + item.getTotal());
+		        }
 			}
 	        writer.println("");
+	        writer.println("");
 	        writer.println("Sub-total: " + cart.getSubTotal());
-	        writer.println("Taxes: " +cart.getCalculatedTaxes());
+	        writer.println("Taxes: " + cart.getCalculatedTaxes());
 	        writer.println("Grand Total: " +cart.getGrandTotal());
 	        String content = stringWriter.toString();
 	        

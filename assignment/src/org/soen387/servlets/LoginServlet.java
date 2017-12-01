@@ -90,6 +90,7 @@ public class LoginServlet extends HttpServlet {
 		        			session.setAttribute("last_login", old_login.toString());
 		        			
 		        			ShoppingCart cart = new ShoppingCart();
+		        			cart.setHasMemberPricing(true);
 		        			if (session.getAttribute("cart") == null) {
 		        				session.setAttribute("cart", cart);
 		        			} else {

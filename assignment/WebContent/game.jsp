@@ -41,7 +41,10 @@
                                 <input type="submit" class="btn btn-secondary" value="Add To Favorites" />
                             </form>
                             <% } %>
-						<a href="#" class="btn btn-primary">Add to Cart</a>
+                         <form action="${pageContext.request.contextPath}/cart" method="post">
+	                         <input type="hidden" name="gameId" value="${game.gameid}">
+							<button type="submit" class="btn btn-primary">Add To Cart</button>
+						</form>
 					</div>
 				</div>
 			</div>

@@ -77,5 +77,32 @@ public class InvoiceDetailsTDG {
 		}
 		return result;
 	}
+	
+	/**
+	 * Insert invoice details with discount for existing invoice
+	 * @param item - Cart Item
+	 * @param invoiceId - Invoice id
+	 * @return 1 - success or 0 - fail
+	 */
+	public int insertDiscountedInvoice(long invoiceId, CartItem<?> item) throws SQLException {
+		final String insertInvoiceDiscountDetailSql = "INSERT INTO INVOICE_DETAILS (INVOICE_ID, QUANTITY, GAME_ID, GAME_PRICE) VALUES (?, ?, ?, ?)";
+		int result = 0;
+		try {
+			PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(insertInvoiceDiscountDetailSql);
+			Game game = (Game)item.getItem();
+			ps.setInt(1, (int)invoiceId);
+			ps.setInt(2, item.getQuantity());
+			ps.setInt(3, game.getGameid());
+			ps.setBigDecimal(4, game.getDiscountedPrice());
+			result = ps.executeUpdate();
+		} 
+		catch (SQLException se) {
+			System.out.println("Failed to execute insertInvoiceDiscountDetailSql query: " + se.getMessage());
+		}
+		finally {
+			DatabaseConnection.clearConnection();
+		}
+		return result;
+	}
 
 }

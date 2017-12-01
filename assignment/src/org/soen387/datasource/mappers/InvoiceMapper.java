@@ -18,8 +18,14 @@ public class InvoiceMapper {
 			InvoiceTDG.getInstance().insertInvoice(user, cart);
 			long invoiceId = InvoiceTDG.getInstance().fetchInvoiceId();
 			System.out.println("Adding details to invoice with ID: " + invoiceId);
-			for (CartItem<?> item: cart.getItems()) {
-				InvoiceDetailsTDG.getInstance().insertInvoice(invoiceId, item);
+			if (cart.isHasMemberPricing()) {
+				for (CartItem<?> item: cart.getItems()) {
+					InvoiceDetailsTDG.getInstance().insertInvoice(invoiceId, item);
+				}
+			} else {
+				for (CartItem<?> item: cart.getItems()) {
+					InvoiceDetailsTDG.getInstance().insertDiscountedInvoice(invoiceId, item);
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

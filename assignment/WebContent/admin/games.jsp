@@ -40,7 +40,7 @@
 							<th>Publisher</th>
 							<th>Front-Box Art</th>
 							<th>Back-Box Art</th>
-							<th>Price</th>
+							<th>MSRP</th>
 							<th>Discount</th>
 							<th></th>
 						</tr>
@@ -64,7 +64,12 @@
 				src="${game.back_box_art}" alt="Generic placeholder image"></td>
 								<td class="rowGamePrice">${game.price}</td>
 								<td class="rowGameDiscount">${game.discount}</td>
-								<th><span class="badge badge-pill badge-warning">Special</span></th>
+								<c:if test = "${game.discount.unscaledValue() == 0}">
+									<th><span class="badge badge-pill badge-dark">Regular</span></th>
+								</c:if>
+								<c:if test = "${game.discount.unscaledValue() != 0}">
+									<th><span class="badge badge-pill badge-warning">On Sale</span></th>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</tbody>
